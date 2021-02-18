@@ -73,22 +73,23 @@ class MainMenuDialog < ApplicationBaseDialog
     # The last value should be next dialog.  But note that this block does not allow
     # to use 'return'.
     if session[:result] != "failure" && session[:result].present?
-      if contrain_intention ### Check contrains Intention.
-        if count_intention < 1
-          if has_product || intention_belong_to
-            ### go to Flow C
-          else
+      if contain_intension(session) ### Check contrains Intention.
+        if intention_has_one(session) ### Check count intention = 1.
+          if has_product(session) || belong_to_product(session)
             if check_confirmation_never
               ### go to Flow D
             else
               ### go to Flow E
             end
+          else
+            ### go to Flow C
+            MainMenuDialog
           end
         else
           ### tranfer to agent
         end
       elsif contrain_product ### Check contrains Product.
-        ### increse retry value
+        increase_(session)
         MainMenuDialog
       else
         ### increase reject

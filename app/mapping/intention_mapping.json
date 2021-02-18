@@ -1,0 +1,723 @@
+{
+    "001": {
+        "sub_category_code": "04503",
+        "category_code": "0450",
+        "intent_cat_code": 1,
+        "vdn": "11373",
+        "intention_tag": "report-claim",
+        "destination": "Speech Self-service",
+        "prompt": "subintention/inform_claim-accident.wav"
+    },
+    "002": {
+        "sub_category_code": "04502",
+        "category_code": "0450",
+        "intent_cat_code": 2,
+        "vdn": "11373",
+        "intention_tag": "report-tele_claim",
+        "destination": "Speech Self-service",
+        "prompt": "subintention/inform_claim-tele.wav"
+    },
+    "003": {
+        "sub_category_code": "04501",
+        "category_code": "0450",
+        "intent_cat_code": 2,
+        "vdn": "11373",
+        "intention_tag": "report-tele_photo_claim",
+        "destination": "Speech Self-service",
+        "prompt": "subintention/inform_claim-telephoto.wav"
+    },
+    "004": {
+        "sub_category_code": "04504",
+        "category_code": "0450",
+        "intent_cat_code": 2,
+        "vdn": "11373",
+        "intention_tag": "report-appointment_claim",
+        "destination": "Speech Self-service",
+        "prompt": "subintention/inform_claim-appointment.wav"
+    },
+    "005": {
+        "sub_category_code": "04506",
+        "category_code": "0450",
+        "intent_cat_code": 2,
+        "vdn": "11373",
+        "intention_tag": "report-accident_as_evidence",
+        "destination": "Speech Self-service",
+        "prompt": "subintention/inform_accident_as_evident.wav"
+    },
+    "006": {
+        "sub_category_code": "04505",
+        "category_code": "0450",
+        "intent_cat_code": 2,
+        "vdn": "11373",
+        "intention_tag": "report-follow_claim",
+        "destination": "Speech Self-service",
+        "prompt": "subintention/inform_claim-followup.wav"
+    },
+    "007": {
+        "sub_category_code": "04501",
+        "category_code": "0450",
+        "intent_cat_code": 2,
+        "vdn": "11373",
+        "intention_tag": "report-additional_tele_claim",
+        "destination": "Agent",
+        "prompt": "subintention/inform_claim-tele_additional.wav"
+    },
+    "008": {
+        "sub_category_code": "013103",
+        "category_code": "0131",
+        "intent_cat_code": 3,
+        "vdn": "11373",
+        "intention_tag": "enquire-claim_status_and_info",
+        "destination": "Agent",
+        "prompt": "subintention/enquiry_claim-status.wav"
+    },
+    "009": {
+        "sub_category_code": "013108",
+        "category_code": "0131",
+        "intent_cat_code": 3,
+        "vdn": "11373",
+        "intention_tag": "enquire-claim_payment_status",
+        "destination": "Agent",
+        "prompt": "subintention/enquiry_claim-payment-status.wav"
+    },
+    "010": {
+        "sub_category_code": "013109",
+        "category_code": "0131",
+        "intent_cat_code": 3,
+        "vdn": "11373",
+        "intention_tag": "enquire-exception",
+        "destination": "Agent",
+        "prompt": "subintention/enquiry_exception_result.wav"
+    },
+    "011": {
+        "sub_category_code": "047030",
+        "category_code": "0470",
+        "intent_cat_code": 4,
+        "vdn": "11373",
+        "intention_tag": "request-inform_additional_info",
+        "destination": "Agent",
+        "prompt": "subintention/inform_claim-additional-info.wav"
+    },
+    "012": {
+        "sub_category_code": "047091",
+        "category_code": "0470",
+        "intent_cat_code": 4,
+        "vdn": "11373",
+        "intention_tag": "request-update_claim_info",
+        "destination": "Agent",
+        "prompt": "subintention/request_claim-info_update.wav"
+    },
+    "013": {
+        "sub_category_code": "047040",
+        "category_code": "0470",
+        "intent_cat_code": 4,
+        "vdn": "11373",
+        "intention_tag": "request-update_claim_list",
+        "destination": "Agent",
+        "prompt": "subintention/request_repair-item_update.wav"
+    },
+    "014": {
+        "sub_category_code": "047080",
+        "category_code": "0470",
+        "intent_cat_code": 4,
+        "vdn": "11373",
+        "intention_tag": "request-vanish_deductible",
+        "destination": "Agent",
+        "prompt": "subintention/request_exception_damage.wav"
+    },
+    "015": {
+        "sub_category_code": "047090",
+        "category_code": "0470",
+        "intent_cat_code": 4,
+        "vdn": "11373",
+        "intention_tag": "request-favor_claim",
+        "destination": "Agent",
+        "prompt": "subintention/request_favor_claim.wav"
+    },
+    "016": {
+        "sub_category_code": "",
+        "category_code": "0421",
+        "intent_cat_code": 5,
+        "vdn": "21005",
+        "intention_tag": "request-cancel_insurance",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/request_cancel_policy.wav"
+    },
+    "017": {
+        "sub_category_code": "013201",
+        "category_code": "0132",
+        "intent_cat_code": 6,
+        "vdn": "11373",
+        "intention_tag": "report-accident_survey_task",
+        "destination": "Speech Self-service",
+        "prompt": "subintention/inform_surveyor_taskstatus.wav"
+    },
+    "018": {
+        "sub_category_code": "013202",
+        "category_code": "0132",
+        "intent_cat_code": 6,
+        "vdn": "11373",
+        "intention_tag": "enquire-followup_surveytask",
+        "destination": "Agent",
+        "prompt": "subintention/consult_surveytask.wav"
+    },
+    "019": {
+        "sub_category_code": "013203",
+        "category_code": "0132",
+        "intent_cat_code": 6,
+        "vdn": "11373",
+        "intention_tag": "enquire-surveyor_agent",
+        "destination": "Agent",
+        "prompt": "subintention/contact_survey-staff2.wav"
+    },
+    "020": {
+        "sub_category_code": "013301",
+        "category_code": "0133",
+        "intent_cat_code": 7,
+        "vdn": "15001",
+        "intention_tag": "enquire-price_appraisal",
+        "destination": "Agent (Assessment Team)",
+        "prompt": "subintention/consult_follow_appraise-task.wav"
+    },
+    "021": {
+        "sub_category_code": "013302",
+        "category_code": "0133",
+        "intent_cat_code": 7,
+        "vdn": "15001",
+        "intention_tag": "enquire-appraisal_agent",
+        "destination": "Agent (Assessment Team)",
+        "prompt": "subintention/contact_estimator.wav"
+    },
+    "022": {
+        "sub_category_code": "013303",
+        "category_code": "0133",
+        "intent_cat_code": 7,
+        "vdn": "15001",
+        "intention_tag": "enquire-followup_motor_parts",
+        "destination": "Agent (Assessment Team)",
+        "prompt": "subintention/follow_spare-part.wav"
+    },
+    "023": {
+        "sub_category_code": "013401",
+        "category_code": "0134",
+        "intent_cat_code": 8,
+        "vdn": "15002",
+        "intention_tag": "enquire-accident_investigation_task",
+        "destination": "Agent (Investigation Team)",
+        "prompt": "subintention/consult_follow_accident-investigate.wav"
+    },
+    "024": {
+        "sub_category_code": "013402",
+        "category_code": "0134",
+        "intent_cat_code": 8,
+        "vdn": "15002",
+        "intention_tag": "enquire-investigation_agent",
+        "destination": "Agent (Investigation Team)",
+        "prompt": "subintention/contact_appraise-staff.wav"
+    },
+    "025": {
+        "sub_category_code": "013501",
+        "category_code": "0135",
+        "intent_cat_code": 9,
+        "vdn": "15003",
+        "intention_tag": "enqueire-claim_status",
+        "destination": "Agent (Recovery Team)",
+        "prompt": "subintention/consult_follow_claimtask.wav"
+    },
+    "026": {
+        "sub_category_code": "013502",
+        "category_code": "0135",
+        "intent_cat_code": 9,
+        "vdn": "15003",
+        "intention_tag": "enquire-claim_recovery_agent",
+        "destination": "Agent (Recovery Team)",
+        "prompt": "subintention/contact_claim-staff.wav"
+    },
+    "027": {
+        "sub_category_code": "016000",
+        "category_code": "0160",
+        "intent_cat_code": 10,
+        "vdn": "21005",
+        "intention_tag": "enquire-premium_rate",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/enquiry_consult_premium.wav"
+    },
+    "028": {
+        "sub_category_code": "016010",
+        "category_code": "0160",
+        "intent_cat_code": 10,
+        "vdn": "21005",
+        "intention_tag": "enquire-coverage_and_exception",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/enquiry_policy-converage-exception.wav"
+    },
+    "029": {
+        "sub_category_code": "016020",
+        "category_code": "0160",
+        "intent_cat_code": 10,
+        "vdn": "21005",
+        "intention_tag": "enquire-policy_other_info",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/"
+    },
+    "030": {
+        "sub_category_code": "016030",
+        "category_code": "0160",
+        "intent_cat_code": 10,
+        "vdn": "21005",
+        "intention_tag": "enquire-document_establishment",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/enquiry_policy_others.wav"
+    },
+    "031": {
+        "sub_category_code": "016040",
+        "category_code": "0160",
+        "intent_cat_code": 10,
+        "vdn": "21005",
+        "intention_tag": "enquire-premium_payment",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/enquiry_premium-payment.wav"
+    },
+    "032": {
+        "sub_category_code": "042040",
+        "category_code": "0420",
+        "intent_cat_code": 11,
+        "vdn": "21005",
+        "intention_tag": "request-update_payment_channel",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/request_change_premium-payment.wav"
+    },
+    "033": {
+        "sub_category_code": "042020",
+        "category_code": "0420",
+        "intent_cat_code": 11,
+        "vdn": "21005",
+        "intention_tag": "request-update_license_plate_number",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/request_update_license-plate-info.wav"
+    },
+    "034": {
+        "sub_category_code": "042000",
+        "category_code": "0420",
+        "intent_cat_code": 11,
+        "vdn": "21005",
+        "intention_tag": "request-update-policy_info",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/request_update_non-doc-info.wav"
+    },
+    "035": {
+        "sub_category_code": "042010",
+        "category_code": "0420",
+        "intent_cat_code": 11,
+        "vdn": "21005",
+        "intention_tag": "request-update_policy_endorsement",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/request_update_attached-doc-info.wav"
+    },
+    "036": {
+        "sub_category_code": "042030",
+        "category_code": "0420",
+        "intent_cat_code": 11,
+        "vdn": "21005",
+        "intention_tag": "request-update_inspetion_info",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/request_update_inspector-info.wav"
+    },
+    "037": {
+        "sub_category_code": "0420102",
+        "category_code": "04201",
+        "intent_cat_code": 11,
+        "vdn": "21005",
+        "intention_tag": "request-upgrade_normal_to_telematics",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/request_upgrade_to-telematics.wav"
+    },
+    "038": {
+        "sub_category_code": "0420103",
+        "category_code": "04201",
+        "intent_cat_code": 11,
+        "vdn": "21005",
+        "intention_tag": "request-downgrade_telematics_to_normal",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/request_downgrade_telematics.wav"
+    },
+    "039": {
+        "sub_category_code": "042131",
+        "category_code": "04201",
+        "intent_cat_code": 11,
+        "vdn": "21005",
+        "intention_tag": "request-cancel_telematics",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/request_cancel_telematics.wav"
+    },
+    "040": {
+        "sub_category_code": "0420106",
+        "category_code": "04201",
+        "intent_cat_code": 11,
+        "vdn": "21005",
+        "intention_tag": "request-update_telematics_sending_address",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/request_update_address_telematics.wav"
+    },
+    "041": {
+        "sub_category_code": "018000",
+        "category_code": "0180",
+        "intent_cat_code": 12,
+        "vdn": "21005",
+        "intention_tag": "enquire-quotation_info",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/enquiry_proposal.wav"
+    },
+    "042": {
+        "sub_category_code": "018010",
+        "category_code": "0180",
+        "intent_cat_code": 12,
+        "vdn": "21005",
+        "intention_tag": "enquire-fax_email_result",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/enquiry_fax-email_result.wav"
+    },
+    "043": {
+        "sub_category_code": "018020",
+        "category_code": "0180",
+        "intent_cat_code": 12,
+        "vdn": "21005",
+        "intention_tag": "enquire-create_report_via_internet",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/enquiry_how-to_bki-web.wav"
+    },
+    "044": {
+        "sub_category_code": "018030",
+        "category_code": "0180",
+        "intent_cat_code": 12,
+        "vdn": "21005",
+        "intention_tag": "enquire-reimburse_info",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/enquiry_withdraw.wav"
+    },
+    "045": {
+        "sub_category_code": "",
+        "category_code": "0170",
+        "intent_cat_code": 12,
+        "vdn": "21005",
+        "intention_tag": "enquire-product_service_info",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/enquiry_insurance-service.wav"
+    },
+    "046": {
+        "sub_category_code": "015000",
+        "category_code": "0150",
+        "intent_cat_code": 12,
+        "vdn": "21005",
+        "intention_tag": "enquire-bki_info",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/enquiry_company-info.wav"
+    },
+    "047": {
+        "sub_category_code": "015001",
+        "category_code": "0150",
+        "intent_cat_code": 12,
+        "vdn": "21005",
+        "intention_tag": "enquire-bki_internal_contact_number",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/enquiry_internal-contanct-number.wav"
+    },
+    "048": {
+        "sub_category_code": "015020",
+        "category_code": "0150",
+        "intent_cat_code": 12,
+        "vdn": "21005",
+        "intention_tag": "enquire-bki_branch_info",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/enquiry_branch-info.wav"
+    },
+    "049": {
+        "sub_category_code": "015030",
+        "category_code": "0150",
+        "intent_cat_code": 12,
+        "vdn": "21005",
+        "intention_tag": "enquire-bki_car_station",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/enquiry_BKI-care-stattion.wav"
+    },
+    "050": {
+        "sub_category_code": "",
+        "category_code": "0000",
+        "intent_cat_code": 12,
+        "vdn": "15004",
+        "intention_tag": "enquire-emergency_asisstance_service",
+        "destination": "AWP Service 02-305 8588",
+        "prompt": "subintention/enquiry_emergency-service.wav"
+    },
+    "051": {
+        "sub_category_code": "",
+        "category_code": "0400",
+        "intent_cat_code": 13,
+        "vdn": "21005",
+        "intention_tag": "request-apply_new_policy",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/request_apply_policy.wav"
+    },
+    "052": {
+        "sub_category_code": "",
+        "category_code": "0410",
+        "intent_cat_code": 14,
+        "vdn": "21005",
+        "intention_tag": "request-renew_policy",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/request_renew_policy.wav"
+    },
+    "053": {
+        "sub_category_code": "",
+        "category_code": "0421",
+        "intent_cat_code": 15,
+        "vdn": "21005",
+        "intention_tag": "request-cancel_policy",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/request_cancel_policy.wav"
+    },
+    "054": {
+        "sub_category_code": "046000",
+        "category_code": "0460",
+        "intent_cat_code": 16,
+        "vdn": "13503",
+        "intention_tag": "report-nc_claim_pa_health",
+        "destination": "Non-Motor Claim",
+        "prompt": "subintention/inform_claim_PA_health.wav"
+    },
+    "055": {
+        "sub_category_code": "046010",
+        "category_code": "0460",
+        "intent_cat_code": 16,
+        "vdn": "13503",
+        "intention_tag": "report-nc_claim_fire",
+        "destination": "Non-Motor Claim",
+        "prompt": "subintention/inform_claim_fire.wav"
+    },
+    "056": {
+        "sub_category_code": "046020",
+        "category_code": "0460",
+        "intent_cat_code": 16,
+        "vdn": "13503",
+        "intention_tag": "report-nc_claim_marine_cargo",
+        "destination": "Non-Motor Claim",
+        "prompt": "subintention/inform_claim_marine-cargo-insurance.wav"
+    },
+    "057": {
+        "sub_category_code": "046030",
+        "category_code": "0460",
+        "intent_cat_code": 16,
+        "vdn": "13503",
+        "intention_tag": "report-nc_claim_automobile",
+        "destination": "Non-Motor Claim",
+        "prompt": "subintention/"
+    },
+    "058": {
+        "sub_category_code": "046040",
+        "category_code": "0460",
+        "intent_cat_code": 16,
+        "vdn": "13503",
+        "intention_tag": "report-nc_claim_engineer_and_3rdparty",
+        "destination": "Non-Motor Claim",
+        "prompt": "subintention/inform_claim_construction.wav"
+    },
+    "059": {
+        "sub_category_code": "046050",
+        "category_code": "0460",
+        "intent_cat_code": 16,
+        "vdn": "13503",
+        "intention_tag": "report-nc_claim_all_risk",
+        "destination": "Non-Motor Claim",
+        "prompt": "subintention/inform_claim_risk.wav"
+    },
+    "060": {
+        "sub_category_code": "046060",
+        "category_code": "0460",
+        "intent_cat_code": 16,
+        "vdn": "13503",
+        "intention_tag": "report-nc_claim_travel_accident",
+        "destination": "Non-Motor Claim",
+        "prompt": "subintention/"
+    },
+    "061": {
+        "sub_category_code": "046071",
+        "category_code": "0460",
+        "intent_cat_code": 16,
+        "vdn": "13503",
+        "intention_tag": "report-nc_claim_electronic",
+        "destination": "Non-Motor Claim",
+        "prompt": "subintention/inform_claim_electronic.wav"
+    },
+    "062": {
+        "sub_category_code": "046072",
+        "category_code": "0460",
+        "intent_cat_code": 16,
+        "vdn": "13503",
+        "intention_tag": "report-nc_claim_addon",
+        "destination": "Non-Motor Claim",
+        "prompt": "subintention/inform_claims_add-on.wav"
+    },
+    "063": {
+        "sub_category_code": "046080",
+        "category_code": "0460",
+        "intent_cat_code": 16,
+        "vdn": "13503",
+        "intention_tag": "report-nc_claim_web_partner",
+        "destination": "Non-Motor Claim",
+        "prompt": "subintention/"
+    },
+    "064": {
+        "sub_category_code": "",
+        "category_code": "0800",
+        "intent_cat_code": 17,
+        "vdn": "15006",
+        "intention_tag": "complaint-service",
+        "destination": "QC",
+        "prompt": "subintention/inform_complain.wav"
+    },
+    "065": {
+        "sub_category_code": "",
+        "category_code": "0810",
+        "intent_cat_code": 18,
+        "vdn": "15006",
+        "intention_tag": "reward-service",
+        "destination": "QC",
+        "prompt": "subintention/inform_reward.wav"
+    },
+    "066": {
+        "sub_category_code": "",
+        "category_code": "0820",
+        "intent_cat_code": 19,
+        "vdn": "15006",
+        "intention_tag": "suggest-service",
+        "destination": "QC",
+        "prompt": "subintention/inform_suggestion.wav"
+    },
+    "000": {
+        "sub_category_code": "",
+        "category_code": "00",
+        "intent_cat_code": 0,
+        "vdn": "11373",
+        "intention_tag": "not_specify_intent",
+        "destination": "Existing IVR",
+        "prompt": "subintention/"
+    },
+    "067": {
+        "sub_category_code": "",
+        "category_code": "00",
+        "intent_cat_code": 12,
+        "vdn": "21005",
+        "intention_tag": "request_move_car",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/request_move_car.wav"
+    },
+    "068": {
+        "sub_category_code": "",
+        "category_code": "00",
+        "intent_cat_code": 12,
+        "vdn": "21005",
+        "intention_tag": "request_tow_truck",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/request_tow_truck.wav"
+    },
+    "069": {
+        "sub_category_code": "",
+        "category_code": "00",
+        "intent_cat_code": 8,
+        "vdn": "15002",
+        "intention_tag": "cancel_surveyor",
+        "destination": "Agent (Investigation Team)",
+        "prompt": "subintention/cancel_surveyor.wav"
+    },
+    "070": {
+        "sub_category_code": "",
+        "category_code": "00",
+        "intent_cat_code": 3,
+        "vdn": "11373",
+        "intention_tag": "enquiry_cliam_no",
+        "destination": "Agent",
+        "prompt": "subintention/enquiry_cliam_no.wav"
+    },
+    "071": {
+        "sub_category_code": "",
+        "category_code": "00",
+        "intent_cat_code": 3,
+        "vdn": "11373",
+        "intention_tag": "request_temp_car",
+        "destination": "Agent",
+        "prompt": "subintention/request_temp_car.wav"
+    },
+    "072": {
+        "sub_category_code": "",
+        "category_code": "00",
+        "intent_cat_code": 3,
+        "vdn": "11373",
+        "intention_tag": "enquiry_compensation",
+        "destination": "Agent",
+        "prompt": "subintention/enquiry_compensation.wav"
+    },
+    "073": {
+        "sub_category_code": "",
+        "category_code": "00",
+        "intent_cat_code": 12,
+        "vdn": "21005",
+        "intention_tag": "enquiry_tow_truck",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/enquiry_tow_truck.wav"
+    },
+    "074": {
+        "sub_category_code": "",
+        "category_code": "00",
+        "intent_cat_code": 8,
+        "vdn": "15002",
+        "intention_tag": "follow_up_agent",
+        "destination": "Agent (Investigation Team)",
+        "prompt": "subintention/follow_up_agent.wav"
+    },
+    "075": {
+        "sub_category_code": "",
+        "category_code": "00",
+        "intent_cat_code": 10,
+        "vdn": "21005",
+        "intention_tag": "enquiry_policy_no",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/enquiry_policy_no.wav"
+    },
+    "076": {
+        "sub_category_code": "",
+        "category_code": "00",
+        "intent_cat_code": 3,
+        "vdn": "11373",
+        "intention_tag": "cancel_claim",
+        "destination": "Agent",
+        "prompt": "subintention/cancel_claim.wav"
+    },
+    "077": {
+        "sub_category_code": "",
+        "category_code": "00",
+        "intent_cat_code": 3,
+        "vdn": "21005",
+        "intention_tag": "meeting_at_police_station",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/meeting_at_police_station.wav"
+    },
+    "078": {
+        "sub_category_code": "",
+        "category_code": "00",
+        "intent_cat_code": 12,
+        "vdn": "21005",
+        "intention_tag": "enquiry_garrage",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/enquiry_garrage.wav"
+    },
+    "079": {
+        "sub_category_code": "",
+        "category_code": "00",
+        "intent_cat_code": 10,
+        "vdn": "21005",
+        "intention_tag": "request_document",
+        "destination": "Customer Service Officer",
+        "prompt": "subintention/request_document.wav"
+    }
+    
+}

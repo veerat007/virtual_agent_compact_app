@@ -35,7 +35,7 @@ class MainMenuDialog < ApplicationBaseDialog
   #
   #== Properties
   #
-  grammar_name           "yesno.gram" # TODO: Please set your grammar
+  #grammar_name           "yesno.gram" # TODO: Please set your grammar
   max_retry              2
   timeout                "3s"
   complete_timeout       "0.8s"

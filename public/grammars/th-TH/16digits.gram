@@ -1,0 +1,130 @@
+#JSGF V1.0 UTF8 th;
+grammar account_number;
+
+public <account_number> = [<GARBAGE>*] (<num_phrase> | <noise> {REJECT} | <skip_or_wait> {skip}) ;
+<noise> =(<NULL>|<GARBAGE>+);
+
+<skip_or_wait> = <skip> | <wait> | (<skip> <wait>) | (<wait> <skip>) | (<wait>+) ;
+
+<skip> = ( (ไม่รู้ [ข้อมูล | (เลข บัญชี) | (เลข สมุด)]) | (ลืม [ไป] [แล้ว])| ((คิด | นึก) ไม่ออก) | (จำ ไม่ได้) |
+            (ตอบ ไม่ได้) | (ไม่มี [<bookbank>]) | (ไม่ได้ (เอา | พก | นำ ) [ <bookbank> ]  มา) |
+            (ไม่ทราบ [ข้อมูล | (เลข บัญชี)]) ) [<suffix>];
+
+<wait> = ( เดี๋ยว [ก่อน] |(รอ เดี๋ยว) | ([รอ | เดี๋ยว] สักครู่) | ([รอ | เดี๋ยว ] แป๊บ ) | ([รอ| เดี๋ยว] แป๊บนึง) |
+		   ((ขอ | เดี๋ยว) [ไป] (หยิบ | เอา) [<bookbank>] (ก่อน | แป๊บ)) | ((ขอ | เดี๋ยว) (หา | ดู) [<bookbank>] (ก่อน | แป๊บ) )
+			) [<suffix>];
+
+<bookbank> = ข้อมูล | (สมุด บัญชี) | (สมุด ธนาคาร) | สมุด | bookbank | (เลข บัญชี);
+
+<prefix> = ( (เดี๋ยว แป๊บ) | ([รอ] เดี๋ยว) | ([รอ] สักครู่) | ([รอ] แป๊บ ) | ([รอ] แป๊บนึง) |
+             ((เลข [ที่] | หมายเลข | สมุด ) [บัญชี]) |
+             ([เลข] ( bookbank | account))
+             )[<suffix>];
+
+<num_phrase> = [<prefix>] <number> [<ignored>] <number> [<ignored>] <number> [<ignored>] <number> [<ignored>] <number> [<ignored>] <number> [<ignored>] <number> [<ignored>] <number> [<ignored>] <number> [<ignored>] <number> [<ignored>] <number> [<ignored>] <number> [<ignored>] <number> [<ignored>] <number> [<ignored>] <number> [<ignored>] <number> [<suffix>];
+
+<ignored> =  (แล้ว [ก็]) | (และ [ก็]) | (ละ [ก็]) ;
+<suffix> = ค่ะ | (ครับ [ผม]) | จ้ะ | นะ | นะคะ | นะครับ ;
+<number> = ( ศูนย์ {0} | หนึ่ง {1} | สอง {2} |  สาม {3}  | สี่ {4} | ห้า {5} | หก {6} | เจ็ด {7} | แปด {8} | เก้า {9} ) ;
+
+//addWord หยิบ "y i p"
+//addWord ก่อน "k oo: n"
+//addWord หา "h a:"
+//addWord ขอ "kh oo:"
+//addWord เดี๋ยว "d ia: w"
+//addWord เดี๋ยว "d ia w"
+//addWord เอา "? aw"
+//addWord นำ "n am"
+//addWord พก "ph o k"
+//addWord ไว้ "w ai"
+//addWord คิด "kh i t"
+//addWord นึก "n v k"
+//addWord ไป "p ai"
+//addWord ลืม "l v: m"
+//addWord จำ "j am"
+//addWord มา "m a:"
+//addWord ตอบ "t oo: p"
+//addWord ไม่ออก "m a: y ? oo: k"
+//addWord ไม่ออก "m ai ? oo: k"
+//addWord ไม่ออก "m a: y ? oo k"
+//addWord ไม่ออก "m ai ? oo k"
+//addWord ไม่รู้ "m ai r u:"
+//addWord ไม่รู้ "m a: y r u:"
+//addWord ไม่รู้ "m ai r u"
+//addWord ไม่รู้ "m a: y r u"
+//addWord ไม่รู้ "m ai l u:"
+//addWord ไม่รู้ "m a: y l u:"
+//addWord ไม่รู้ "m ai l u"
+//addWord ไม่รู้ "m a: y l u"
+//addWord ไม่มี "m ai m i:"
+//addWord ไม่มี "m a: y m i:"
+//addWord ไม่มี "m ai m i"
+//addWord ข้อมูล "kh oo: m u: n"
+//addWord ไม่ทราบ "m ai s a: p"
+//addWord ไม่ทราบ "m a: y s a: p"
+//addWord ไม่ได้ "m ai d ai"
+//addWord ไม่ได้ "m a: y d a: y"
+//addWord ไม่ได้ "m a: y d ai"
+//addWord ไม่ได้ "m ai d a: y"
+//addWord แล้ว "l ae: w"
+//addWord และ " l ae"
+//addWord ละ " l a"
+//addWord ก็ "k oo:"
+
+/*number pronunciation*/
+//addWord ศูนย์ "s u: n"
+//addWord หนึ่ง "n v ng"
+//addWord สอง "s oo: ng"
+//addWord สอง "s oo ng"
+//addWord สาม "s a: m"
+//addWord สี่ "s i:"
+//addWord สี่ "s i" "" 30
+//addWord ห้า "h a:"
+//addWord หก "h o k"
+//addWord เจ็ด "j e t"
+//addWord แปด "p ae: t"
+//addWord เก้า "k aw"
+//addWord เก้า "k a: w"
+//addWord แป๊บ "p ae: p"
+//addWord แป๊บนึง "p ae: p n v ng"
+//addWord รอ "r oo:"
+//addWord รอ "l oo:"
+//addWord สักครู่ "s a k kh r u:"
+//addWord สักครู่ "s a k kh u:"
+//addWord เลข "l e: k"
+//addWord เลข "l e k"
+//addWord ที่ "th i:"
+//addWord ที่ "th i"
+//addWord หมายเลข "m a: y l e: k"
+//addWord หมายเลข "m ai l e: k"
+//addWord หมายเลข "m a: y l e k"
+//addWord บัญชี "b a n ch i:"
+//addWord bookbank "b u k b ae ng"
+//addWord bookbank "b u k b ae: ng"
+//addWord account "? a k kh a: w"
+//addWord account "? a k kh a w"
+//addWord account "? ae: k kh a: w"
+//addWord account "? ae: k kh aw"
+//addWord สมุด "s a m u t"
+//addWord ธนาคาร "th a n a kh a: n"
+//addWord ธนาคาร "th a n a: kh a: n"
+//addWord นะ "n a"
+//addWord ค่ะ "kh a"
+//addWord ค่ะ "kh a:"
+//addWord ครับ "kh r a p"
+//addWord ครับ "kh a p"
+//addWord ครับ "kh r a p"
+//addWord ครับ "kh r a: p"
+//addWord ครับ "kh l a p"
+//addWord ครับ "kh l a: p"
+//addWord ครับ "kh a p"
+//addWord ครับ "kh a: p"
+//addWord ผม "ph o m"
+//addWord จ้ะ "j a"
+//addWord นะคะ "n a kh a"
+//addWord นะครับ "n a kh r a p"
+//addWord นะครับ "n a kh l a p"
+//addWord นะครับ "n a kh a p"
+//addWord นะครับ "n a kh r a: p"
+//addWord นะครับ "n a kh l a: p"
+//addWord นะครับ "n a kh a: p"

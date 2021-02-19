@@ -1,13 +1,71 @@
-welcome.wav                             สวัสดีค่ะ
-please_say_yes_or_no.wav                กรุณาตอบ ใช่หรือ ไม่ เท่านั้นคะ
-sorry_i_cannot_understand_you.wav       ขอโทษค่ะ อาจจะเข้าใจผิด
-sorry_i_cannot_understand_you_again.wav ขอโทษค่ะ อาจจะยังเข้าใจผิด
-sorry_i_cannot_hear_you.wav             ขอโทษค่ะ ไม่ได้ยินเสียงของท่านนะคะ
-sorry_i_cannot_hear_you_again.wav       ขอโทษค่ะ ยังไม่ได้ยินเสียงของท่านนะคะ
-can_you_say_yes_or_no_again.wav         กรุณาตอบ ใช่ หรือไม่ อีกครั้งนะคะ
-can_you_say_again.wav                   รบกวนตอบอีกครั้งนะคะ
-is_it_correct.wav                       ถูกต้องมั้ยคะ
-transfer_to_agent.wav                   กรุณารอสักครู่นะคะ ระบบจะนำสายของท่านไปยังเจ้าหน้าที่ เพื่อให้บริการต่อ ขอบคุณค่ะ
-service_unavailable.wav                 ขออภัยค่ะ ขณะนี้ระบบไม่สามารถใช้งานได้ชั่วคราว กรุณาลองใหม่อีกครั้งนะคะ
-please_say_your_message.wav             โปรดฝากข้อความไว้คะ
-thank_you.wav                           ขอบคุณคะ
+welcome.wav                                     ท่านสามารถแจ้งเรื่องที่ต้องการรับบริการได้เลยค่ะ เช่น มีเงินในบัญชีเท่าไหร่ เช็คยอดบัตรเครดิต วันนี้ท่านต้องการใช้บริการใดคะ
+sorry_ask_for_service_again.wav                 ขออภัยค่ะ รบกวนแจ้งบริการอีกครั้ง
+sorry_ask_for_service_with_short_sentence.wav   ขออภัยค่ะ รบกวนแจ้งบริการอีกครั้งด้วยประโยคสั้นๆ เช่น สอบถามยอดค้างบัตรเครดิต ถามรายการเคลื่อนไหวทางบัญชี พูดหลังเสียงสัญญาณได้เลยค่ะ
+ask_additional_service.wav                      ต้องการสอบถามเรื่องอื่นๆ เพิ่มเติมหรือไม่คะ
+ask_intention.wav                               ต้องการรับบริการด้านใดของ <product>
+want_to_receive_service.wav                     ไม่ทราบว่าต้องการรับบริการ <intention>
+ask_product.wav                                 ของผลิตภัณฑ์ใดคะ
+sorry_can_you_say_again.wav                     ขออภัยค่ะ รบกวนพูดอีกครั้งนะคะ
+transfer_to_agent_for_service.wav               ดิฉันจะโอนสายไปยังพนักงานเพื่อให้บริการ เรื่อง <<intention>> 
+of_product.wav                                  ของ <<Product>> 
+if_yes_please_wait.wav                          ถ้าใช่กรุณารอซักครู่ค่ะ
+you_contact_intention.wav                       คุณต้องการติดต่อเรื่อง <<intention>> 
+ask_for_using_ivr_service.wav                   ต้องการทำรายการด้วยตนเอง ผ่านระบบอัตโนมัติแบบปุ่มกดหรือไม่คะ
+is_it_correct.wav                               ถูกต้องมั้ยคะ
+transfer_to_agent.wav                           เพื่อความสะดวกในการรับบริการของท่าน ดิฉันจะโอนสายไปยังพนักงาน กรุณารอซักครู่นะคะ
+transfer_to_agent_2.wav                         ดิฉันจะโอนสายไปยังพนักงาน กรุณารอซักครู่นะคะ
+you_can_listen_again.wav                        ต้องการฟังซ้ำหรือไม่คะ
+thank_you.wav                                   ขอบคุณที่ให้ดิฉันได้ดูแล สวัสดีค่ะ
+ask_credit_card_id.wav                          ขอทราบหมายเลขบัตรเครดิต 16 หลักค่ะ
+sorry_can_say_credit_card_id_again.wav          ขออภัยค่ะ รบกวนแจ้งหมายเลขบัตรเครดิต 16 หลักอีกครั้งค่ะ
+credit_card_id_is.wav                           หมายเลขบัตรเครดิตของคุณคือ
+ask_account_id.wav                              ขอทราบหมายเลขบัญชี 10 หลักค่ะ
+sorry_can_say_account_id_again.wav              ขออภัยค่ะ รบกวนแจ้งหมายเลขบัญชี 10 หลัก อีกครั้งค่ะ
+account_id_is.wav                               หมายเลขบัญชีของคุณคือ       
+ask_citizen_id.wav                              ขอทราบหมายบัตรประชาชน 13 หลักค่ะ
+sorry_can_say_ask_citizen_id_again.wav          ขออภัยค่ะ ขอทราบหมายบัตรประชาชน 13 หลัก อีกครั้งค่ะ
+citizen_id_is.wav                               หมายเลขบัตรประชาชนของคุณคือ
+card_type.wav                                   บัตร
+ending_card_id.wav                              ที่ลงท้ายด้วย
+close_date_card_balance.wav                     วันปิดยอดการใช้บัตร คือ วันที่
+due_date_card_balance.wav                       กำหนดชำระเงินวันที่
+amount.wav                                      จำนวน
+payment_amount.wav                              เงินที่ต้องชำระ คือ
+minimum_payment_amount.wav                      จำนวนเงินที่ต้องชำระขั้นต่ำ
+baht.wav                                        บาท
+remaining_balance.wav                           วงเงินคงเหลือที่คุณใช้ได้คือ
+usage_balance.wav                               วงเงินบัตรเครดิตที่คุณใช้ไป
+over_usage_balance.wav                          คุณใช้เกินวงเงินเป็นจำนวน
+last_payment_date.wav                           คุณชำระครั้งสุดท้ายเมื่อวันที่
+last_payment_amount.wav                         จำนวนเงินที่ชำระครั้งสุดท้าย
+ending_account_id.wav                           บัญชีลงท้ายด้วย
+account_balance.wav                             มียอดเงินคงเหลือในบัญชี
+amount_backing.wav                              เป็นจำนวน
+negative_balance.wav                            เป็นยอดเงินติดลบจำนวน
+withdrawable_negative_amount.wav                และมียอดเงินที่ถอนได้เป็นยอดติดลบจำนวน
+withdrawable_amount.wav                         และมียอดเงินที่ถอนได้
+interest_received_until_end_date.wav            ยอดดอกเบี้ยที่ได้รับถึงสิ้นสุดวันที่
+interest_payment.wav                            ยอดดอกเบี้ยที่ต้องชำระ
+
+
+
+please_say_yes_or_no.wav                        กรุณาตอบ ใช่หรือ ไม่ เท่านั้นคะ
+sorry_i_cannot_understand_you.wav               ขอโทษค่ะ อาจจะเข้าใจผิด
+sorry_i_cannot_understand_you_again.wav         ขอโทษค่ะ อาจจะยังเข้าใจผิด
+sorry_i_cannot_hear_you.wav                     ขอโทษค่ะ ไม่ได้ยินเสียงของท่านนะคะ
+sorry_i_cannot_hear_you_again.wav               ขอโทษค่ะ ยังไม่ได้ยินเสียงของท่านนะคะ
+can_you_say_yes_or_no_again.wav                 กรุณาตอบ ใช่ หรือไม่ อีกครั้งนะคะ
+can_you_say_again.wav                           รบกวนตอบอีกครั้งนะคะ
+service_unavailable.wav                         ขออภัยค่ะ ขณะนี้ระบบไม่สามารถใช้งานได้ชั่วคราว กรุณาลองใหม่อีกครั้งนะคะ
+please_say_your_message.wav                     โปรดฝากข้อความไว้คะ
+
+number/0.wav                          0
+number/1.wav                          1
+number/2.wav                          2
+number/3.wav                          3
+number/4.wav                          4
+number/5.wav                          5
+number/6.wav                          6
+number/7.wav                          7
+number/8.wav                          8
+number/9.wav                          9

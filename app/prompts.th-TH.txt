@@ -69,3 +69,8 @@ number/6.wav                          6
 number/7.wav                          7
 number/8.wav                          8
 number/9.wav                          9
+
+verify_question/date_of_birth.wav     ขอทราบวันเดือนปีเกิดของคุณค่ะ
+verify_question/phone_number.wav      ขอทราบเบอร์โทรศัพท์มือถือของคุณค่ะ
+verify_question/birth_weekday.wav     คุณเกิดวันใดในสัปดาห์คะ
+verify_question/have_atm_card.wav     บัญชี้นี้มีบัตร ATM ใช่หรือไม่คะ

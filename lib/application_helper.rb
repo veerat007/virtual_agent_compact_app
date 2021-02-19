@@ -86,6 +86,75 @@ module ApplicationHelper
         end
         result
     end
+
+    def get_identification session
+        begin
+            uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_ident")
+            header = {'Content-Type': 'text/json'}
+            if session["result_item"]["product"] == 'credit_card' # session["result_item"]["product"]
+                data =  {
+                            product: 'credit_card',
+                            card_id: '4552123456780001' # session["card_id"]     
+                        }
+            elsif session["result_item"]["product"] == 'bank_account' # session["result_item"]["product"]
+                data =  {
+                            product: 'bank_account',
+                            account_no: ''              # session["account_no"]
+                        }
+            else
+                data =  {
+                            product: 'loan',
+                            citizen_id: ''              # session["citizen_id"]
+                        }
+            end
+      
+            # Create the HTTP objects
+            http = Net::HTTP.new(uri.host, uri.port)
+            request = Net::HTTP::Post.new(uri.request_uri, header)
+            request.body = data.to_json
+      
+            # Send the request
+            response = http.request(request)
+        rescue StandardError
+            response = ""
+        end
+        response
+    end
+      
+    def get_announcement session
+        begin
+            uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_data")
+            header = {'Content-Type': 'text/json'}
+            if session["result_item"]["product"] == 'credit_card'
+                data =  {
+                            product: 'credit_card', # session["result_item"]["product"]
+                            card_id: '4552123456780001'      
+                        }
+            elsif session["result_item"]["product"] == 'bank_account'
+                data =  {
+                            product: 'bank_account', # session["result_item"]["product"]
+                            account_no: ''      
+                        }
+            else
+                data =  {
+                            product: 'loan',
+                            citizen_id: ''      
+                        }
+            end
+      
+            # Create the HTTP objects
+            http = Net::HTTP.new(uri.host, uri.port)
+            request = Net::HTTP::Post.new(uri.request_uri, header)
+            request.body = data.to_json
+      
+            # Send the request
+            response = http.request(request)
+        rescue StandardError
+            response = ""
+        end
+        response
+    end
+
 end
 module AmiCallResult
     SUCCESS           = 'S'.freeze

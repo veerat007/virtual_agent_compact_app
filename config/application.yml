@@ -1,6 +1,6 @@
 defaults: &defaults
   language:                       'th-TH'
-  platform:                       'genesys'
+  platform:                       'avaya'
   redis_server:                   'localhost'
   redis_server_port:              6379
   audio_prompt_path:              '/prompts/'

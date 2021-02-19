@@ -20,8 +20,8 @@ class MainMenuDialog < ApplicationBaseDialog
   timeout2      ['sorry_i_cannot_hear_you_again',
                  'can_you_say_again']
 
-  reject1       ['%reject_prompt']
-  reject2       ['%reject_prompt']
+  reject1       ['%reject_prompt%']
+  reject2       ['%reject_prompt%']
 
   confirmation_init1    ['%speech_input_prompts%', 'is_it_correct']
   confirmation_retry1   ['sorry_i_cannot_understand_you',
@@ -72,10 +72,10 @@ class MainMenuDialog < ApplicationBaseDialog
     # The last value should be next dialog.  But note that this block does not allow
     # to use 'return'.
     if session[:result] != "failure" && session[:result].present?
-      save_result()
-      if contain_intension(session) ### Check contrains Intention.
+      save_result(session)
+      if contain_intention(session) ### Check contrains Intention.
         if has_one_intention(session) ### Check count intention = 1.
-          if has_product(session) || belong_to_product(session)
+          if has_product(session) || belong_to_single_product(session)
             if check_confirmation_never
               ### go to Flow D
             else
@@ -89,8 +89,8 @@ class MainMenuDialog < ApplicationBaseDialog
           ### tranfer to agent
           AgentTransferBlock
         end
-      elsif contrain_product ### Check contrains Product.
-        increase_(session)
+      elsif has_product(session) ### Check contrains Product.
+        increase_retry(session)
         MainMenuDialog
       else
         ### increase reject

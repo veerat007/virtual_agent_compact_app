@@ -17,6 +17,7 @@ module ApplicationHelper
 
     def save_result session
         result = session["result_item"].present? ? session["result_item"] : {}
+        session["result_item"] = result if session["result_item"].blank?
         product = get_product(session)
         intention = get_intention(session)
         result["product"] = product
@@ -26,34 +27,41 @@ module ApplicationHelper
 
     def get_product session
         begin
-            result = ""
-            result = session['nl_result']['nlu'] unless session['nl_result']['nlu'].nil?
+            result = session["result_item"]["product"].present? ? session["result_item"]["product"] : ""
+            #### MOCK
+            #if session["result"].split(" ").join() == "บัตรเครดิต"
+            #    result = session["result"].split(" ").join()
+            #end
         rescue StandardError
-            result = ""
+           result = ""
         end
         result
     end
 
     def get_intention session
         begin
-            result = ""
-            result = session['nl_result']['nlu'] unless session['nl_result']['nlu'].nil?
+            result = session["result_item"]["intention"].present? ? session["result_item"]["intention"] : ""
+            #### MOCK 
+            # if session["result"].split(" ").join() == "สอบถามยอด"
+            #     result = session["result"].split(" ").join()
+            # end
         rescue StandardError
-            result = ""
+           result = ""
         end
         result
     end
 
-    def contain_intension session
+    def contain_intention session
         result = false
         if session["result_item"].present?
             result = true if session["result_item"]["intention"].present?
         end
-        true
+        result
     end
 
     def has_one_intention session
-        true
+        resutl = true
+        resutl
     end
 
     def has_product session
@@ -61,11 +69,12 @@ module ApplicationHelper
         if session["result_item"].present?
             result = true if session["result_item"]["product"].present?
         end
-        true
+        result
     end
 
-    def belong_to_product session
-        true
+    def belong_to_single_product session
+        resutl = true
+        resutl
     end
 
     def get_nlu_result session

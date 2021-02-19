@@ -15,15 +15,52 @@ module ApplicationHelper
         session['reject'] = session['reject'] + 1
     end
 
+    def save_result session
+        result = session["result_item"].present? ? session["result_item"] : {}
+        product = get_product(session)
+        intention = get_intention(session)
+        result["product"] = product
+        result["intention"] = intention
+        session["result_item"] = result
+    end
+
+    def get_product session
+        begin
+            result = ""
+            result = session['nl_result']['nlu'] unless session['nl_result']['nlu'].nil?
+        rescue StandardError
+            result = ""
+        end
+        result
+    end
+
+    def get_intention session
+        begin
+            result = ""
+            result = session['nl_result']['nlu'] unless session['nl_result']['nlu'].nil?
+        rescue StandardError
+            result = ""
+        end
+        result
+    end
+
     def contain_intension session
+        result = false
+        if session["result_item"].present?
+            result = true if session["result_item"]["intention"].present?
+        end
         true
     end
 
-    def intention_has_one session
+    def has_one_intention session
         true
     end
 
     def has_product session
+        result = false
+        if session["result_item"].present?
+            result = true if session["result_item"]["product"].present?
+        end
         true
     end
 
@@ -31,10 +68,10 @@ module ApplicationHelper
         true
     end
 
-    def get_keyword_extraction session
+    def get_nlu_result session
         begin
             result = {}
-            result = session['nl_result']['nlu']['keyword_extraction'] unless session['nl_result']['nlu']['keyword_extraction'].nil?
+            result = session['nl_result']['nlu'] unless session['nl_result']['nlu'].nil?
         rescue StandardError
             result = {}
         end

@@ -7,9 +7,8 @@ class MainMenuDialog < ApplicationBaseDialog
   #
   #== Prompts
   #
-  init1         ['welcome',
-                 'please_say_yes_or_no']
-  init2         ['please_say_yes_or_no']
+  init1         ['%init_prompt%']
+  init2         ['%init_prompt%']
 
   retry1        ['sorry_i_cannot_understand_you',
                  'can_you_say_yes_or_no_again']
@@ -21,8 +20,8 @@ class MainMenuDialog < ApplicationBaseDialog
   timeout2      ['sorry_i_cannot_hear_you_again',
                  'can_you_say_again']
 
-  reject1       ['can_you_say_yes_or_no_again']
-  reject2       ['can_you_say_again']
+  reject1       ['%reject_prompt']
+  reject2       ['%reject_prompt']
 
   confirmation_init1    ['%speech_input_prompts%', 'is_it_correct']
   confirmation_retry1   ['sorry_i_cannot_understand_you',
@@ -43,7 +42,7 @@ class MainMenuDialog < ApplicationBaseDialog
   speed_vs_accuracy      0.9
   max_speech_timeout     "10s"
   confidence_level       0.0
-  confirmation_method    :always
+  confirmation_method    :never
   #
   #==Action
   #
@@ -73,8 +72,9 @@ class MainMenuDialog < ApplicationBaseDialog
     # The last value should be next dialog.  But note that this block does not allow
     # to use 'return'.
     if session[:result] != "failure" && session[:result].present?
+      save_result()
       if contain_intension(session) ### Check contrains Intention.
-        if intention_has_one(session) ### Check count intention = 1.
+        if has_one_intention(session) ### Check count intention = 1.
           if has_product(session) || belong_to_product(session)
             if check_confirmation_never
               ### go to Flow D
@@ -87,6 +87,7 @@ class MainMenuDialog < ApplicationBaseDialog
           end
         else
           ### tranfer to agent
+          AgentTransferBlock
         end
       elsif contrain_product ### Check contrains Product.
         increase_(session)

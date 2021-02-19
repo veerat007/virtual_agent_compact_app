@@ -24,5 +24,34 @@ module NamedPrompt
       end
       prompt
     end
+
+    def reject_prompt session
+      prompts = []
+      product = get_product(session)
+      intention = get_intention(session)
+      if product.blank? && intention.blank?
+        prompts << 'sorry_ask_for_service_again'
+      elsif product.present?
+        prompts << 'sorry_ask_for_service_again'
+      elsif intention.present?
+        prompts << 'sorry_ask_for_service_again'
+      end
+      prompts
+    end
+
+    def init_prompt session
+      prompts = []
+      product = get_product(session)
+      intention = get_intention(session)
+      if product.blank? && intention.blank?
+        prompts << 'welcome'
+      elsif product.present? && intention.blank?
+        prompts << 'ask_intention'
+      elsif intention.present? && product.blank?
+        prompts << 'want_to_receive_service'
+        prompts << 'ask_product'
+      end
+      prompts
+    end
   end
 end

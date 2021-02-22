@@ -178,7 +178,7 @@ module ApplicationHelper
     end
 
     def is_transfer_ivr session
-        result = false
+        result = true
         result
     end
 

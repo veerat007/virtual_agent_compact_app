@@ -25,6 +25,29 @@ defaults: &defaults
   enable_prompt_uploader:         false
   enable_dialog_console:          false
   dialog_console_filename:        config/dialog.yml
+  max_retry:                      2
+  confirm_intention_always:       false
+  
+  
+  dialog_property:
+    main_dialog:
+      max_retry:                             2
+      confirmation_option:                   "never"
+      confirmation_confidence_threshold:     0.1
+      prompts:
+        init:                                []
+        retry:                               []
+        reject:                              []
+        timeout:                             []
+    ask_for_product_dialog:
+      max_retry:                             2
+      confirmation_option:                   "never"
+      confirmation_confidence_threshold:     0.1
+      prompts:
+        init:                                []
+        retry:                               []
+        reject:                              []
+        timeout:                             []
 
 test:
   <<: *defaults

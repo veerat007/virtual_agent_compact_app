@@ -7,29 +7,9 @@ class MainMenuDialog < ApplicationBaseDialog
   #
   #== Prompts
   #
-  init1         ['%init_prompt%']
-  init2         ['%init_prompt%']
-
-  retry1        ['sorry_i_cannot_understand_you',
-                 'can_you_say_yes_or_no_again']
-  retry2        ['sorry_i_cannot_understand_you_again',
-                 'can_you_say_again']
-
-  timeout1      ['sorry_i_cannot_hear_you',
-                 'can_you_say_yes_or_no_again']
-  timeout2      ['sorry_i_cannot_hear_you_again',
-                 'can_you_say_again']
-
-  reject1       ['%reject_prompt%']
-  reject2       ['%reject_prompt%']
-
-  confirmation_init1    ['%speech_input_prompts%', 'is_it_correct']
-  confirmation_retry1   ['sorry_i_cannot_understand_you',
-                         '%speech_input_prompts%',
-                         'is_it_right']
-  confirmation_timeout1 ['sorry_i_cannot_hear_you',
-                         '%speech_input_prompts%',
-                         'is_it_right']
+  init1         ['welcome']
+  init2         ['sorry_ask_for_service_with_short_sentence'] #['sorry_ask_for_service_again']
+  init3         ['sorry_ask_for_service_with_short_sentence'] #['sorry_ask_for_service_again']
 
   #
   #== Properties
@@ -43,6 +23,7 @@ class MainMenuDialog < ApplicationBaseDialog
   max_speech_timeout     "10s"
   confidence_level       0.0
   confirmation_method    :never
+  
   #
   #==Action
   #
@@ -68,37 +49,55 @@ class MainMenuDialog < ApplicationBaseDialog
 #  end
 
   action do |session|
-    # TODO: Please describe action here and set appropriate next dialog.
-    # The last value should be next dialog.  But note that this block does not allow
-    # to use 'return'.
-    if session[:result] != "failure" && session[:result].present?
-      save_result(session)
-      if contain_intention(session) ### Check contrains Intention.
-        if has_one_intention(session) ### Check count intention = 1.
-          if has_product(session) || belong_to_single_product(session)
-            if check_confirmation_never
-              ### go to Flow D
-            else
-              ### go to Flow E
-            end
-          else
-            ### go to Flow C
-            MainMenuDialog
-          end
-        else
-          ### tranfer to agent
-          AgentTransferBlock
-        end
-      elsif has_product(session) ### Check contrains Product.
-        increase_retry(session)
-        MainMenuDialog
+
+    if timeout?(session)
+      increase_timeout(session)
+      if (retry_exceeded?(session)) || (total_exceeded?(session))
+        AgentTransferBlock
       else
-        ### increase reject
+	      MainMenuDialog
+      end
+    
+    elsif rejected?(session)
+      increase_reject(session)
+      if (reject_exceeded?(session)) || (total_exceeded?(session))
+        AgentTransferBlock
+      else
         MainMenuDialog
       end
-    else
-      MainMenuDialog
+
+    else # recognized
+        save_result(session)
+        if contain_intention(session) ### Check contrains Intention.
+          if has_one_intention(session) ### Check count intention = 1.
+            if has_product(session) || belong_to_single_product(session)
+              if AmiVoice::DialogModule::Settings.confirm_intention_always
+                ### go to Flow E
+                ConfirmIntentionDialog
+              else
+                ### go to Flow D
+                if !is_transfer_ivr
+                  transfer_to_destination()
+                else
+                  ### 
+                end
+              end
+            else
+              ### go to Flow C
+              AskForProductDialog
+            end
+          else ### has more than 1 intention
+            AgentTransferBlock
+          end
+        elsif has_product(session) ### Check contrains Product.
+          increase_retry(session)
+          AskForIntentDialog
+        else
+          increase_retry(session)
+          MainMenuDialog
+        end
     end
+
   end
 
 #  ending do |session, params|

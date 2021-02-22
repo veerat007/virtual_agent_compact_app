@@ -25,20 +25,48 @@ module NamedPrompt
       prompt
     end
 
+    def retry_prompt session
+      prompts = []
+      product = session["result_item"].present? ? session["result_item"]["product"] : ""
+      intention = session["result_item"].present? ? session["result_item"]["intention"] : ""
+      if product.blank? && intention.blank?
+        prompts << 'sorry_ask_for_service_again'
+      elsif product.present? && intention.blank?
+        prompts << 'sorry_ask_for_service_again'
+      elsif intention.present? && product.blank?
+        prompts << 'sorry_can_you_say_again'
+      end
+      prompts
+    end
+
     def reject_prompt session
       prompts = []
       product = session["result_item"].present? ? session["result_item"]["product"] : ""
       intention = session["result_item"].present? ? session["result_item"]["intention"] : ""
       if product.blank? && intention.blank?
         prompts << 'sorry_ask_for_service_again'
-      elsif product.present?
+      elsif product.present? && intention.blank?
         prompts << 'sorry_ask_for_service_again'
-      elsif intention.present?
-        prompts << 'sorry_ask_for_service_again'
+      elsif intention.present? && product.blank?
+        prompts << 'sorry_can_you_say_again'
       end
       prompts
     end
 
+    def timeout_prompt session
+      prompts = []
+      product = session["result_item"].present? ? session["result_item"]["product"] : ""
+      intention = session["result_item"].present? ? session["result_item"]["intention"] : ""
+      if product.blank? && intention.blank?
+        prompts << 'sorry_ask_for_service_again'
+      elsif product.present? && intention.blank?
+        prompts << 'sorry_ask_for_service_again'
+      elsif intention.present? && product.blank?
+        prompts << 'sorry_can_you_say_again'
+      end
+      prompts
+    end
+    
     def init_prompt session
       prompts = []
       product = session["result_item"].present? ? session["result_item"]["product"] : ""

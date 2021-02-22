@@ -1,5 +1,22 @@
 module ApplicationHelper
+    MAX_RETRY = AmiVoice::DialogModule::Settings.max_retry if AmiVoice::DialogModule::Settings.max_retry.present?
+
+    def transfer_to_destination session
+        CreditCardIdentificationDialog
+    end
+
+    def reset_counter(session, max_retry_count = -1)
+        session['timeout'] = 0
+        session['retry'] = 0
+        session['reject'] = 0
     
+        if max_retry_count >= 0
+          session['max_retry'] = max_retry_count
+        else
+          session['max_retry'] = MAX_RETRY
+        end
+    end
+
     def increase_timeout session
         session['timeout'] = 0 if session['timeout'].nil?
         session['timeout'] = session['timeout'] + 1
@@ -13,6 +30,81 @@ module ApplicationHelper
     def increase_reject session
         session['reject'] = 0 if session['reject'].nil?
         session['reject'] = session['reject'] + 1
+    end
+
+    def timeout_exceeded?(session)
+        session['timeout'] = 0 if session['timeout'].nil?
+        session['max_retry'] = MAX_RETRY if session['max_retry'].nil?
+    
+        result = session['timeout'] > session['max_retry']
+        result
+      end
+    
+    def retry_exceeded?(session)
+        session['retry'] = 0 if session['retry'].nil?
+        session['max_retry'] = MAX_RETRY if session['max_retry'].nil?
+    
+        result = session['retry'] > session['max_retry']
+        result
+    end
+    
+    def reject_exceeded?(session)
+        session['reject'] = 0 if session['reject'].nil?
+        session['max_retry'] = MAX_RETRY if session['max_retry'].nil?
+    
+        result = session['reject'] > session['max_retry']
+        result
+    end
+
+    def total_retry(session)
+        session['timeout'] = 0 if session['timeout'].nil?
+        session['reject'] = 0 if session['reject'].nil?
+        session['retry'] = 0 if session['retry'].nil?
+        total = session['timeout'] + session['reject'] + session['retry']
+        total
+    end
+
+    def total_exceeded?(session)
+        session['timeout'] = 0 if session['timeout'].nil?
+        session['retry'] = 0 if session['retry'].nil?
+        session['reject'] = 0 if session['reject'].nil?
+        session['max_retry'] = MAX_RETRY if session['max_retry'].nil?
+        result = (session['timeout'] + session['reject'] + session['retry']) > session['max_retry']
+        result
+    end
+
+    def timeout?(session)
+        is_no_speech = false
+        is_no_speech = session['retry_count']['noinput'] == session['retry_count']['total'] unless session['retry_count'].nil?
+        result = false
+        result = true if session['result'] == 'failure' && is_no_speech
+        result
+    end
+
+    def rejected?(session)
+        is_no_speech = false
+        begin
+            is_no_speech = session['retry_count']['noinput'] == session['retry_count']['total'] unless session['retry_count'].nil?
+            result = false
+            result = true if session['result'] == 'failure' && !is_no_speech
+        rescue StandardError => e
+            result = true
+        end
+        if (!is_use_grammar && result == false)
+          result = is_reject_by_nlu(session) 
+        end
+        result
+    end
+
+    def is_reject_by_nlu(session)
+        is_reject = true
+        begin
+          prediction = session['nl_result']['nlu']['prediction']['results']
+          is_reject = prediction['semantic_tag'].downcase == 'reject'
+        rescue StandardError => e
+          is_reject = true
+        end
+        is_reject
     end
 
     def save_result session
@@ -75,6 +167,11 @@ module ApplicationHelper
     def belong_to_single_product session
         resutl = true
         resutl
+    end
+
+    def is_transfer_ivr session
+        result = false
+        result
     end
 
     def get_nlu_result session

@@ -14,7 +14,7 @@ class ApplicationBaseDialog < SystemBaseDialog
   #
   # == Main State (dialog_state=='main')
   #
-  grammar_name                            ""
+  grammar_name                            "builtin:grammar/-BKICallSteering"  #"builtin:grammar/-AmiDnnThaiTelephony8k_Bay_v8"
   dtmf_grammar                            ""
   max_retry                               1
   max_retry_noinput                       1

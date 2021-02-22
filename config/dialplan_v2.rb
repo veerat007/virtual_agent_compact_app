@@ -92,7 +92,8 @@ module AmiVoice::DialogModule
         session.logger.info "Environment: #{env}"
         # Application Specific Input:
         session.logger.info "Request: #{session[:request]}"
-
+        
+        reset_counter(session)
         # Determine first dialog and return the name.  For exaple,
         MainMenuDialog
       end

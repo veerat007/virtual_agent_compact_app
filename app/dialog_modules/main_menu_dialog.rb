@@ -67,35 +67,39 @@ class MainMenuDialog < ApplicationBaseDialog
       end
 
     else # recognized
-        save_result(session)
-        if contain_intention(session) ### Check contrains Intention.
-          if has_one_intention(session) ### Check count intention = 1.
-            if has_product(session) || belong_to_single_product(session)
-              if AmiVoice::DialogModule::Settings.confirm_intention_always
-                ### go to Flow E
-                ConfirmIntentionDialog
-              else
-                ### go to Flow D
-                if !is_transfer_ivr
-                  transfer_to_destination()
-                else
-                  ### 
-                end
-              end
+      save_result(session)
+      if contain_intention(session) ### Check contrains Intention.
+        if has_one_intention(session) ### Check count intention = 1.
+          if has_product(session) || belong_to_single_product(session)
+            if AmiVoice::DialogModule::Settings.confirm_intention_always
+              ### go to Flow E
+              ConfirmIntentionDialog
             else
-              ### go to Flow C
-              AskForProductDialog
+              ### go to Flow D
+              if !is_transfer_ivr
+                transfer_to_destination()
+              else
+                ### 
+              end
             end
-          else ### has more than 1 intention
-            AgentTransferBlock
+          else
+            ### go to Flow C
+            AskForProductDialog
           end
-        elsif has_product(session) ### Check contrains Product.
-          increase_retry(session)
-          AskForIntentDialog
+        else ### has more than 1 intention
+          AgentTransferBlock
+        end
+      elsif has_product(session) ### Check contrains Product.
+        increase_retry(session)
+        AskForIntentDialog
+      else
+        increase_retry(session)
+        if (retry_exceeded? session) || (total_exceeded? session)
+          AgentTransferBlock
         else
-          increase_retry(session)
           MainMenuDialog
         end
+      end
     end
 
   end

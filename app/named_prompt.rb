@@ -1,6 +1,7 @@
 # coding: utf-8
 #
 module NamedPrompt
+  extend ApplicationHelper
   extend AmiVoice::DialogModule::Utility
 
   class << self

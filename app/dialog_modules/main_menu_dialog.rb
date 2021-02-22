@@ -89,12 +89,14 @@ class MainMenuDialog < ApplicationBaseDialog
         else ### has more than 1 intention
           AgentTransferBlock
         end
+
       elsif has_product(session) ### Check contrains Product.
         increase_retry(session)
         AskForIntentDialog
+
       else
         increase_retry(session)
-        if (retry_exceeded? session) || (total_exceeded? session)
+        if (retry_exceeded?(session)) || (total_exceeded?(session))
           AgentTransferBlock
         else
           MainMenuDialog

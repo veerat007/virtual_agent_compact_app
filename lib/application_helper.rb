@@ -2,7 +2,15 @@ module ApplicationHelper
     MAX_RETRY = AmiVoice::DialogModule::Settings.max_retry if AmiVoice::DialogModule::Settings.max_retry.present?
 
     def transfer_to_destination session
-        CreditCardIdentificationDialog
+        reset_counter(session)
+        product = get_product(session)
+        if product == "credit_card"
+            CreditCardIdentificationDialog
+        elsif product == "bank_account"
+
+        elsif product == "loan"
+
+        end
     end
 
     def reset_counter(session, max_retry_count = -1)

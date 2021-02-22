@@ -76,7 +76,7 @@ class MainMenuDialog < ApplicationBaseDialog
               ConfirmIntentionDialog
             else
               ### go to Flow D
-              if !is_transfer_ivr
+              if !is_transfer_ivr()
                 transfer_to_destination()
               else
                 ### 

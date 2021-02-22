@@ -13,7 +13,7 @@ class ConfirmIntentionToAgentDialog < ApplicationBaseDialog
   #== Properties
   #
   grammar_name           "yesno.gram" # TODO: Please set your grammar
-  max_retry              2
+  #max_retry              2
   confirmation_method    :never
 
   #

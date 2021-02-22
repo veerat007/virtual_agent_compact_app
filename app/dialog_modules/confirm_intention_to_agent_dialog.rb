@@ -14,7 +14,7 @@ class ConfirmIntentionToAgentDialog < ApplicationBaseDialog
   #
   grammar_name           "yesno.gram" # TODO: Please set your grammar
   max_retry              2
-  confirmation_method    :always
+  confirmation_method    :never
 
   #
   #==Action

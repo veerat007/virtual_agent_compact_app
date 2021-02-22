@@ -22,7 +22,7 @@ class ApplicationBaseDialog < SystemBaseDialog
   max_retry_reject                        1
   max_retry_confirmation_no               1
   separate_retry_counter                  false
-  confirmation_method                     :always
+  confirmation_method                     :never
   high_confidence_threshold               0.9
   low_confidence_threshold                0.1
   bargein                                 false

@@ -23,7 +23,7 @@ class AskForIntentDialog < ApplicationBaseDialog
   #
 
   action do |session|
-
+    save_result(session)
     if timeout?(session)
       increase_timeout(session)
       if (retry_exceeded?(session)) || (total_exceeded?(session))
@@ -41,7 +41,6 @@ class AskForIntentDialog < ApplicationBaseDialog
       end
 
     else # recognized
-      save_result(session)
       if contain_intention(session) ### Check contrains Intention.
         if has_one_intention(session) ### Check count intention = 1.
           if has_product(session) || belong_to_single_product(session)
@@ -50,8 +49,8 @@ class AskForIntentDialog < ApplicationBaseDialog
               ConfirmIntentionDialog
             else
               ### go to Flow D
-              if !is_transfer_ivr()
-                transfer_to_destination()
+              if !is_transfer_ivr(session)
+                transfer_to_destination(session)
               else
                 ### 
               end

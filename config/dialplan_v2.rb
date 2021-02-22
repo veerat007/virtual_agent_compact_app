@@ -82,7 +82,7 @@
 # DialPlan will be ignored.
 #
 module AmiVoice::DialogModule
-  module DialPlanV2
+  module DialPlanV2 extend ::ApplicationHelper
     class << self
       def entry_point params, session, env
         # Standard Input:

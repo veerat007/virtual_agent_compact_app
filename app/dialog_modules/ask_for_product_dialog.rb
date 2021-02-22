@@ -23,7 +23,7 @@ class AskForProductDialog < ApplicationBaseDialog
   #
 
   action do |session|
-
+    save_result(session)
     if timeout?(session)
       increase_timeout(session)
       if (retry_exceeded?(session)) || (total_exceeded?(session))
@@ -47,8 +47,8 @@ class AskForProductDialog < ApplicationBaseDialog
           ConfirmIntentionDialog
         else
           ### go to Flow D
-          if !is_transfer_ivr()
-            transfer_to_destination()
+          if !is_transfer_ivr(session)
+            transfer_to_destination(session)
           else
             ### 
           end

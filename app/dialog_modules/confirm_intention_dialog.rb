@@ -24,8 +24,8 @@ class ConfirmIntentionDialog < ApplicationBaseDialog
   action do |session|
     
     if timeout?(session)
-      if !is_transfer_ivr()
-        transfer_to_destination()
+      if !is_transfer_ivr(session)
+        transfer_to_destination(session)
       else
         ### 
       end
@@ -40,8 +40,8 @@ class ConfirmIntentionDialog < ApplicationBaseDialog
 
     else # recognized
       if session['result'] =~ /yes/i
-        if !is_transfer_ivr()
-          transfer_to_destination()
+        if !is_transfer_ivr(session)
+          transfer_to_destination(session)
         else
           
         end

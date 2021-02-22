@@ -89,7 +89,7 @@ module ApplicationHelper
         result
     end
 
-    def rejected?(session)
+    def rejected?(session, is_use_grammar = false)
         is_no_speech = false
         begin
             is_no_speech = session['retry_count']['noinput'] == session['retry_count']['total'] unless session['retry_count'].nil?
@@ -105,12 +105,12 @@ module ApplicationHelper
     end
 
     def is_reject_by_nlu(session)
-        is_reject = true
+        is_reject = false
         begin
           prediction = session['nl_result']['nlu']['prediction']['results']
           is_reject = prediction['semantic_tag'].downcase == 'reject'
         rescue StandardError => e
-          is_reject = true
+          is_reject = false
         end
         is_reject
     end
@@ -178,7 +178,7 @@ module ApplicationHelper
     end
 
     def is_transfer_ivr session
-        result = true
+        result = false
         result
     end
 

@@ -21,32 +21,36 @@ class ConfirmIntentionDialog < ApplicationBaseDialog
   #==Action
   #
 
-
-#  before_generate_vxml do |session, params|
-#    session.logger.info("before_generate_vxml")
-#  end
-
-#
-# When you want to write your own rule for confirmation, you can
-# change confirmation_method :server and uncomment below.
-#
-#  confirmation_method_server do |session, params|
-#    session.logger.info("confirmation_method_server")
-#    result = "accept" # or "confirm" or "reject"
-#    prompts = []
-#    [result, prompts]
-#  end
-
-#  before_confirmation do |session, params|
-#    session.logger.info("before_confirmation")
-#  end
-
   action do |session|
-    # TODO: Please describe action here and set appropriate next dialog.
-    # The last value should be next dialog.  But note that this block does not allow
-    # to use 'return'.
-    session.logger.info("action")
-    ConfirmIntentionDialog
+    
+    if timeout?(session)
+      if !is_transfer_ivr
+        transfer_to_destination()
+      else
+        ### 
+      end
+      
+    elsif rejected?(session)
+      increase_reject(session)
+      if (reject_exceeded?(session)) || (total_exceeded?(session))
+        AgentTransferBlock
+      else
+        MainMenuDialog
+      end
+
+    else # recognized
+      if session['result'] =~ /yes/i
+        if !is_transfer_ivr
+          transfer_to_destination()
+        else
+          
+        end
+      else ## NO
+        MainMenuDialog
+      end
+
+    end
+
   end
 
 #  ending do |session, params|

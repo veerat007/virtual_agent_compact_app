@@ -8,27 +8,27 @@ class CreditCardIdentificationDialog < ApplicationBaseDialog
   #== Prompts
   #
   init1         ['ask_credit_card_id',]
-  # init2         ['sorry_can_say_credit_card_id_again']
+  init2         ['sorry_can_say_credit_card_id_again']
 
-  retry1        ['sorry_can_say_credit_card_id_again']
-  retry2        ['sorry_can_say_credit_card_id_again']
+  # retry1        ['sorry_can_say_credit_card_id_again']
+  # retry2        ['sorry_can_say_credit_card_id_again']
 
-  timeout1      ['sorry_can_say_credit_card_id_again']
-  timeout2      ['sorry_can_say_credit_card_id_again']
+  # timeout1      ['sorry_can_say_credit_card_id_again']
+  # timeout2      ['sorry_can_say_credit_card_id_again']
 
-  reject1       ['sorry_can_say_credit_card_id_again']
-  reject2       ['sorry_can_say_credit_card_id_again']
+  # reject1       ['sorry_can_say_credit_card_id_again']
+  # reject2       ['sorry_can_say_credit_card_id_again']
 
-  confirmation_init1    ['credit_card_id_is', '%speech_input_number_prompts%', 'is_it_correct']
-  confirmation_retry1   ['sorry_can_say_credit_card_id_again']
-  confirmation_timeout1 ['sorry_can_say_credit_card_id_again']
+  # confirmation_init1    ['credit_card_id_is', '%speech_input_number_prompts%', 'is_it_correct']
+  # confirmation_retry1   ['sorry_can_say_credit_card_id_again']
+  # confirmation_timeout1 ['sorry_can_say_credit_card_id_again']
 
   #
   #== Properties
   #
   grammar_name           "16digits.gram" # TODO: Please set your grammar
-  max_retry              2
-  confirmation_method    :always
+  # max_retry              2
+  confirmation_method    :never
 
   #
   #==Action
@@ -59,15 +59,45 @@ class CreditCardIdentificationDialog < ApplicationBaseDialog
     # The last value should be next dialog.  But note that this block does not allow
     # to use 'return'.
     session.logger.info("action")
-    if session[:result] != 'failure'
-      # go to Flow I
-      VerificationQuestionDialog
-    else
-      if max_retry <= 2
-        increase_retry session
-        CreditCardIdentificationDialog
-      else
+    
+    if timeout?(session)
+      increase_timeout(session)
+      if (retry_exceeded?(session)) || (total_exceeded?(session))
         AgentTransferBlock
+      else
+	      CreditCardIdentificationDialog
+      end
+    
+    elsif rejected?(session)
+      increase_reject(session)
+      if (reject_exceeded?(session)) || (total_exceeded?(session))
+        AgentTransferBlock
+      else
+        CreditCardIdentificationDialog
+      end
+
+    else # recognized
+      if session[:result] != 'failure'
+        # go to Flow I
+
+        ##### CALL IDENTIFICATION API #####
+        # result = get_identification session
+        uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_ident")
+        response = Net::HTTP.post_form(uri, "product" => session["result_item"]["product"], "card_id" => session["result"])
+        session["identification_info"] = JSON.parse(response.body)
+        if session["identification_info"]["product"] == session["result_item"]["product"] && session["identification_info"]["card_id"] == session["result"]
+          ConfirmCreditCardIdentificationDialog
+        else
+          AgentTransferBlock
+        end
+        # VerificationQuestionDialog
+      else
+        increase_retry(session)
+        if (retry_exceeded? session) || (total_exceeded? session)
+          AgentTransferBlock
+        else
+          CreditCardIdentificationDialog
+        end
       end
     end
   end

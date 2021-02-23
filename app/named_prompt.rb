@@ -11,15 +11,14 @@ module NamedPrompt
     # Here is an example.
     #
     def speech_input_number_prompts session
-      if session["nl_result"]["asr"]["utterance"].present?
-        "#{session["nl_result"]["asr"]["utterance"]}"
-          prompt = []
-          session["nl_result"]["asr"]["utterance"].each do |n|
-            if n.match?(/[0-9]/)
-              prompt << "numbers/#{n}"
-            end
+      if session["result"].present? # session["nl_result"]["asr"]["utterance"].present?
+        prompt = []
+        session["result"].each do |n|
+          if n.match?(/[0-9]/)
+            prompt << "numbers/#{n}"
           end
-          prompt.flatten!
+        end
+        prompt.flatten!
       else
         prompt = [] 
       end
@@ -85,16 +84,17 @@ module NamedPrompt
 
     def announce_verify_question session
       prompt = []
-      product = get_product(session)
+      # product = get_product(session)
+      product = session["identification_info"]["product"] # result from identification API
       if product.present? && product == "credit_card"
         prompt_list = ['verify_question/date_of_birth', 'verify_question/phone_number', 'verify_question/birth_weekday']
-        prompt << 'verify_question/date_of_birth' # prompt_list.simple
+        prompt << 'verify_question/birth_weekday' # prompt_list.simple
       elsif product.present? && product == "bank_account"
         prompt_list = ['verify_question/date_of_birth', 'verify_question/phone_number', 'verify_question/birth_weekday', 'verify_question/have_atm_card']
-        prompt << 'verify_question/date_of_birth' # prompt_list.simple
+        prompt << 'verify_question/birth_weekday' # prompt_list.simple
       elsif product.present? && product == "loan"
         prompt_list = ['verify_question/date_of_birth', 'verify_question/phone_number', 'verify_question/birth_weekday']
-        prompt << 'verify_question/date_of_birth' # prompt_list.simple
+        prompt << 'verify_question/birth_weekday' # prompt_list.simple
       end
     end
     

@@ -1,7 +1,7 @@
 #JSGF V1.0 UTF8 th;
-grammar account_number;
+grammar citizen_number;
 
-public <account_number> = [<GARBAGE>*] (<num_phrase> | <noise> {REJECT} | <skip_or_wait> {skip}) ;
+public <citizen_number> = [<GARBAGE>*] (<num_phrase> | <noise> {REJECT} | <skip_or_wait> {skip}) ;
 <noise> =(<NULL>|<GARBAGE>+);
 
 <skip_or_wait> = <skip> | <wait> | (<skip> <wait>) | (<wait> <skip>) | (<wait>+) ;

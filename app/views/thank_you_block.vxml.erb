@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml xmlns="http://www.w3.org/2001/vxml"
+      xml:lang="<%=@language%>"
+      version="2.1"
+      application="root.vxml"
+      <% if Settings.gvp_extension_enable %>
+      xmlns:gvp="http://www.genesyslab.com/2006/vxml21-extension"
+      <% end %>
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.w3.org/2001/vxml
+                          http://www.w3.org/TR/2007/REC-voicexml21-20070619/vxml.xsd">
+
+  <form id="<%=@block_name%>">
+    <script>
+      var init_prompts = [
+        "<%=prompt_path('please_say_your_message')%>",
+        "/prompts/beep.wav"
+      ];
+      var noinput_prompts = [
+        "<%=prompt_path('sorry_i_cannot_hear_you')%>",
+        "<%=prompt_path('can_you_say_again')%>"
+      ];
+      var dialog_name = "<%=@block_name%>";
+      application.current_dialog_name = "<%=@block_name%>";
+      application.dialog_start_time = (new Date()).toString();
+      application.dialog_end_time = "";
+    </script>
+
+    <record name="msg" beep="false" maxtime="10s" finalsilence="1500ms" dtmfterm="true" type="audio/x-wav">
+      <prompt>
+        <foreach item="prompt" array="init_prompts">
+          <audio expr="prompt" />
+        </foreach>
+      </prompt>
+
+      <noinput>
+        <prompt>
+          <foreach item="prompt" array="noinput_prompts">
+            <audio expr="prompt" />
+          </foreach>
+        </prompt>
+      </noinput>
+
+      <filled>
+        <audio src="<%=prompt_path('thank_you')%>" />
+        <goto nextitem="completed" />
+      </filled>
+    </record>
+
+    <block name="completed">
+      <data name="action_result"
+            fetchhint="safe"
+            method="post"
+            src="<%=@block_name%>/action"
+            enctype="multipart/form-data"
+            namelist="dialog_start_time dialog_end_time dialog_result logging_tag msg"  />
+
+      <script>
+        var action = XmlResultUtility.parse(action_result, "action");
+      </script>
+
+      <if cond="action.next !== null" >
+        <submit expr="action.next"
+                namelist="ani dnis logging_tag" />
+      <else/>
+        <%- if Settings.is_a_part_of_call_flow %>
+        <return namelist="ani dnis logging_tag" />
+        <%- else %>
+        <exit />
+        <%- end %>
+      </if>
+    </block>
+  </form>
+
+  <!-- Event Handle -->
+  <catch event='connection.disconnect'>
+    <%= log("Event catched", "_message _event error_count") %>
+    <%- if Settings.is_a_part_of_call_flow %>
+    <return namelist="ani dnis logging_tag" />
+    <%- else %>
+    <exit />
+    <%- end %>
+  </catch>
+
+  <catch event='error com.amivoicethai.no-asr-result'>
+    <%= log("Event catched", "_message _event error_count") %>
+    <%- if Settings.is_a_part_of_call_flow %>
+    <return namelist="ani dnis logging_tag" />
+    <%- else %>
+    <exit />
+    <%- end %>
+  </catch>
+</vxml>

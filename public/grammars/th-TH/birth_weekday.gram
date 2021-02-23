@@ -1,0 +1,50 @@
+#JSGF V1.0 UTF8 th;
+
+grammar birth_weekday_th;
+
+public <birth_weekday_th> = ( [<day>] <weekday> [<suffix>] | <noise> {REJECT} );
+
+<weekday> = ( อาทิตย์     {Sunday}
+            | จันทร์      {Monday}
+            | อังคาร     {Tuesday}
+            | พุธ        {Wednesday}
+            | พฤหัสบดี    {Thursday}
+            | ศุกร์       {Friday}
+            | เสาร์      {Saturday}
+            );
+
+<day> = ( วัน
+        );
+
+<suffix> = ( ค่ะ
+      | ครับ
+      | จ้ะ
+      );
+
+
+
+//addWord วัน "w a n"
+//addWord วัน "w a: n"
+//addWord อาทิตย์ "? a: th i t"
+//addWord อาทิตย์ "? a th i t"
+//addWord อาทิตย์ "? a: th i: t"
+//addWord อาทิตย์ "? a th i: t"
+//addWord จันทร์ "j a n"
+//addWord จันทร์ "j a: n"
+//addWord อังคาร "? a: ng kh a: n"
+//addWord อังคาร "? a ng kh a: n"
+//addWord พุธ "ph u t"
+//addWord พุธ "ph u: t"
+//addWord พฤหัสบดี "ph a r v h a t s a b oo: d i:"
+//addWord พฤหัสบดี "ph a: r v h a t s a b oo: d i:"
+//addWord พฤหัสบดี "ph a r v h a t"
+//addWord พฤหัสบดี "ph a: r v h a t"
+//addWord ศุกร์ "s u k"
+//addWord ศุกร์ "s u: k"
+//addWord เสาร์ "s aw"
+//addWord จ้ะ "j a"
+//addWord จ้ะ "j a:"
+//addWord ค่ะ "kh a"
+//addWord ค่ะ "kh a:"
+//addWord ครับ "kh r a p"
+//addWord ครับ "kh a p"

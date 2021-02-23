@@ -1,5 +1,4 @@
-class VerificationQuestionDialog < ApplicationBaseDialog
-
+class SelfServiceCreditCardRemainingBalanceDialog < ApplicationBaseDialog
 
   description <<-"DESCRIPTION"
     TODO: Explain this dialog module briefly
@@ -8,8 +7,32 @@ class VerificationQuestionDialog < ApplicationBaseDialog
   #
   #== Prompts
   #
-  init1         ['%announce_verify_question%']
-  init2         ['%announce_verify_question%']
+  init1         { |session| 
+    prompts = []
+    # result = get_identification session
+    # session["announcement_info"].each { |announcement_info|
+      data = session["announcement_info"]['card_info'][0]
+      card_id = data['card_id']
+      card_type = data['card_type']
+      credit_limit = data['amount']['credit_limit']
+      remaining_balance = data['amount']['remaining_balance']
+      # date_closed = data['card_info']['dateClosed']
+      # due_date = data['card_info']['dateDue']
+
+      prompts.push 'credit_card_type/card'
+      prompts.push "credit_card_type/#{card_type}"
+      prompts.push "common/end_with"
+      prompts.push card_id.split('').last(4).map { |s| s.prepend('number/') }
+      prompts.push "self_service/credit_card/due_amount"
+      prompts.push NamedPrompt.currency_prompts data['card_info']['dueAmount']
+      prompts.push "self_service/credit_card/due_min_amount"
+      prompts.push NamedPrompt.currency_prompts data['card_info']['dueMinAmount']
+      prompts.push "self_service/credit_card/due_date"
+      prompts.push NamedPrompt.date_prompts(due_date, skip_full_year:false, skip_this_year:false)
+    }
+  # }
+
+  # init2         ['please_say_yes_or_no']
 
   # retry1        ['sorry_i_cannot_understand_you',
   #                'can_you_say_yes_or_no_again']
@@ -35,9 +58,9 @@ class VerificationQuestionDialog < ApplicationBaseDialog
   #
   #== Properties
   #
-  grammar_name           "birth_weekday.gram" # TODO: Please set your grammar
+  grammar_name           "yesno.gram" # TODO: Please set your grammar
   # max_retry              2
-  confirmation_method    :never
+  # confirmation_method    :always
 
   #
   #==Action
@@ -68,32 +91,7 @@ class VerificationQuestionDialog < ApplicationBaseDialog
     # The last value should be next dialog.  But note that this block does not allow
     # to use 'return'.
     session.logger.info("action")
-
-    # result = get_identification session
-    # session["announcement_info"] = get_announcement session
-    # uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_data")
-    # response = Net::HTTP.post_form(uri, "product" => session["identification_info"]["product"], "card_id" => session["identification_info"]["card_id"])
-    # session["announcement_info"] = JSON.parse(response.body)
-    if session["identification_info"]["birth_weekday"] == session["result"]
-      uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_data")
-      response = Net::HTTP.post_form(uri, "product" => session["identification_info"]["product"], "card_id" => session["identification_info"]["card_id"])
-      session["announcement_info"] = JSON.parse(response.body)
-      if session["announcement_info"]["card_status"] == "active" #session["announcement_info"]["status"] != "error" && session["announcement_info"]["card_status"] == "active"
-        if session["result_item"]["intention"] == "remaining_balance"
-          SelfServiceCreditCardRemainingBalanceDialog
-        elsif session["result_item"]["intention"] == "outstanding_balance"
-          AnnounceOutstandinBalanceBlock
-        else
-          AnnounceUsageBalanceBlock
-        end
-      else
-        AgentTransferBlock
-      end
-    else
-      AgentTransferBlock
-      # VerificationQuestionDialog
-    end
-
+    SelfServiceCreditCardRemainingBalanceDialog
   end
 
 #  ending do |session, params|

@@ -1,5 +1,4 @@
-class VerificationQuestionDialog < ApplicationBaseDialog
-
+class ConfirmCreditCardIdentificationDialog < ApplicationBaseDialog
 
   description <<-"DESCRIPTION"
     TODO: Explain this dialog module briefly
@@ -8,8 +7,8 @@ class VerificationQuestionDialog < ApplicationBaseDialog
   #
   #== Prompts
   #
-  init1         ['%announce_verify_question%']
-  init2         ['%announce_verify_question%']
+  init1         ['credit_card_id_is', '%speech_input_number_prompts%', 'is_it_correct']
+  init2         ['credit_card_id_is', '%speech_input_number_prompts%', 'is_it_correct']
 
   # retry1        ['sorry_i_cannot_understand_you',
   #                'can_you_say_yes_or_no_again']
@@ -35,7 +34,7 @@ class VerificationQuestionDialog < ApplicationBaseDialog
   #
   #== Properties
   #
-  grammar_name           "birth_weekday.gram" # TODO: Please set your grammar
+  grammar_name           "yesno.gram" # TODO: Please set your grammar
   # max_retry              2
   confirmation_method    :never
 
@@ -68,32 +67,35 @@ class VerificationQuestionDialog < ApplicationBaseDialog
     # The last value should be next dialog.  But note that this block does not allow
     # to use 'return'.
     session.logger.info("action")
-
-    # result = get_identification session
-    # session["announcement_info"] = get_announcement session
-    # uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_data")
-    # response = Net::HTTP.post_form(uri, "product" => session["identification_info"]["product"], "card_id" => session["identification_info"]["card_id"])
-    # session["announcement_info"] = JSON.parse(response.body)
-    if session["identification_info"]["birth_weekday"] == session["result"]
-      uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_data")
-      response = Net::HTTP.post_form(uri, "product" => session["identification_info"]["product"], "card_id" => session["identification_info"]["card_id"])
-      session["announcement_info"] = JSON.parse(response.body)
-      if session["announcement_info"]["card_status"] == "active" #session["announcement_info"]["status"] != "error" && session["announcement_info"]["card_status"] == "active"
-        if session["result_item"]["intention"] == "remaining_balance"
-          SelfServiceCreditCardRemainingBalanceDialog
-        elsif session["result_item"]["intention"] == "outstanding_balance"
-          AnnounceOutstandinBalanceBlock
-        else
-          AnnounceUsageBalanceBlock
-        end
-      else
+        
+    if timeout?(session)
+      increase_timeout(session)
+      if (retry_exceeded?(session)) || (total_exceeded?(session))
         AgentTransferBlock
+      else
+	      CreditCardIdentificationDialog
       end
-    else
-      AgentTransferBlock
-      # VerificationQuestionDialog
-    end
+    
+    elsif rejected?(session)
+      increase_reject(session)
+      if (reject_exceeded?(session)) || (total_exceeded?(session))
+        AgentTransferBlock
+      else
+        CreditCardIdentificationDialog
+      end
 
+    else # recognized
+      if session["result"] =~ /yes/i
+        VerificationQuestionDialog
+      else
+        increase_retry(session)
+        if (retry_exceeded? session) || (total_exceeded? session)
+          AgentTransferBlock
+        else
+          CreditCardIdentificationDialog
+        end
+      end
+    end
   end
 
 #  ending do |session, params|

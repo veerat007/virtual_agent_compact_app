@@ -4,23 +4,19 @@ class AskForProductDialog < ApplicationBaseDialog
     TODO: Explain this dialog module briefly
   DESCRIPTION
 
-  #
   #== Prompts
-  #
-  init1         ['want_to_receive_service', 'ask_product']
-  init2         ['sorry_can_you_say_again']
-  init3         ['sorry_can_you_say_again']
+  #init1         ['want_to_receive_service', 'ask_product']
+  #init2         ['sorry_can_you_say_again']
+  #init3         ['sorry_can_you_say_again']
 
-  #
+  init1           AmiVoice::DialogModule::Settings.dialog_property.ask_for_product_dialog.prompts.init[0]
+  init2           AmiVoice::DialogModule::Settings.dialog_property.ask_for_product_dialog.prompts.retry[0]
+  init3           AmiVoice::DialogModule::Settings.dialog_property.ask_for_product_dialog.prompts.retry[0]
+
   #== Properties
-  #
-  #grammar_name           "yesno.gram" # TODO: Please set your grammar
-  #max_retry              2
   confirmation_method    :never
 
-  #
   #==Action
-  #
 
   action do |session|
     save_result(session)
@@ -54,7 +50,12 @@ class AskForProductDialog < ApplicationBaseDialog
           end
         end
       else
-        AskForIntentDialog
+        increase_retry(session)
+        if (retry_exceeded?(session)) || (total_exceeded?(session))
+          AgentTransferBlock
+        else
+          AskForProductDialog
+        end
       end
 
     end

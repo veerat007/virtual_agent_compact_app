@@ -4,22 +4,17 @@ class ConfirmIntentionDialog < ApplicationBaseDialog
     TODO: Explain this dialog module briefly
   DESCRIPTION
 
-  #
   #== Prompts
-  #
-  init1         ['you_contact_intention', 'of_product', 'if_yes_please_wait']
-  init2         ['sorry_ask_for_service_with_short_sentence']
+  #init1         ['you_contact_intention', 'of_product', 'if_yes_please_wait']
+  #init2         ['sorry_ask_for_service_with_short_sentence']
 
-  #
+  init1           AmiVoice::DialogModule::Settings.dialog_property.confirm_intent_dialog.prompts.init[0]
+
   #== Properties
-  #
   grammar_name           "yesno.gram" # TODO: Please set your grammar
-  #max_retry              2
   confirmation_method    :never
 
-  #
   #==Action
-  #
 
   action do |session|
     
@@ -30,7 +25,7 @@ class ConfirmIntentionDialog < ApplicationBaseDialog
         ### 
       end
       
-    elsif rejected?(session)
+    elsif rejected?(session, true)
       increase_reject(session)
       if (reject_exceeded?(session)) || (total_exceeded?(session))
         AgentTransferBlock

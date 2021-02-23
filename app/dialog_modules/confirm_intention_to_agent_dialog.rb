@@ -4,21 +4,16 @@ class ConfirmIntentionToAgentDialog < ApplicationBaseDialog
     TODO: Explain this dialog module briefly
   DESCRIPTION
 
-  #
   #== Prompts
-  #
-  init1         ['transfer_to_agent_for_service', 'of_product', 'if_yes_please_wait']
+  #init1         ['transfer_to_agent_for_service', 'of_product', 'if_yes_please_wait']
 
-  #
+  init1           AmiVoice::DialogModule::Settings.dialog_property.confirm_intent_to_agent_dialog.prompts.init[0]
+
   #== Properties
-  #
   grammar_name           "yesno.gram" # TODO: Please set your grammar
-  #max_retry              2
   confirmation_method    :never
 
-  #
   #==Action
-  #
 
   action do |session|
     
@@ -26,7 +21,7 @@ class ConfirmIntentionToAgentDialog < ApplicationBaseDialog
       #increase_timeout(session)
       AgentTransferBlock
       
-    elsif rejected?(session)
+    elsif rejected?(session, true)
       increase_reject(session)
       if (reject_exceeded?(session)) || (total_exceeded?(session))
         AgentTransferBlock

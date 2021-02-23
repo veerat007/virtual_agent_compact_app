@@ -4,16 +4,16 @@ class MainMenuDialog < ApplicationBaseDialog
     TODO: Explain this dialog module briefly
   DESCRIPTION
 
-  #
   #== Prompts
-  #
-  init1         ['welcome']
-  init2         ['sorry_ask_for_service_with_short_sentence'] #['sorry_ask_for_service_again']
-  init3         ['sorry_ask_for_service_with_short_sentence'] #['sorry_ask_for_service_again']
+  #init1         ['welcome']
+  #init2         ['sorry_ask_for_service_with_short_sentence'] #['sorry_ask_for_service_again']
+  #init3         ['sorry_ask_for_service_with_short_sentence'] #['sorry_ask_for_service_again']
 
-  #
+  init1           AmiVoice::DialogModule::Settings.dialog_property.main_menu_dialog.prompts.init[0]
+  init2           AmiVoice::DialogModule::Settings.dialog_property.main_menu_dialog.prompts.retry[0]
+  init3           AmiVoice::DialogModule::Settings.dialog_property.main_menu_dialog.prompts.retry[0]
+
   #== Properties
-  #
   #grammar_name           "yesno.gram" # TODO: Please set your grammar
   max_retry              2
   timeout                "3s"
@@ -24,32 +24,11 @@ class MainMenuDialog < ApplicationBaseDialog
   confidence_level       0.0
   confirmation_method    :never
   
-  #
   #==Action
-  #
-
-
-#  before_generate_vxml do |session, params|
-#    session.logger.info("before_generate_vxml")
-#  end
-
-#
-# When you want to write your own rule for confirmation, you can
-# change confirmation_method :server and uncomment below.
-#
-#  confirmation_method_server do |session, params|
-#    session.logger.info("confirmation_method_server")
-#    result = "accept" # or "confirm" or "reject"
-#    prompts = []
-#    [result, prompts]
-#  end
-
-#  before_confirmation do |session, params|
-#    session.logger.info("before_confirmation")
-#  end
 
   action do |session|
     save_result(session)
+    #dialog_proproty = get_dialog_proproty()
     if timeout?(session)
       increase_timeout(session)
       if (retry_exceeded?(session)) || (total_exceeded?(session))
@@ -91,8 +70,11 @@ class MainMenuDialog < ApplicationBaseDialog
 
       elsif has_product(session) ### Check contrains Product.
         increase_retry(session)
-        AskForIntentDialog
-
+        if (retry_exceeded?(session)) || (total_exceeded?(session))
+          AgentTransferBlock
+        else
+          AskForIntentDialog
+        end
       else
         increase_retry(session)
         if (retry_exceeded?(session)) || (total_exceeded?(session))

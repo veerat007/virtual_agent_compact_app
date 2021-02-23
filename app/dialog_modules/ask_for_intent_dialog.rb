@@ -4,23 +4,19 @@ class AskForIntentDialog < ApplicationBaseDialog
     TODO: Explain this dialog module briefly
   DESCRIPTION
 
-  #
   #== Prompts
-  #
-  init1         ['ask_intention']
-  init2         ['sorry_ask_for_service_again']
-  init3         ['sorry_ask_for_service_again']
+  #init1         ['ask_intention']
+  #init2         ['sorry_ask_for_service_again']
+  #init3         ['sorry_ask_for_service_again']
 
-  #
+  init1           AmiVoice::DialogModule::Settings.dialog_property.ask_for_intent_dialog.prompts.init[0]
+  init2           AmiVoice::DialogModule::Settings.dialog_property.ask_for_intent_dialog.prompts.retry[0]
+  init3           AmiVoice::DialogModule::Settings.dialog_property.ask_for_intent_dialog.prompts.retry[0]
+
   #== Properties
-  #
-  #grammar_name           "yesno.gram" # TODO: Please set your grammar
-  #max_retry              2
   confirmation_method    :never
 
-  #
   #==Action
-  #
 
   action do |session|
     save_result(session)
@@ -64,10 +60,18 @@ class AskForIntentDialog < ApplicationBaseDialog
         end
       elsif has_product(session) ### Check contrains Product.
         increase_retry(session)
-        AskForIntentDialog
+        if (retry_exceeded?(session)) || (total_exceeded?(session))
+          AgentTransferBlock
+        else
+          AskForIntentDialog
+        end
       else
         increase_retry(session)
-        MainMenuDialog
+        if (retry_exceeded?(session)) || (total_exceeded?(session))
+          AgentTransferBlock
+        else
+          AskForIntentDialog
+        end
       end
     end
 

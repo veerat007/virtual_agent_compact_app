@@ -28,23 +28,50 @@ defaults: &defaults
   max_retry:                      2
   confirm_intention_always:       false
   
-  
+  ### confirmation_option "always", "never", "confidence_base"
   dialog_property:
-    main_dialog:
+    main_menu_dialog:
       max_retry:                             2
-      confirmation_option:                   "never"
+      confirmation_option:                   'never'
       confirmation_confidence_threshold:     0.1
       prompts:
-        init:                                []
+        init:                                [['welcome']]
+        retry:                               [['sorry_ask_for_service_with_short_sentence']]
+        reject:                              [['sorry_ask_for_service_with_short_sentence']]
+        timeout:                             [['sorry_ask_for_service_with_short_sentence']]
+    ask_for_product_dialog:
+      max_retry:                             2
+      confirmation_option:                   'never'
+      confirmation_confidence_threshold:     0.1
+      prompts:
+        init:                                [['want_to_receive_service', 'ask_product']]
+        retry:                               [['sorry_can_you_say_again']]
+        reject:                              [['sorry_can_you_say_again']]
+        timeout:                             [['sorry_can_you_say_again']]
+    ask_for_intent_dialog:
+      max_retry:                             2
+      confirmation_option:                   'never'
+      confirmation_confidence_threshold:     0.1
+      prompts:
+        init:                                [['ask_intention']]
+        retry:                               [['sorry_ask_for_service_again']]
+        reject:                              [['sorry_ask_for_service_again']]
+        timeout:                             [['sorry_ask_for_service_again']]
+    confirm_intent_dialog:
+      max_retry:                             2
+      confirmation_option:                   'never'
+      confirmation_confidence_threshold:     0.1
+      prompts:
+        init:                                [['you_contact_intention', 'of_product', 'if_yes_please_wait']]
         retry:                               []
         reject:                              []
         timeout:                             []
-    ask_for_product_dialog:
+    confirm_intent_to_agent_dialog:
       max_retry:                             2
-      confirmation_option:                   "never"
+      confirmation_option:                   'never'
       confirmation_confidence_threshold:     0.1
       prompts:
-        init:                                []
+        init:                                [['transfer_to_agent_for_service', 'of_product', 'if_yes_please_wait']]
         retry:                               []
         reject:                              []
         timeout:                             []

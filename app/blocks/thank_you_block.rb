@@ -2,7 +2,7 @@ class ThankYouBlock < AmiVoice::DialogModule::BlockBase
   
   class << self
 
-    exit_after_this_block = false
+    exit_after_this_block = true
 
     define_method :exit= do |value|
       exit_after_this_block = value

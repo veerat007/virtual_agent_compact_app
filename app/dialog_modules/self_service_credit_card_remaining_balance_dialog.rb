@@ -13,7 +13,7 @@ class SelfServiceCreditCardRemainingBalanceDialog < ApplicationBaseDialog
                   card_id = data["card_id"]
                   card_type = data["card_type"]
                   credit_limit = data["amount"]["credit_limit"]
-                  remaining_balance = data['amount']["remaining_balance"]
+                  remaining_balance = data['amount']["remaining_balance"].to_s.gsub!(",", "")
 
                   prompts.push "card_type"
                   prompts.push "#{card_type.downcase.gsub(" ", "_")}"

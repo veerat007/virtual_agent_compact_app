@@ -35,14 +35,7 @@ class VerificationQuestionDialog < ApplicationBaseDialog
   #
   #== Properties
   #
-  if session["verify_question_name"] == "birth_weekday"
-    grammar_name           "birth_weekday.gram" # TODO: Please set your grammar
-  elsif session["verify_question_name"] == "date_of_birth"
-    grammar_name           "gram2.gram"
-  else
-    grammar_name           "gram2.gram"
-  end
-
+  grammar_name          "birth_weekday.gram"
   # max_retry              2
   confirmation_method    :never
 

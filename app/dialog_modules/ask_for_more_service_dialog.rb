@@ -8,7 +8,7 @@ class AskForMoreServiceDialog < ApplicationBaseDialog
   #== Prompts
   #
   init1         ['ask_additional_service']
-  # init2         ['please_say_yes_or_no']
+  init2         ['ask_additional_service']
 
   # retry1        ['sorry_i_cannot_understand_you',
   #                'can_you_say_yes_or_no_again']
@@ -35,7 +35,7 @@ class AskForMoreServiceDialog < ApplicationBaseDialog
   #== Properties
   #
   grammar_name           "yesno.gram" # TODO: Please set your grammar
-  max_retry              2
+  # max_retry              2
   confirmation_method    :never
 
   #
@@ -67,10 +67,31 @@ class AskForMoreServiceDialog < ApplicationBaseDialog
     # The last value should be next dialog.  But note that this block does not allow
     # to use 'return'.
     session.logger.info("action")
-    if session["result"] == 'Yes'
-      AgentTransferBlock
-    else
-      ThankYouBlock
+    if timeout?(session)
+      increase_timeout(session)
+      AskForMoreServiceDialog
+      # if (retry_exceeded?(session)) || (total_exceeded?(session))
+      #   AgentTransferBlock
+      # else
+	    #   CreditCardIdentificationDialog
+      # end
+    
+    elsif rejected?(session)
+      increase_reject(session)
+      AskForMoreServiceDialog
+      # if (reject_exceeded?(session)) || (total_exceeded?(session))
+      #   AgentTransferBlock
+      # else
+      #   CreditCardIdentificationDialog
+      # end
+
+    else # recognized
+      if session["result"] =~ /yes/i
+        AgentTransferBlock
+      else
+        increase_retry(session)
+        ThankYouBlock
+      end
     end
     # AskForMoreServiceDialog
   end

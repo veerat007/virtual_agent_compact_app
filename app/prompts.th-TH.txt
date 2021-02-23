@@ -26,6 +26,8 @@ ask_citizen_id.wav                              ขอทราบหมาย�
 sorry_can_say_ask_citizen_id_again.wav          ขออภัยค่ะ ขอทราบหมายบัตรประชาชน 13 หลัก อีกครั้งค่ะ
 citizen_id_is.wav                               หมายเลขบัตรประชาชนของคุณคือ
 card_type.wav                                   บัตร
+visa.wav                                        วีซ่า
+mastercard.wav                                  มาสเตอร์การ์ด
 ending_card_id.wav                              ที่ลงท้ายด้วย
 close_date_card_balance.wav                     วันปิดยอดการใช้บัตร คือ วันที่
 due_date_card_balance.wav                       กำหนดชำระเงินวันที่
@@ -33,6 +35,8 @@ amount.wav                                      จำนวน
 payment_amount.wav                              เงินที่ต้องชำระ คือ
 minimum_payment_amount.wav                      จำนวนเงินที่ต้องชำระขั้นต่ำ
 baht.wav                                        บาท
+satang.wav                                      สตางค์
+million.wav	                                    ล้าน
 remaining_balance.wav                           วงเงินคงเหลือที่คุณใช้ได้คือ
 usage_balance.wav                               วงเงินบัตรเครดิตที่คุณใช้ไป
 over_usage_balance.wav                          คุณใช้เกินวงเงินเป็นจำนวน
@@ -59,16 +63,350 @@ can_you_say_again.wav                           รบกวนตอบอี�
 service_unavailable.wav                         ขออภัยค่ะ ขณะนี้ระบบไม่สามารถใช้งานได้ชั่วคราว กรุณาลองใหม่อีกครั้งนะคะ
 please_say_your_message.wav                     โปรดฝากข้อความไว้คะ
 
-number/0.wav                          0
-number/1.wav                          1
-number/2.wav                          2
-number/3.wav                          3
-number/4.wav                          4
-number/5.wav                          5
-number/6.wav                          6
-number/7.wav                          7
-number/8.wav                          8
-number/9.wav                          9
+number/0.wav	0
+number/1.wav	1
+number/2.wav    2
+number/3.wav    3
+number/4.wav    4
+number/5.wav    5
+number/6.wav    6
+number/7.wav    7
+number/8.wav    8
+number/9.wav    9
+number/10.wav	10
+number/11.wav	11
+number/12.wav	12
+number/13.wav	13
+number/14.wav	14
+number/15.wav	15
+number/16.wav	16
+number/17.wav	17
+number/18.wav	18
+number/19.wav	19
+number/20.wav	20
+number/21.wav	21
+number/22.wav	22
+number/23.wav	23
+number/24.wav	24
+number/25.wav	25
+number/26.wav	26
+number/27.wav	27
+number/28.wav	28
+number/29.wav	29
+number/30.wav	30
+number/31.wav	31
+number/32.wav	32
+number/33.wav	33
+number/34.wav	34
+number/35.wav	35
+number/36.wav	36
+number/37.wav	37
+number/38.wav	38
+number/39.wav	39
+number/40.wav	40
+number/41.wav	41
+number/42.wav	42
+number/43.wav	43
+number/44.wav	44
+number/45.wav	45
+number/46.wav	46
+number/47.wav	47
+number/48.wav	48
+number/49.wav	49
+number/50.wav	50
+number/51.wav	51
+number/52.wav	52
+number/53.wav	53
+number/54.wav	54
+number/55.wav	55
+number/56.wav	56
+number/57.wav	57
+number/58.wav	58
+number/59.wav	59
+number/60.wav	60
+number/61.wav	61
+number/62.wav	62
+number/63.wav	63
+number/64.wav	64
+number/65.wav	65
+number/66.wav	66
+number/67.wav	67
+number/68.wav	68
+number/69.wav	69
+number/70.wav	70
+number/71.wav	71
+number/72.wav	72
+number/73.wav	73
+number/74.wav	74
+number/75.wav	75
+number/76.wav	76
+number/77.wav	77
+number/78.wav	78
+number/79.wav	79
+number/80.wav	80
+number/81.wav	81
+number/82.wav	82
+number/83.wav	83
+number/84.wav	84
+number/85.wav	85
+number/86.wav	86
+number/87.wav	87
+number/88.wav	88
+number/89.wav	89
+number/90.wav	90
+number/91.wav	91
+number/92.wav	92
+number/93.wav	93
+number/94.wav	94
+number/95.wav	95
+number/96.wav	96
+number/97.wav	97
+number/98.wav	98
+number/99.wav	99
+number/100.wav	100
+number/200.wav	200
+number/300.wav	300
+number/400.wav	400
+number/500.wav	500
+number/600.wav	600
+number/700.wav	700
+number/800.wav	800
+number/900.wav	900
+number/1000.wav	1000
+number/1100.wav	1100
+number/1200.wav	1200
+number/1300.wav	1300
+number/1400.wav	1400
+number/1500.wav	1500
+number/1600.wav	1600
+number/1700.wav	1700
+number/1800.wav	1800
+number/1900.wav	1900
+number/2000.wav	2000
+number/3000.wav	3000
+number/4000.wav	4000
+number/5000.wav	5000
+number/6000.wav	6000
+number/7000.wav	7000
+number/8000.wav	8000
+number/9000.wav	9000
+number/10000.wav	10000
+number/20000.wav	20000
+number/30000.wav	30000
+number/40000.wav	40000
+number/50000.wav	50000
+number/60000.wav	60000
+number/70000.wav	70000
+number/80000.wav	80000
+number/90000.wav	90000
+number/100000.wav	100000
+number/200000.wav	200000
+number/300000.wav	300000
+number/400000.wav	400000
+number/500000.wav	500000
+number/600000.wav	600000
+number/700000.wav	700000
+number/800000.wav	800000
+number/900000.wav	900000
+number/1000000.wav	1000000
+number/2000000.wav	2000000
+number/3000000.wav	3000000
+number/4000000.wav	4000000
+number/5000000.wav	5000000
+number/6000000.wav	6000000
+number/7000000.wav	7000000
+number/8000000.wav	8000000
+number/9000000.wav	9000000
+number/10000000.wav	10000000
+number/11000000.wav	11000000
+number/12000000.wav	12000000
+number/13000000.wav	13000000
+number/14000000.wav	14000000
+number/15000000.wav	15000000
+number/16000000.wav	16000000
+number/17000000.wav	17000000
+number/18000000.wav	18000000
+number/19000000.wav	19000000
+number/20000000.wav	20000000
+number/21000000.wav	21000000
+number/22000000.wav	22000000
+number/23000000.wav	23000000
+number/24000000.wav	24000000
+number/25000000.wav	25000000
+number/26000000.wav	26000000
+number/27000000.wav	27000000
+number/28000000.wav	28000000
+number/29000000.wav	29000000
+number/30000000.wav	30000000
+number/31000000.wav	31000000
+number/32000000.wav	32000000
+number/33000000.wav	33000000
+number/34000000.wav	34000000
+number/35000000.wav	35000000
+number/36000000.wav	36000000
+number/37000000.wav	37000000
+number/38000000.wav	38000000
+number/39000000.wav	39000000
+number/40000000.wav	40000000
+number/41000000.wav	41000000
+number/42000000.wav	42000000
+number/43000000.wav	43000000
+number/44000000.wav	44000000
+number/45000000.wav	45000000
+number/46000000.wav	46000000
+number/47000000.wav	47000000
+number/48000000.wav	48000000
+number/49000000.wav	49000000
+number/50000000.wav	50000000
+number/51000000.wav	51000000
+number/52000000.wav	52000000
+number/53000000.wav	53000000
+number/54000000.wav	54000000
+number/55000000.wav	55000000
+number/56000000.wav	56000000
+number/57000000.wav	57000000
+number/58000000.wav	58000000
+number/59000000.wav	59000000
+number/60000000.wav	60000000
+number/61000000.wav	61000000
+number/62000000.wav	62000000
+number/63000000.wav	63000000
+number/64000000.wav	64000000
+number/65000000.wav	65000000
+number/66000000.wav	66000000
+number/67000000.wav	67000000
+number/68000000.wav	68000000
+number/69000000.wav	69000000
+number/70000000.wav	70000000
+number/71000000.wav	71000000
+number/72000000.wav	72000000
+number/73000000.wav	73000000
+number/74000000.wav	74000000
+number/75000000.wav	75000000
+number/76000000.wav	76000000
+number/77000000.wav	77000000
+number/78000000.wav	78000000
+number/79000000.wav	79000000
+number/80000000.wav	80000000
+number/81000000.wav	81000000
+number/82000000.wav	82000000
+number/83000000.wav	83000000
+number/84000000.wav	84000000
+number/85000000.wav	85000000
+number/86000000.wav	86000000
+number/87000000.wav	87000000
+number/88000000.wav	88000000
+number/89000000.wav	89000000
+number/90000000.wav	90000000
+number/91000000.wav	91000000
+number/92000000.wav	92000000
+number/93000000.wav	93000000
+number/94000000.wav	94000000
+number/95000000.wav	95000000
+number/96000000.wav	96000000
+number/97000000.wav	97000000
+number/98000000.wav	98000000
+number/99000000.wav	99000000
+number/0_satang.wav	0 สตางค์
+number/1_satang.wav	1 สตางค์
+number/2_satang.wav	2 สตางค์
+number/3_satang.wav	3 สตางค์
+number/4_satang.wav	4 สตางค์
+number/5_satang.wav	5 สตางค์
+number/6_satang.wav	6 สตางค์
+number/7_satang.wav	7 สตางค์
+number/8_satang.wav	8 สตางค์
+number/9_satang.wav	9 สตางค์
+number/10_satang.wav	10 สตางค์
+number/11_satang.wav	11 สตางค์
+number/12_satang.wav	12 สตางค์
+number/13_satang.wav	13 สตางค์
+number/14_satang.wav	14 สตางค์
+number/15_satang.wav	15 สตางค์
+number/16_satang.wav	16 สตางค์
+number/17_satang.wav	17 สตางค์
+number/18_satang.wav	18 สตางค์
+number/19_satang.wav	19 สตางค์
+number/20_satang.wav	20 สตางค์
+number/21_satang.wav	21 สตางค์
+number/22_satang.wav	22 สตางค์
+number/23_satang.wav	23 สตางค์
+number/24_satang.wav	24 สตางค์
+number/25_satang.wav	25 สตางค์
+number/26_satang.wav	26 สตางค์
+number/27_satang.wav	27 สตางค์
+number/28_satang.wav	28 สตางค์
+number/29_satang.wav	29 สตางค์
+number/30_satang.wav	30 สตางค์
+number/31_satang.wav	31 สตางค์
+number/32_satang.wav	32 สตางค์
+number/33_satang.wav	33 สตางค์
+number/34_satang.wav	34 สตางค์
+number/35_satang.wav	35 สตางค์
+number/36_satang.wav	36 สตางค์
+number/37_satang.wav	37 สตางค์
+number/38_satang.wav	38 สตางค์
+number/39_satang.wav	39 สตางค์
+number/40_satang.wav	40 สตางค์
+number/41_satang.wav	41 สตางค์
+number/42_satang.wav	42 สตางค์
+number/43_satang.wav	43 สตางค์
+number/44_satang.wav	44 สตางค์
+number/45_satang.wav	45 สตางค์
+number/46_satang.wav	46 สตางค์
+number/47_satang.wav	47 สตางค์
+number/48_satang.wav	48 สตางค์
+number/49_satang.wav	49 สตางค์
+number/50_satang.wav	50 สตางค์
+number/51_satang.wav	51 สตางค์
+number/52_satang.wav	52 สตางค์
+number/53_satang.wav	53 สตางค์
+number/54_satang.wav	54 สตางค์
+number/55_satang.wav	55 สตางค์
+number/56_satang.wav	56 สตางค์
+number/57_satang.wav	57 สตางค์
+number/58_satang.wav	58 สตางค์
+number/59_satang.wav	59 สตางค์
+number/60_satang.wav	60 สตางค์
+number/61_satang.wav	61 สตางค์
+number/62_satang.wav	62 สตางค์
+number/63_satang.wav	63 สตางค์
+number/64_satang.wav	64 สตางค์
+number/65_satang.wav	65 สตางค์
+number/66_satang.wav	66 สตางค์
+number/67_satang.wav	67 สตางค์
+number/68_satang.wav	68 สตางค์
+number/69_satang.wav	69 สตางค์
+number/70_satang.wav	70 สตางค์
+number/71_satang.wav	71 สตางค์
+number/72_satang.wav	72 สตางค์
+number/73_satang.wav	73 สตางค์
+number/74_satang.wav	74 สตางค์
+number/75_satang.wav	75 สตางค์
+number/76_satang.wav	76 สตางค์
+number/77_satang.wav	77 สตางค์
+number/78_satang.wav	78 สตางค์
+number/79_satang.wav	79 สตางค์
+number/80_satang.wav	80 สตางค์
+number/81_satang.wav	81 สตางค์
+number/82_satang.wav	82 สตางค์
+number/83_satang.wav	83 สตางค์
+number/84_satang.wav	84 สตางค์
+number/85_satang.wav	85 สตางค์
+number/86_satang.wav	86 สตางค์
+number/87_satang.wav	87 สตางค์
+number/88_satang.wav	88 สตางค์
+number/89_satang.wav	89 สตางค์
+number/90_satang.wav	90 สตางค์
+number/91_satang.wav	91 สตางค์
+number/92_satang.wav	92 สตางค์
+number/93_satang.wav	93 สตางค์
+number/94_satang.wav	94 สตางค์
+number/95_satang.wav	95 สตางค์
+number/96_satang.wav	96 สตางค์
+number/97_satang.wav	97 สตางค์
+number/98_satang.wav	98 สตางค์
+number/99_satang.wav	99 สตางค์
 
 verify_question/date_of_birth.wav     ขอทราบวันเดือนปีเกิดของคุณค่ะ
 verify_question/phone_number.wav      ขอทราบเบอร์โทรศัพท์มือถือของคุณค่ะ

@@ -17,6 +17,7 @@ public <yesno_th> = (<main> | <noise>);
 <affirmative> = ( ใช่
                 | ถูก
                 | ถูก ต้อง
+                | ต้องการ
                 );
 
 <k> = ( ค่ะ
@@ -31,6 +32,7 @@ public <yesno_th> = (<main> | <noise>);
 //addWord ใช่ "ch ai"
 //addWord ถูก "th u: k"
 //addWord ต้อง "t oo: ng"
+//addWord ต้องการ "t oo: ng k a: n"
 //addWord ไม่ "m ai"
 //addWord จ้ะ "j a"
 //addWord จ้ะ "j a:"

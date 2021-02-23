@@ -9,28 +9,21 @@ class SelfServiceCreditCardRemainingBalanceDialog < ApplicationBaseDialog
   #
   init1         { |session| 
     prompts = []
-    # result = get_identification session
-    # session["announcement_info"].each { |announcement_info|
-      data = session["announcement_info"]['card_info'][0]
-      card_id = data['card_id']
-      card_type = data['card_type']
-      credit_limit = data['amount']['credit_limit']
-      remaining_balance = data['amount']['remaining_balance']
-      # date_closed = data['card_info']['dateClosed']
-      # due_date = data['card_info']['dateDue']
+    data = session["announcement_info"]["card_info"][0]
+    card_id = data["card_id"]
+    card_type = data["card_type"]
+    credit_limit = data["amount"]["credit_limit"]
+    remaining_balance = data['amount']["remaining_balance"]
 
-      prompts.push 'credit_card_type/card'
-      prompts.push "credit_card_type/#{card_type}"
-      prompts.push "common/end_with"
-      prompts.push card_id.split('').last(4).map { |s| s.prepend('number/') }
-      prompts.push "self_service/credit_card/due_amount"
-      prompts.push NamedPrompt.currency_prompts data['card_info']['dueAmount']
-      prompts.push "self_service/credit_card/due_min_amount"
-      prompts.push NamedPrompt.currency_prompts data['card_info']['dueMinAmount']
-      prompts.push "self_service/credit_card/due_date"
-      prompts.push NamedPrompt.date_prompts(due_date, skip_full_year:false, skip_this_year:false)
-    }
-  # }
+    prompts.push "card_type"
+    prompts.push "#{card_type.downcase.gsub(" ", "_")}"
+    prompts.push card_id.split('').last(4).map { |s| s.prepend('number/') }
+    prompts.push "remaining_balance"
+    prompts.push NamedPrompt.currency_prompts remaining_balance
+    prompts.push "you_can_listen_again"
+
+  }
+
 
   # init2         ['please_say_yes_or_no']
 
@@ -60,7 +53,7 @@ class SelfServiceCreditCardRemainingBalanceDialog < ApplicationBaseDialog
   #
   grammar_name           "yesno.gram" # TODO: Please set your grammar
   # max_retry              2
-  # confirmation_method    :always
+  confirmation_method    :never
 
   #
   #==Action
@@ -91,7 +84,23 @@ class SelfServiceCreditCardRemainingBalanceDialog < ApplicationBaseDialog
     # The last value should be next dialog.  But note that this block does not allow
     # to use 'return'.
     session.logger.info("action")
-    SelfServiceCreditCardRemainingBalanceDialog
+
+    if timeout?(session)
+      increase_timeout(session)
+      AskForMoreServiceDialog
+    
+    elsif rejected?(session)
+      increase_reject(session)
+      AskForMoreServiceDialog
+
+    else # recognized
+      if session["result"] =~ /yes/i
+        SelfServiceCreditCardRemainingBalanceDialog
+      else
+        increase_retry(session)
+        AskForMoreServiceDialog
+      end
+    end
   end
 
 #  ending do |session, params|

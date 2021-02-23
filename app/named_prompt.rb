@@ -97,6 +97,47 @@ module NamedPrompt
         prompt << 'verify_question/birth_weekday' # prompt_list.simple
       end
     end
+
+    def number_prompts number
+      prompts = []
+      if number == 0
+        prompts << "number/0"
+      else
+        [1_000_000,100_000,10_000,1000,100,1].each do |n|
+          x = number / n
+          number = number % n
+          unless x == 0
+            if n == 1_000_000
+            prompts << number_prompts((x/100)*100) if x >= 100
+            prompts << "million" if x%100 == 0      # 100_000_000, 200_000_000, ...
+            prompts << "number/%d" % ((x % 100) * n) if ((x % 100) * n) != 0
+            else
+            prompts << "number/%d" % (x * n)
+            end
+          end
+        end
+      end
+      prompts
+    end
+
+    def currency_prompts number
+      prompts = []
+      if number.to_f < 0
+        number = number.to_s.gsub!(/[-]/,'')
+      end
+      number = "%0.2f" % number
+      number_arr = number.to_s.split('.')
+      baht = number_arr[0].to_i
+      satang = number_arr[1].to_i
+      if baht > 0 || satang == 0
+        prompts << number_prompts(baht)
+        prompts << 'baht'
+      end
+      if satang > 0
+        prompts << "number/#{satang}_satang"
+      end
+      prompts
+    end
     
   end
 end

@@ -35,7 +35,14 @@ class VerificationQuestionDialog < ApplicationBaseDialog
   #
   #== Properties
   #
-  grammar_name           "birth_weekday.gram" # TODO: Please set your grammar
+  if session["verify_question_name"] == "birth_weekday"
+    grammar_name           "birth_weekday.gram" # TODO: Please set your grammar
+  elsif session["verify_question_name"] == "date_of_birth"
+    grammar_name           "gram2.gram"
+  else
+    grammar_name           "gram2.gram"
+  end
+
   # max_retry              2
   confirmation_method    :never
 
@@ -78,13 +85,13 @@ class VerificationQuestionDialog < ApplicationBaseDialog
       uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_data")
       response = Net::HTTP.post_form(uri, "product" => session["identification_info"]["product"], "card_id" => session["identification_info"]["card_id"])
       session["announcement_info"] = JSON.parse(response.body)
-      if session["announcement_info"]["card_status"] == "active" #session["announcement_info"]["status"] != "error" && session["announcement_info"]["card_status"] == "active"
+      if session["announcement_info"]["card_info"][0]["card_status"] == "active" #session["announcement_info"]["status"] != "error" && session["announcement_info"]["card_status"] == "active"
         if session["result_item"]["intention"] == "remaining_balance"
           SelfServiceCreditCardRemainingBalanceDialog
         elsif session["result_item"]["intention"] == "outstanding_balance"
-          AnnounceOutstandinBalanceBlock
+          SelfServiceCreditCardOutstandingBalanceDialog
         else
-          AnnounceUsageBalanceBlock
+          SelfServiceCreditCardUsageBalanceDialog
         end
       else
         AgentTransferBlock

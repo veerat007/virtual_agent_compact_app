@@ -12,17 +12,17 @@ module NamedPrompt
     #
     def speech_input_number_prompts session
       if session["result"].present? # session["nl_result"]["asr"]["utterance"].present?
-        prompt = []
+        prompts = []
         session["result"].each do |n|
           if n.match?(/[0-9]/)
-            prompt << "numbers/#{n}"
+            prompts << "number/#{n}"
           end
         end
-        prompt.flatten!
+        prompts.flatten!
       else
-        prompt = [] 
+        prompts = [] 
       end
-      prompt
+      prompts
     end
 
     def retry_prompt session
@@ -83,19 +83,25 @@ module NamedPrompt
     end
 
     def announce_verify_question session
-      prompt = []
+      prompts = []
       # product = get_product(session)
       product = session["identification_info"]["product"] # result from identification API
       if product.present? && product == "credit_card"
         prompt_list = ['verify_question/date_of_birth', 'verify_question/phone_number', 'verify_question/birth_weekday']
-        prompt << 'verify_question/birth_weekday' # prompt_list.simple
+        random_question = prompt_list.simple
+        prompts << random_question #'verify_question/birth_weekday' # prompt_list.simple
       elsif product.present? && product == "bank_account"
         prompt_list = ['verify_question/date_of_birth', 'verify_question/phone_number', 'verify_question/birth_weekday', 'verify_question/have_atm_card']
-        prompt << 'verify_question/birth_weekday' # prompt_list.simple
+        random_question = prompt_list.simple
+        prompts << random_question #'verify_question/birth_weekday' # prompt_list.simple
       elsif product.present? && product == "loan"
         prompt_list = ['verify_question/date_of_birth', 'verify_question/phone_number', 'verify_question/birth_weekday']
-        prompt << 'verify_question/birth_weekday' # prompt_list.simple
+        random_question = prompt_list.simple
+        prompts << random_question #'verify_question/birth_weekday' # prompt_list.simple
       end
+      result = random_question.split("/")
+      session["verify_question_name"] = result[1]
+      prompts
     end
 
     def number_prompts number

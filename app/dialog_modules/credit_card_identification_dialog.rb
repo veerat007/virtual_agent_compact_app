@@ -68,7 +68,7 @@ class CreditCardIdentificationDialog < ApplicationBaseDialog
 	      CreditCardIdentificationDialog
       end
     
-    elsif rejected?(session)
+    elsif rejected?(session, true)
       increase_reject(session)
       if (reject_exceeded?(session)) || (total_exceeded?(session))
         AgentTransferBlock

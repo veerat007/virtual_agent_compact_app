@@ -2,7 +2,7 @@
 
 grammar birth_weekday_th;
 
-public <birth_weekday_th> = ( [<day>] <weekday> [<suffix>] | <noise> {REJECT} );
+public <birth_weekday_th> = [<day>] (<weekday> | <noise>) [<suffix>];
 
 <weekday> = ( อาทิตย์     {Sunday}
             | จันทร์      {Monday}
@@ -21,7 +21,9 @@ public <birth_weekday_th> = ( [<day>] <weekday> [<suffix>] | <noise> {REJECT} );
       | จ้ะ
       );
 
-
+<noise> = ( <NULL>
+          | <GARBAGE>+
+          );
 
 //addWord วัน "w a n"
 //addWord วัน "w a: n"

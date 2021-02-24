@@ -12,7 +12,7 @@ class SelfServiceCreditCardRemainingBalanceDialog < ApplicationBaseDialog
                   data = session["announcement_info"]["card_info"][0]
                   card_id = data["card_id"]
                   card_type = data["card_type"]
-                  credit_limit = data["amount"]["credit_limit"]
+                  credit_limit = data["amount"]["credit_limit"].gsub(",", "")
                   remaining_balance = data['amount']["remaining_balance"].gsub(",", "")
 
                   prompts.push "card_type"
@@ -31,7 +31,7 @@ class SelfServiceCreditCardRemainingBalanceDialog < ApplicationBaseDialog
                   data = session["announcement_info"]["card_info"][0]
                   card_id = data["card_id"]
                   card_type = data["card_type"]
-                  credit_limit = data["amount"]["credit_limit"]
+                  credit_limit = data["amount"]["credit_limit"].gsub(",", "")
                   remaining_balance = data['amount']["remaining_balance"].gsub(",", "")
 
                   prompts.push "card_type"

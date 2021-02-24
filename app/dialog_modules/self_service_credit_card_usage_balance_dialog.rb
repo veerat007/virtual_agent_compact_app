@@ -12,7 +12,7 @@ class SelfServiceCreditCardUsageBalanceDialog < ApplicationBaseDialog
                   data = session["announcement_info"]["card_info"][0]
                   card_id = data["card_id"]
                   card_type = data["card_type"]
-                  credit_limit = data["amount"]["credit_limit"]
+                  credit_limit = data["amount"]["credit_limit"].gsub(",", "")
                   usage_balance = data['amount']["usage_balance"]["usage"].gsub(",", "")
                   over_usage_balance = data['amount']["usage_balance"]["over_usage"].gsub(",", "") if data['amount']["usage_balance"]["over_usage"].present?
 
@@ -36,7 +36,7 @@ class SelfServiceCreditCardUsageBalanceDialog < ApplicationBaseDialog
                   data = session["announcement_info"]["card_info"][0]
                   card_id = data["card_id"]
                   card_type = data["card_type"]
-                  credit_limit = data["amount"]["credit_limit"]
+                  credit_limit = data["amount"]["credit_limit"].gsub(",", "")
                   usage_balance = data['amount']["usage_balance"]["usage"].gsub(",", "")
                   over_usage_balance = data['amount']["usage_balance"]["over_usage"].gsub(",", "") if data['amount']["usage_balance"]["over_usage"].present?
 
@@ -112,7 +112,7 @@ class SelfServiceCreditCardUsageBalanceDialog < ApplicationBaseDialog
     # The last value should be next dialog.  But note that this block does not allow
     # to use 'return'.
     session.logger.info("action")
-    
+
     if timeout?(session)
       increase_timeout(session)
       AskForMoreServiceDialog

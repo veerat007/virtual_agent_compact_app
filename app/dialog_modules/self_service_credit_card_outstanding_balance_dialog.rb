@@ -12,7 +12,7 @@ class SelfServiceCreditCardOutstandingBalanceDialog < ApplicationBaseDialog
                   data = session["announcement_info"]["card_info"][0]
                   card_id = data["card_id"]
                   card_type = data["card_type"]
-                  credit_limit = data["amount"]["credit_limit"]
+                  credit_limit = data["amount"]["credit_limit"].gsub(",", "")
                   statement_closing_date = data["statement_date"]
                   total_payment_due = data['amount']["usage_balance"]["usage"].gsub(",", "")
                   minimum_payment_due = data['min_payment'].gsub(",", "")
@@ -40,7 +40,7 @@ class SelfServiceCreditCardOutstandingBalanceDialog < ApplicationBaseDialog
                   data = session["announcement_info"]["card_info"][0]
                   card_id = data["card_id"]
                   card_type = data["card_type"]
-                  credit_limit = data["amount"]["credit_limit"]
+                  credit_limit = data["amount"]["credit_limit"].gsub(",", "")
                   statement_closing_date = data["statement_date"]
                   total_payment_due = data['amount']["usage_balance"]["usage"].gsub(",", "")
                   minimum_payment_due = data['min_payment'].gsub(",", "")

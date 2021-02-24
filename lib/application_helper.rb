@@ -26,7 +26,7 @@ module ApplicationHelper
     end
 
     def get_dialog_property(session)
-        ิbegin
+        begin
             dialog_prop = AmiVoice::DialogModule::Settings.dialog_property
             result = dialog_prop[session['dialog_name']]
             result
@@ -68,7 +68,7 @@ module ApplicationHelper
     
         result = session['timeout'] > session['max_retry']
         result
-      end
+    end
     
     def retry_exceeded?(session)
         session['retry'] = 0 if session['retry'].nil?

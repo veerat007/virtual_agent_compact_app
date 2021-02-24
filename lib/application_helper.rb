@@ -2,7 +2,7 @@ module ApplicationHelper
     MAX_RETRY = AmiVoice::DialogModule::Settings.max_retry if AmiVoice::DialogModule::Settings.max_retry.present?
 
     def transfer_to_destination session
-        if is_transfer_ivr
+        if is_transfer_ivr(session)
             #### Go to IVR
         else
             reset_counter(session)
@@ -25,7 +25,7 @@ module ApplicationHelper
         end
     end
 
-    def get_dialog_property(session)
+    def get_dialog_property session
         begin
             dialog_prop = AmiVoice::DialogModule::Settings.dialog_property
             result = dialog_prop[session['dialog_name']]
@@ -35,7 +35,7 @@ module ApplicationHelper
         end
     end
 
-    def reset_counter(session, max_retry_count = -1)
+    def reset_counter session, max_retry_count = -1
         session['timeout'] = 0
         session['retry'] = 0
         session['reject'] = 0
@@ -62,7 +62,7 @@ module ApplicationHelper
         session['reject'] = session['reject'] + 1
     end
 
-    def timeout_exceeded?(session)
+    def timeout_exceeded? session
         session['timeout'] = 0 if session['timeout'].nil?
         session['max_retry'] = MAX_RETRY if session['max_retry'].nil?
     
@@ -70,7 +70,7 @@ module ApplicationHelper
         result
     end
     
-    def retry_exceeded?(session)
+    def retry_exceeded? session
         session['retry'] = 0 if session['retry'].nil?
         session['max_retry'] = MAX_RETRY if session['max_retry'].nil?
     
@@ -78,7 +78,7 @@ module ApplicationHelper
         result
     end
     
-    def reject_exceeded?(session)
+    def reject_exceeded? session
         session['reject'] = 0 if session['reject'].nil?
         session['max_retry'] = MAX_RETRY if session['max_retry'].nil?
     
@@ -86,7 +86,7 @@ module ApplicationHelper
         result
     end
 
-    def total_retry(session)
+    def total_retry session
         session['timeout'] = 0 if session['timeout'].nil?
         session['reject'] = 0 if session['reject'].nil?
         session['retry'] = 0 if session['retry'].nil?
@@ -94,7 +94,7 @@ module ApplicationHelper
         total
     end
 
-    def total_exceeded?(session)
+    def total_exceeded? session
         session['timeout'] = 0 if session['timeout'].nil?
         session['retry'] = 0 if session['retry'].nil?
         session['reject'] = 0 if session['reject'].nil?
@@ -103,7 +103,7 @@ module ApplicationHelper
         result
     end
 
-    def timeout?(session)
+    def timeout? session
         is_no_speech = false
         is_no_speech = session['retry_count']['noinput'] == session['retry_count']['total'] unless session['retry_count'].nil?
         result = false
@@ -111,7 +111,7 @@ module ApplicationHelper
         result
     end
 
-    def rejected?(session, is_use_grammar = false)
+    def rejected? session, is_use_grammar = false
         is_no_speech = false
         begin
             is_no_speech = session['retry_count']['noinput'] == session['retry_count']['total'] unless session['retry_count'].nil?
@@ -126,7 +126,7 @@ module ApplicationHelper
         result
     end
 
-    def is_reject_by_nlu(session)
+    def is_reject_by_nlu session
         is_reject = false
         begin
           prediction = session['nl_result']['nlu']['prediction']['results']
@@ -170,9 +170,9 @@ module ApplicationHelper
             #     result = "balance"
             # elsif ["สอบถามยอดคงเหลือ", "ยอดคงเหลือ"].include?(speech)
             #   result = "remaining_balance"
-            # elseif ["สอบถามยอดค้างชำระ", "ยอดค้างชำระ"].include?(speech)
+            # elsif ["สอบถามยอดค้างชำระ", "ยอดค้างชำระ"].include?(speech)
             #   result = "outstanding_balance"
-            # elseif ["สอบถามยอดที่ใช้ไป", "ยอดที่ใช้ไป", "ยอดที่ใช้"].include?(speech)
+            # elsif ["สอบถามยอดที่ใช้ไป", "ยอดที่ใช้ไป", "ยอดที่ใช้"].include?(speech)
             #   result = "usage_balance"
             # end
         rescue StandardError

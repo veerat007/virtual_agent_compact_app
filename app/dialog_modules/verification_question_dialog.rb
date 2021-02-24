@@ -69,27 +69,40 @@ class VerificationQuestionDialog < ApplicationBaseDialog
     # to use 'return'.
     session.logger.info("action")
 
-    # result = get_identification session
-    # session["announcement_info"] = get_announcement session
-    # uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_data")
-    # response = Net::HTTP.post_form(uri, "product" => session["identification_info"]["product"], "card_id" => session["identification_info"]["card_id"])
-    # session["announcement_info"] = JSON.parse(response.body)
+
+
     if session["identification_info"]["birth_weekday"] == session["result"]
-      uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_data")
-      response = Net::HTTP.post_form(uri, "product" => session["identification_info"]["product"], "card_id" => session["identification_info"]["card_id"])
-      session["announcement_info"] = JSON.parse(response.body)
-      if session["announcement_info"]["card_info"][0]["card_status"] == "active" #session["announcement_info"]["status"] != "error" && session["announcement_info"]["card_status"] == "active"
-        if session["result_item"]["intention"] == "remaining_balance"
-          SelfServiceCreditCardRemainingBalanceDialog
-        elsif session["result_item"]["intention"] == "outstanding_balance"
-          SelfServiceCreditCardOutstandingBalanceDialog
-        elsif session["result_item"]["intention"] == "usage_balance"
-          SelfServiceCreditCardUsageBalanceDialog
+      if session["result_item"]["product"] == 'credit_card'
+        ##### CALL CREDIT CARD ANNOUNCEMENT API #####
+        uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_data")
+        response = Net::HTTP.post_form(uri, "product" => session["identification_info"]["product"], "card_id" => session["identification_info"]["card_id"])
+        session["announcement_info"] = JSON.parse(response.body)
+        if session["announcement_info"]["card_info"][0]["card_status"] == "active" #session["announcement_info"]["status"] != "error" && session["announcement_info"]["card_status"] == "active"
+          if session["result_item"]["intention"] == "remaining_balance"
+            SelfServiceCreditCardRemainingBalanceDialog
+          elsif session["result_item"]["intention"] == "outstanding_balance"
+            SelfServiceCreditCardOutstandingBalanceDialog
+          elsif session["result_item"]["intention"] == "usage_balance"
+            SelfServiceCreditCardUsageBalanceDialog
+          else
+            SelfServiceCreditCardBalanceDialog
+          end
         else
-          SelfServiceCreditCardBalanceDialog
+          AgentTransferBlock
+        end
+
+      elsif session["result_item"]["product"] == 'bank_account'
+        ##### CALL BANK ACCOUNT ANNOUNCEMENT API #####   
+        uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_data")
+        response = Net::HTTP.post_form(uri, "product" => session["identification_info"]["product"], "account_no" => session["identification_info"]["bank_account_id"])
+        session["announcement_info"] = JSON.parse(response.body)
+        if session["announcement_info"]["account_info"][0]["account_status"] == "active"
+          SelfServiceBankAccountBalanceDialog
+        else
+          AgentTransferBlock
         end
       else
-        AgentTransferBlock
+
       end
     else
       AgentTransferBlock

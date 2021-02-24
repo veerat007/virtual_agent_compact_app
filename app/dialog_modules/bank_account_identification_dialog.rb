@@ -1,4 +1,4 @@
-class CreditCardIdentificationDialog < ApplicationBaseDialog
+class BankAccountIdentificationDialog < ApplicationBaseDialog
 
   description <<-"DESCRIPTION"
     TODO: Explain this dialog module briefly
@@ -7,26 +7,34 @@ class CreditCardIdentificationDialog < ApplicationBaseDialog
   #
   #== Prompts
   #
-  init1         ['ask_credit_card_id',]
-  init2         ['sorry_can_say_credit_card_id_again']
+  init1         ['ask_account_id']
+  init2         ['sorry_can_say_account_id_again']
 
-  # retry1        ['sorry_can_say_credit_card_id_again']
-  # retry2        ['sorry_can_say_credit_card_id_again']
+  # retry1        ['sorry_i_cannot_understand_you',
+  #                'can_you_say_yes_or_no_again']
+  # retry2        ['sorry_i_cannot_understand_you_again',
+  #                'can_you_say_again']
 
-  # timeout1      ['sorry_can_say_credit_card_id_again']
-  # timeout2      ['sorry_can_say_credit_card_id_again']
+  # timeout1      ['sorry_i_cannot_hear_you',
+  #                'can_you_say_yes_or_no_again']
+  # timeout2      ['sorry_i_cannot_hear_you_again',
+  #                'can_you_say_again']
 
-  # reject1       ['sorry_can_say_credit_card_id_again']
-  # reject2       ['sorry_can_say_credit_card_id_again']
+  # reject1       ['can_you_say_yes_or_no_again']
+  # reject2       ['can_you_say_again']
 
-  # confirmation_init1    ['credit_card_id_is', '%speech_input_number_prompts%', 'is_it_correct']
-  # confirmation_retry1   ['sorry_can_say_credit_card_id_again']
-  # confirmation_timeout1 ['sorry_can_say_credit_card_id_again']
+  # confirmation_init1    ['%speech_input_number_prompts%', 'is_it_correct']
+  # confirmation_retry1   ['sorry_i_cannot_understand_you',
+  #                        '%speech_input_number_prompts%',
+  #                        'is_it_right']
+  # confirmation_timeout1 ['sorry_i_cannot_hear_you',
+  #                        '%speech_input_number_prompts%',
+  #                        'is_it_right']
 
   #
   #== Properties
   #
-  grammar_name           "16digits.gram" # TODO: Please set your grammar
+  grammar_name           "10digits.gram" # TODO: Please set your grammar
   # max_retry              2
   confirmation_method    :never
 
@@ -59,13 +67,12 @@ class CreditCardIdentificationDialog < ApplicationBaseDialog
     # The last value should be next dialog.  But note that this block does not allow
     # to use 'return'.
     session.logger.info("action")
-    
     if timeout?(session)
       increase_timeout(session)
       if (retry_exceeded?(session)) || (total_exceeded?(session))
         AgentTransferBlock
       else
-	      CreditCardIdentificationDialog
+	      BankAccountIdentificationDialog
       end
     
     elsif rejected?(session, true)
@@ -73,20 +80,20 @@ class CreditCardIdentificationDialog < ApplicationBaseDialog
       if (reject_exceeded?(session)) || (total_exceeded?(session))
         AgentTransferBlock
       else
-        CreditCardIdentificationDialog
+        BankAccountIdentificationDialog
       end
 
     else # recognized
       if session[:result] != 'failure'
         # go to Flow I
 
-        ##### CALL CREDIT CARD IDENTIFICATION API #####
+        ##### CALL BANK ACCOUNT IDENTIFICATION API #####
         uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_ident")
-        response = Net::HTTP.post_form(uri, "product" => session["result_item"]["product"], "card_id" => session["result"])
+        response = Net::HTTP.post_form(uri, "product" => session["result_item"]["product"], "account_no" => session["result"])
         session["identification_info"] = JSON.parse(response.body)
-        if session["identification_info"]["product"] == session["result_item"]["product"] && session["identification_info"]["card_id"] == session["result"]
+        if session["identification_info"]["product"] == session["result_item"]["product"] && session["identification_info"]["bank_account_id"] == session["result"]
           session["id_number"] = session["result"]
-          ConfirmCreditCardIdentificationDialog
+          ConfirmBankAccountIdentificationDialog
         else
           AgentTransferBlock
         end
@@ -95,7 +102,7 @@ class CreditCardIdentificationDialog < ApplicationBaseDialog
         if (retry_exceeded? session) || (total_exceeded? session)
           AgentTransferBlock
         else
-          CreditCardIdentificationDialog
+          BankAccountIdentificationDialog
         end
       end
     end

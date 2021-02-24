@@ -11,7 +11,7 @@ module NamedPrompt
     # Here is an example.
     #
     def speech_input_number_prompts session
-      if session["card_id"].present? # != "failure" # session["nl_result"]["asr"]["utterance"].present?
+      if session["id_number"].present? # != "failure" # session["nl_result"]["asr"]["utterance"].present?
         prompts = []
         session["result"].split("").each do |n|
           # if n.match?(/[0-9]/)

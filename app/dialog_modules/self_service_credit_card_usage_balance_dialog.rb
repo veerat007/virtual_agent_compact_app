@@ -112,7 +112,23 @@ class SelfServiceCreditCardUsageBalanceDialog < ApplicationBaseDialog
     # The last value should be next dialog.  But note that this block does not allow
     # to use 'return'.
     session.logger.info("action")
-    SelfServiceCreditCardUsageBalanceDialog
+    
+    if timeout?(session)
+      increase_timeout(session)
+      AskForMoreServiceDialog
+    
+    elsif rejected?(session, true)
+      increase_reject(session)
+      AskForMoreServiceDialog
+
+    else # recognized
+      if session["result"] =~ /yes/i
+        SelfServiceCreditCardUsageBalanceDialog
+      else
+        increase_retry(session)
+        AskForMoreServiceDialog
+      end
+    end
   end
 
 #  ending do |session, params|

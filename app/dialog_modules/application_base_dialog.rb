@@ -8,7 +8,7 @@ class ApplicationBaseDialog < SystemBaseDialog
   #
   fetch_audio                             ""
   fetch_timeout                           "30s"
-  beep_filename                           "/prompts/beep.wav"
+  beep_filename                           "prompts/beep.wav"
   play_beep_after_prompt                  true
 
   #

@@ -48,6 +48,7 @@ defaults: &defaults
         retry:                               [['sorry_can_you_say_again']]
         reject:                              [['sorry_can_you_say_again']]
         timeout:                             [['sorry_can_you_say_again']]
+        confirm:                             [['is_it_correct']]
     ask_for_intent_dialog:
       max_retry:                             2
       confirmation_option:                   'never'
@@ -57,6 +58,7 @@ defaults: &defaults
         retry:                               [['sorry_ask_for_service_again']]
         reject:                              [['sorry_ask_for_service_again']]
         timeout:                             [['sorry_ask_for_service_again']]
+        confirm:                             [['is_it_correct']]
     confirm_intent_dialog:
       max_retry:                             2
       confirmation_option:                   'never'

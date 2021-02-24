@@ -27,8 +27,11 @@ class MainMenuDialog < ApplicationBaseDialog
   #==Action
 
   action do |session|
+  ##################### 
+    dialog_property = get_dialog_property(session)
     save_result(session)
-    #dialog_proproty = get_dialog_proproty()
+  #####################
+
     if timeout?(session)
       increase_timeout(session)
       if (retry_exceeded?(session)) || (total_exceeded?(session))
@@ -49,15 +52,15 @@ class MainMenuDialog < ApplicationBaseDialog
       if contain_intention(session) ### Check contrains Intention.
         if has_one_intention(session) ### Check count intention = 1.
           if has_product(session) || belong_to_single_product(session)
-            if AmiVoice::DialogModule::Settings.confirm_intention_always
-              ### go to Flow E
-              ConfirmIntentionDialog
-            else
-              ### go to Flow D
-              if !is_transfer_ivr(session)
+            if dialog_property["confirmation_option"] == "never" || dialog_property["confirmation_option"].blank?
+              transfer_to_destination(session)
+            elsif dialog_property["confirmation_option"] == "always"
+              go_confirmation()
+            elsif dialog_property["confirmation_option"] == "confidence_base"
+              if check_confidence(session, dialog_property['confirmation_confidence_threshold'])
                 transfer_to_destination(session)
               else
-                ### 
+                go_confirmation()
               end
             end
           else

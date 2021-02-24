@@ -2,14 +2,36 @@ module ApplicationHelper
     MAX_RETRY = AmiVoice::DialogModule::Settings.max_retry if AmiVoice::DialogModule::Settings.max_retry.present?
 
     def transfer_to_destination session
-        reset_counter(session)
-        product = get_product(session)
-        if product == "credit_card"
-            CreditCardIdentificationDialog
-        elsif product == "bank_account"
+        if is_transfer_ivr
+            #### Go to IVR
+        else
+            reset_counter(session)
+            product = get_product(session)
+            if product == "credit_card"
+                CreditCardIdentificationDialog
+            elsif product == "bank_account"
 
-        elsif product == "loan"
+            elsif product == "loan"
 
+            end
+        end
+    end
+
+    def go_confirmation session
+        if is_intention_transfer_agent(session)
+            ConfirmIntentionToAgentDialog
+        else
+            ConfirmIntentionDialog
+        end
+    end
+
+    def get_dialog_property(session)
+        ิbegin
+            dialog_prop = AmiVoice::DialogModule::Settings.dialog_property
+            result = dialog_prop[session['dialog_name']]
+            result
+        rescue
+            result = {}
         end
     end
 
@@ -129,8 +151,9 @@ module ApplicationHelper
         begin
             result = session["result_item"]["product"].present? ? session["result_item"]["product"] : ""
             #### MOCK
-            #if session["result"].split(" ").join() == "บัตรเครดิต"
-            #    result = session["result"].split(" ").join()
+            #speech = session["result"].split(" ").join()
+            #if ["บัตรเครดิต"].include?(speech)
+            #    result = "credit_card" 
             #end
         rescue StandardError
            result = ""
@@ -142,8 +165,15 @@ module ApplicationHelper
         begin
             result = session["result_item"]["intention"].present? ? session["result_item"]["intention"] : ""
             #### MOCK 
-            # if session["result"].split(" ").join() == "สอบถามยอด"
-            #     result = session["result"].split(" ").join()
+            # speech = session["result"].split(" ").join()
+            # if speech == "สอบถามยอด"
+            #     result = "balance"
+            # elsif ["สอบถามยอดคงเหลือ", "ยอดคงเหลือ"].include?(speech)
+            #   result = "remaining_balance"
+            # elseif ["สอบถามยอดค้างชำระ", "ยอดค้างชำระ"].include?(speech)
+            #   result = "outstanding_balance"
+            # elseif ["สอบถามยอดที่ใช้ไป", "ยอดที่ใช้ไป", "ยอดที่ใช้"].include?(speech)
+            #   result = "usage_balance"
             # end
         rescue StandardError
            result = ""
@@ -173,7 +203,7 @@ module ApplicationHelper
     end
 
     def belong_to_single_product session
-        resutl = true
+        resutl = false
         resutl
     end
 
@@ -182,6 +212,27 @@ module ApplicationHelper
         result
     end
 
+    def is_intention_transfer_agent session
+        result = false
+        result
+    end
+
+    def check_confidence session, threshold
+        result = get_confidence_score(session) > threshold
+        result
+    end
+
+    def get_confidence_score session
+        confidence_score = 0.0
+        begin
+          confidence_score = session['nl_result']['asr']['confidence_score'].to_f unless session['nl_result']['asr']['confidence_score'].nil?
+        rescue => e
+          # TODO: save e.message to tracking log
+          confidence_score = 0.0
+        end
+        confidence_score
+    end
+    
     def get_nlu_result session
         begin
             result = {}

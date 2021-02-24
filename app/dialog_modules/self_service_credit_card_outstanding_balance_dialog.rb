@@ -20,6 +20,7 @@ class SelfServiceCreditCardOutstandingBalanceDialog < ApplicationBaseDialog
 
                   prompts.push "card_type"
                   prompts.push "#{card_type.downcase.gsub(" ", "_")}"
+                  prompts.push "ending_card_id"
                   prompts.push card_id.split('').last(4).map { |s| s.prepend('number/') }
                   prompts.push "close_date_card_balance"
                   prompts.push NamedPrompt.date_prompts(statement_closing_date, skip_full_year:false, skip_this_year:false)

@@ -69,21 +69,19 @@ class AskForMoreServiceDialog < ApplicationBaseDialog
     session.logger.info("action")
     if timeout?(session)
       increase_timeout(session)
-      AskForMoreServiceDialog
-      # if (retry_exceeded?(session)) || (total_exceeded?(session))
-      #   AgentTransferBlock
-      # else
-	    #   CreditCardIdentificationDialog
-      # end
+      if (retry_exceeded?(session)) || (total_exceeded?(session))
+        ThankYouBlock
+      else
+	      AskForMoreServiceDialog
+      end
     
     elsif rejected?(session)
       increase_reject(session)
-      AskForMoreServiceDialog
-      # if (reject_exceeded?(session)) || (total_exceeded?(session))
-      #   AgentTransferBlock
-      # else
-      #   CreditCardIdentificationDialog
-      # end
+      if (reject_exceeded?(session)) || (total_exceeded?(session))
+        ThankYouBlock
+      else
+        AskForMoreServiceDialog
+      end
 
     else # recognized
       if session["result"] =~ /yes/i

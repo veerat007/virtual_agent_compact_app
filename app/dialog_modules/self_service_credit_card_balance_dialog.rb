@@ -70,6 +70,7 @@ class SelfServiceCreditCardBalanceDialog < ApplicationBaseDialog
 
                   prompts.push "card_type"
                   prompts.push "#{card_type.downcase.gsub(" ", "_")}"
+                  prompts.push "ending_card_id"
                   prompts.push card_id.split('').last(4).map { |s| s.prepend('number/') }
                   prompts.push "usage_balance"
                   prompts.push NamedPrompt.currency_prompts usage_balance

@@ -71,7 +71,7 @@ class VerificationQuestionDialog < ApplicationBaseDialog
 
 
 
-    if session["identification_info"]["birth_weekday"] == session["result"]
+    if session["identification_info"]["birth_weekday"] == session["result"] # PRODUCT = "Credit Card"
       if session["result_item"]["product"] == 'credit_card'
         ##### CALL CREDIT CARD ANNOUNCEMENT API #####
         uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_data")
@@ -91,7 +91,7 @@ class VerificationQuestionDialog < ApplicationBaseDialog
           AgentTransferBlock
         end
 
-      elsif session["result_item"]["product"] == 'bank_account'
+      elsif session["result_item"]["product"] == 'bank_account' # PRODUCT = "Bank Account"
         ##### CALL BANK ACCOUNT ANNOUNCEMENT API #####   
         uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_data")
         response = Net::HTTP.post_form(uri, "product" => session["identification_info"]["product"], "account_no" => session["identification_info"]["bank_account_id"])
@@ -101,8 +101,8 @@ class VerificationQuestionDialog < ApplicationBaseDialog
         else
           AgentTransferBlock
         end
-      else
-
+      else # PRODUCT = "Loan"
+        AgentTransferBlock
       end
     else
       AgentTransferBlock

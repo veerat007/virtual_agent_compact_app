@@ -86,6 +86,7 @@ class CreditCardIdentificationDialog < ApplicationBaseDialog
         response = Net::HTTP.post_form(uri, "product" => session["result_item"]["product"], "card_id" => session["result"])
         session["identification_info"] = JSON.parse(response.body)
         if session["identification_info"]["product"] == session["result_item"]["product"] && session["identification_info"]["card_id"] == session["result"]
+          session["card_id"] = session["result"]
           ConfirmCreditCardIdentificationDialog
         else
           AgentTransferBlock

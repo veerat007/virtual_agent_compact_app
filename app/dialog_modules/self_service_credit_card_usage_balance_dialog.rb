@@ -7,37 +7,81 @@ class SelfServiceCreditCardUsageBalanceDialog < ApplicationBaseDialog
   #
   #== Prompts
   #
-  init1         ['welcome',
-                 'please_say_yes_or_no']
-  init2         ['please_say_yes_or_no']
+  init1         { |session| 
+                  prompts = []
+                  data = session["announcement_info"]["card_info"][0]
+                  card_id = data["card_id"]
+                  card_type = data["card_type"]
+                  credit_limit = data["amount"]["credit_limit"]
+                  usage_balance = data['amount']["usage_balance"]["usage"].gsub(",", "")
+                  over_usage_balance = data['amount']["usage_balance"]["over_usage"].gsub(",", "") if data['amount']["usage_balance"]["over_usage"].present?
 
-  retry1        ['sorry_i_cannot_understand_you',
-                 'can_you_say_yes_or_no_again']
-  retry2        ['sorry_i_cannot_understand_you_again',
-                 'can_you_say_again']
+                  prompts.push "card_type"
+                  prompts.push "#{card_type.downcase.gsub(" ", "_")}"
+                  prompts.push card_id.split('').last(4).map { |s| s.prepend('number/') }
+                  prompts.push "usage_balance"
+                  prompts.push NamedPrompt.currency_prompts usage_balance
+                  if data['amount']["usage_balance"]["over_usage"].present?
+                    prompts.push "over_usage_balance"
+                    prompts.push NamedPrompt.currency_prompts over_usage_balance
+                  end
+                  prompts.push "you_can_listen_again"
 
-  timeout1      ['sorry_i_cannot_hear_you',
-                 'can_you_say_yes_or_no_again']
-  timeout2      ['sorry_i_cannot_hear_you_again',
-                 'can_you_say_again']
+                  prompts.flatten!
+                  prompts
+                }
+                
+  init2         { |session| 
+                  prompts = []
+                  data = session["announcement_info"]["card_info"][0]
+                  card_id = data["card_id"]
+                  card_type = data["card_type"]
+                  credit_limit = data["amount"]["credit_limit"]
+                  usage_balance = data['amount']["usage_balance"]["usage"].gsub(",", "")
+                  over_usage_balance = data['amount']["usage_balance"]["over_usage"].gsub(",", "") if data['amount']["usage_balance"]["over_usage"].present?
 
-  reject1       ['can_you_say_yes_or_no_again']
-  reject2       ['can_you_say_again']
+                  prompts.push "card_type"
+                  prompts.push "#{card_type.downcase.gsub(" ", "_")}"
+                  prompts.push card_id.split('').last(4).map { |s| s.prepend('number/') }
+                  prompts.push "usage_balance"
+                  prompts.push NamedPrompt.currency_prompts usage_balance
+                  if data['amount']["usage_balance"]["over_usage"].present?
+                    prompts.push "over_usage_balance"
+                    prompts.push NamedPrompt.currency_prompts over_usage_balance
+                  end
+                  prompts.push "you_can_listen_again"
 
-  confirmation_init1    ['%speech_input_prompts%', 'is_it_correct']
-  confirmation_retry1   ['sorry_i_cannot_understand_you',
-                         '%speech_input_prompts%',
-                         'is_it_right']
-  confirmation_timeout1 ['sorry_i_cannot_hear_you',
-                         '%speech_input_prompts%',
-                         'is_it_right']
+                  prompts.flatten!
+                  prompts
+                }
+
+  # retry1        ['sorry_i_cannot_understand_you',
+  #                'can_you_say_yes_or_no_again']
+  # retry2        ['sorry_i_cannot_understand_you_again',
+  #                'can_you_say_again']
+
+  # timeout1      ['sorry_i_cannot_hear_you',
+  #                'can_you_say_yes_or_no_again']
+  # timeout2      ['sorry_i_cannot_hear_you_again',
+  #                'can_you_say_again']
+
+  # reject1       ['can_you_say_yes_or_no_again']
+  # reject2       ['can_you_say_again']
+
+  # confirmation_init1    ['%speech_input_number_prompts%', 'is_it_correct']
+  # confirmation_retry1   ['sorry_i_cannot_understand_you',
+  #                        '%speech_input_number_prompts%',
+  #                        'is_it_right']
+  # confirmation_timeout1 ['sorry_i_cannot_hear_you',
+  #                        '%speech_input_number_prompts%',
+  #                        'is_it_right']
 
   #
   #== Properties
   #
   grammar_name           "yesno.gram" # TODO: Please set your grammar
-  max_retry              2
-  confirmation_method    :always
+  # max_retry              2
+  confirmation_method    :never
 
   #
   #==Action

@@ -24,12 +24,12 @@ class VerificationQuestionDialog < ApplicationBaseDialog
   # reject1       ['can_you_say_yes_or_no_again']
   # reject2       ['can_you_say_again']
 
-  # confirmation_init1    ['%speech_input_prompts%', 'is_it_correct']
+  # confirmation_init1    ['%speech_input_number_prompts%', 'is_it_correct']
   # confirmation_retry1   ['sorry_i_cannot_understand_you',
-  #                        '%speech_input_prompts%',
+  #                        '%speech_input_number_prompts%',
   #                        'is_it_right']
   # confirmation_timeout1 ['sorry_i_cannot_hear_you',
-  #                        '%speech_input_prompts%',
+  #                        '%speech_input_number_prompts%',
   #                        'is_it_right']
 
   #
@@ -83,8 +83,10 @@ class VerificationQuestionDialog < ApplicationBaseDialog
           SelfServiceCreditCardRemainingBalanceDialog
         elsif session["result_item"]["intention"] == "outstanding_balance"
           SelfServiceCreditCardOutstandingBalanceDialog
-        else
+        elsif session["result_item"]["intention"] == "usage_balance"
           SelfServiceCreditCardUsageBalanceDialog
+        else
+          SelfServiceCreditCardBalanceDialog
         end
       else
         AgentTransferBlock

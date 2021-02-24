@@ -9,7 +9,7 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.w3.org/2001/vxml
                           http://www.w3.org/TR/2007/REC-voicexml21-20070619/vxml.xsd">
-
+<!--
   <form id="<%=@block_name%>">
     <script>
       var init_prompts = [
@@ -69,6 +69,35 @@
         <exit />
         <%- end %>
       </if>
+    </block>
+  </form>
+-->
+
+  <form id="<%=@block_name%>">
+    <block name="<%=@block_name%>">
+      <script>
+        application.call_end_time = application.dialog_end_time = (new Date()).toString();
+        var dialog_name = application.current_dialog_name;
+        var prompts = <%=JSON.pretty_generate(prompt_path(ThankYouBlock.prompts))%>;
+      </script>
+
+      <if cond="application.call_end_action_is_called == false" >
+        <%= call_end_action("dialog_name destination") %>
+        <script>
+          application.call_end_action_is_called = true;
+        </script>
+      </if>
+
+      <%- unless ThankYouBlock.prompts.empty? %>
+      <prompt bargein="false">
+        <foreach item="prompt" array="prompts">
+          <audio expr="prompt" />
+        </foreach>
+      </prompt>
+      <%- end %>
+
+      <exit/>
+
     </block>
   </form>
 

@@ -1,4 +1,4 @@
-class SelfServiceCreditCardRemainingBalanceDialog < ApplicationBaseDialog
+class SelfServiceCreditCardBalanceDialog < ApplicationBaseDialog
 
   description <<-"DESCRIPTION"
     TODO: Explain this dialog module briefly
@@ -13,37 +13,46 @@ class SelfServiceCreditCardRemainingBalanceDialog < ApplicationBaseDialog
                   card_id = data["card_id"]
                   card_type = data["card_type"]
                   credit_limit = data["amount"]["credit_limit"]
+                  usage_balance = data['amount']["usage_balance"]["usage"].gsub(",", "")
+                  over_usage_balance = data['amount']["usage_balance"]["over_usage"].gsub(",", "") if data['amount']["usage_balance"]["over_usage"].present?
                   remaining_balance = data['amount']["remaining_balance"].gsub(",", "")
+                  statement_closing_date = data["statement_date"]
+                  total_payment_due = data['amount']["usage_balance"]["usage"].gsub(",", "")
+                  minimum_payment_due = data['min_payment'].gsub(",", "")
+                  due_date = data['due_date']
+                  last_payment_date = data["last_payment_date"]
+                  last_payment = data["last_payment"].gsub(",", "")
 
                   prompts.push "card_type"
                   prompts.push "#{card_type.downcase.gsub(" ", "_")}"
                   prompts.push card_id.split('').last(4).map { |s| s.prepend('number/') }
+                  prompts.push "usage_balance"
+                  prompts.push NamedPrompt.currency_prompts usage_balance
+                  if data['amount']["usage_balance"]["over_usage"].present?
+                    prompts.push "over_usage_balance"
+                    prompts.push NamedPrompt.currency_prompts over_usage_balance
+                  end
                   prompts.push "remaining_balance"
                   prompts.push NamedPrompt.currency_prompts remaining_balance
+                  prompts.push "close_date_card_balance"
+                  prompts.push NamedPrompt.date_prompts(statement_closing_date, skip_full_year:false, skip_this_year:false)
+                  prompts.push "payment_amount"
+                  prompts.push NamedPrompt.currency_prompts total_payment_due
+                  prompts.push "minimum_payment_amount"
+                  prompts.push NamedPrompt.currency_prompts minimum_payment_due
+                  prompts.push "due_date_card_balance"
+                  prompts.push NamedPrompt.date_prompts(due_date, skip_full_year:false, skip_this_year:false)
+                  prompts.push "last_payment_date"
+                  prompts.push NamedPrompt.date_prompts(last_payment_date, skip_full_year:false, skip_this_year:false)
+                  prompts.push "last_payment_amount"
+                  prompts.push NamedPrompt.currency_prompts last_payment
                   prompts.push "you_can_listen_again"
 
                   prompts.flatten!
                   prompts
                 }
 
-  init2         { |session| 
-                  prompts = []
-                  data = session["announcement_info"]["card_info"][0]
-                  card_id = data["card_id"]
-                  card_type = data["card_type"]
-                  credit_limit = data["amount"]["credit_limit"]
-                  remaining_balance = data['amount']["remaining_balance"].gsub(",", "")
-
-                  prompts.push "card_type"
-                  prompts.push "#{card_type.downcase.gsub(" ", "_")}"
-                  prompts.push card_id.split('').last(4).map { |s| s.prepend('number/') }
-                  prompts.push "remaining_balance"
-                  prompts.push NamedPrompt.currency_prompts remaining_balance
-                  prompts.push "you_can_listen_again"
-
-                  prompts.flatten!
-                  prompts
-                }
+  init2         ['please_say_yes_or_no']
 
   # retry1        ['sorry_i_cannot_understand_you',
   #                'can_you_say_yes_or_no_again']
@@ -102,23 +111,7 @@ class SelfServiceCreditCardRemainingBalanceDialog < ApplicationBaseDialog
     # The last value should be next dialog.  But note that this block does not allow
     # to use 'return'.
     session.logger.info("action")
-
-    if timeout?(session)
-      increase_timeout(session)
-      AskForMoreServiceDialog
-    
-    elsif rejected?(session, true)
-      increase_reject(session)
-      AskForMoreServiceDialog
-
-    else # recognized
-      if session["result"] =~ /yes/i
-        SelfServiceCreditCardRemainingBalanceDialog
-      else
-        increase_retry(session)
-        AskForMoreServiceDialog
-      end
-    end
+    SelfServiceCreditCardBalanceDialog
   end
 
 #  ending do |session, params|

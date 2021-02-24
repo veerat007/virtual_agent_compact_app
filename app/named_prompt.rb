@@ -11,12 +11,12 @@ module NamedPrompt
     # Here is an example.
     #
     def speech_input_number_prompts session
-      if session["result"].present? # session["nl_result"]["asr"]["utterance"].present?
+      if session["card_id"].present? # != "failure" # session["nl_result"]["asr"]["utterance"].present?
         prompts = []
         session["result"].split("").each do |n|
-          if n.match?(/[0-9]/)
+          # if n.match?(/[0-9]/)
             prompts << "number/#{n}"
-          end
+          # end
         end
         prompts.flatten!
       else
@@ -141,5 +141,66 @@ module NamedPrompt
       prompts
     end
     
+    def date_prompts date, use_day_of_week:false, convert_tomorrow:false, skip_full_year:true, skip_this_year:true, use_to_day:false, be:true
+      if date.nil?
+        AppLogger.warn "(#{__method__}) - nil is passed.  Retrun empty date prompts."
+        return []
+      elsif date.is_a? String
+        if date.empty?
+          AppLogger.warn "(#{__method__}) - empty string is passed.  Retrun empty date prompts."
+          return []
+        end
+        begin
+          the_day = Date.parse(date)
+        rescue ArgumentError
+          AppLogger.error "(#{__method__}) - #{$!}"
+          return []
+        end
+      elsif date.respond_to?(:wday) and date.respond_to?(:day) and
+            date.respond_to?(:month) and date.respond_to?(:year)
+        the_day = date
+      else
+        raise AmiVoice::DialogModuleError.new("Invalid date object for date_prompts - #{date.inspect}")
+      end
+
+      prompts = []
+      today = Date.today
+
+      if the_day == today && use_to_day
+        prompts << "date/ToDay"
+      else
+        # Day
+        if use_day_of_week
+          prompts << "date/day/wday_#{the_day.wday}" # Date Class return 0-6 for wday.
+          prompts << ("number/%d" % the_day.day) # use the normal number audio for the day number
+        else
+          prompts << ("date/day_%02d" % the_day.day) # use the "day (วันที่)" version of the day number
+        end
+        # Month
+        prompts << ("date/month/month_%02d" % the_day.month)
+
+        unless skip_full_year
+          if be
+            prompts << ("date/BE")
+          else
+            prompts << ("date/AD")
+          end
+        end
+
+        if skip_this_year && the_day.year == today.year # This year, skip the year parts for the audio prompts
+          ; # omit the year audio part
+        else
+          # year in B.E.
+          if be
+            year = (the_day.year + 543) # convert the year from AD. to BE.
+          else
+            year = (the_day.year)
+          end
+          prompts += number_prompts(year)
+        end
+      end
+      prompts
+    end
+
   end
 end

@@ -12,7 +12,6 @@ class SelfServiceBankAccountBalanceDialog < ApplicationBaseDialog
                   data = session["announcement_info"]["account_info"][0]
                   bank_account_id = data["bank_account_id"]
                   account_type = data["account_type"]
-                  credit_limit = data["amount"]["credit_limit"]
                   balance = data['amount']["balance"].gsub(",", "")
                   interest_amount = data['amount']["interest"].gsub(",", "")
                   withdrawable_amount = data['amount']["withdrawable_amount"].gsub(",", "")
@@ -52,7 +51,6 @@ class SelfServiceBankAccountBalanceDialog < ApplicationBaseDialog
                   data = session["announcement_info"]["account_info"][0]
                   bank_account_id = data["bank_account_id"]
                   account_type = data["account_type"]
-                  credit_limit = data["amount"]["credit_limit"]
                   balance = data['amount']["balance"].gsub(",", "")
                   interest_amount = data['amount']["interest"].gsub(",", "")
                   withdrawable_amount = data['amount']["withdrawable_amount"].gsub(",", "")

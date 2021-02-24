@@ -95,7 +95,13 @@ class BankAccountIdentificationDialog < ApplicationBaseDialog
           session["id_number"] = session["result"]
           ConfirmBankAccountIdentificationDialog
         else
-          AgentTransferBlock
+          # AgentTransferBlock
+          increase_retry(session)
+          if (retry_exceeded? session) || (total_exceeded? session)
+            AgentTransferBlock
+          else
+            BankAccountIdentificationDialog
+          end
         end
       else
         increase_retry(session)

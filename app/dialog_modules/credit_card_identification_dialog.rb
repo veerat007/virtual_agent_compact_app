@@ -88,7 +88,13 @@ class CreditCardIdentificationDialog < ApplicationBaseDialog
           session["id_number"] = session["result"]
           ConfirmCreditCardIdentificationDialog
         else
-          AgentTransferBlock
+          # AgentTransferBlock
+          increase_retry(session)
+          if (retry_exceeded? session) || (total_exceeded? session)
+            AgentTransferBlock
+          else
+            CreditCardIdentificationDialog
+          end
         end
       else
         increase_retry(session)

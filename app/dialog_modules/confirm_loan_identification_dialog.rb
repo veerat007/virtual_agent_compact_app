@@ -1,4 +1,4 @@
-class AskForMoreServiceDialog < ApplicationBaseDialog
+class ConfirmLoanIdentificationDialog < ApplicationBaseDialog
 
   description <<-"DESCRIPTION"
     TODO: Explain this dialog module briefly
@@ -7,8 +7,8 @@ class AskForMoreServiceDialog < ApplicationBaseDialog
   #
   #== Prompts
   #
-  init1         ['ask_additional_service']
-  init2         ['ask_additional_service']
+  init1         ['citizen_id_is', '%speech_input_number_prompts%', 'is_it_correct']
+  init2         ['citizen_id_is', '%speech_input_number_prompts%', 'is_it_correct']
 
   # retry1        ['sorry_i_cannot_understand_you',
   #                'can_you_say_yes_or_no_again']
@@ -67,31 +67,35 @@ class AskForMoreServiceDialog < ApplicationBaseDialog
     # The last value should be next dialog.  But note that this block does not allow
     # to use 'return'.
     session.logger.info("action")
+
     if timeout?(session)
       increase_timeout(session)
-      #if (retry_exceeded?(session)) || (total_exceeded?(session))
-        ThankYouBlock
-      #else
-	    #  AskForMoreServiceDialog
-      #end
+      if (retry_exceeded?(session)) || (total_exceeded?(session))
+        AgentTransferBlock
+      else
+	      LoanIdentificationDialog
+      end
     
-    elsif rejected?(session)
+    elsif rejected?(session, true)
       increase_reject(session)
       if (reject_exceeded?(session)) || (total_exceeded?(session))
-        ThankYouBlock
+        AgentTransferBlock
       else
-        AskForMoreServiceDialog
+        LoanIdentificationDialog
       end
 
     else # recognized
       if session["result"] =~ /yes/i
-        AgentTransferBlock
+        VerificationQuestionDialog
       else
         increase_retry(session)
-        ThankYouBlock
+        if (retry_exceeded? session) || (total_exceeded? session)
+          AgentTransferBlock
+        else
+          LoanIdentificationDialog
+        end
       end
     end
-    # AskForMoreServiceDialog
   end
 
 #  ending do |session, params|

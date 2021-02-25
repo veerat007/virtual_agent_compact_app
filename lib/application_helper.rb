@@ -10,9 +10,9 @@ module ApplicationHelper
             if product == "credit_card"
                 CreditCardIdentificationDialog
             elsif product == "bank_account"
-
+                BankAccountIdentificationDialog
             elsif product == "loan"
-
+                LoanIdentificationDialog
             end
         end
     end
@@ -154,6 +154,10 @@ module ApplicationHelper
             #speech = session["result"].split(" ").join()
             #if ["บัตรเครดิต"].include?(speech)
             #    result = "credit_card" 
+            #elsif ["บัญชี","บัญชีเงินฝาก","เงินฝาก","ธนาคาร"].include?(speech)
+            #    result = "bank_account"
+            #else
+            #    result = "loan"
             #end
         rescue StandardError
            result = ""

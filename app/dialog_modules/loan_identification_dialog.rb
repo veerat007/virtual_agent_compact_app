@@ -1,4 +1,4 @@
-class AskForMoreServiceDialog < ApplicationBaseDialog
+class LoanIdentificationDialog < ApplicationBaseDialog
 
   description <<-"DESCRIPTION"
     TODO: Explain this dialog module briefly
@@ -7,8 +7,8 @@ class AskForMoreServiceDialog < ApplicationBaseDialog
   #
   #== Prompts
   #
-  init1         ['ask_additional_service']
-  init2         ['ask_additional_service']
+  init1         ['welask_citizen_idcome']
+  init2         ['sorry_can_say_ask_citizen_id_again']
 
   # retry1        ['sorry_i_cannot_understand_you',
   #                'can_you_say_yes_or_no_again']
@@ -34,7 +34,7 @@ class AskForMoreServiceDialog < ApplicationBaseDialog
   #
   #== Properties
   #
-  grammar_name           "yesno.gram" # TODO: Please set your grammar
+  grammar_name           "13digits.gram" # TODO: Please set your grammar
   # max_retry              2
   confirmation_method    :never
 
@@ -67,31 +67,52 @@ class AskForMoreServiceDialog < ApplicationBaseDialog
     # The last value should be next dialog.  But note that this block does not allow
     # to use 'return'.
     session.logger.info("action")
+    # LoanIdentificationDialog
     if timeout?(session)
       increase_timeout(session)
-      #if (retry_exceeded?(session)) || (total_exceeded?(session))
-        ThankYouBlock
-      #else
-	    #  AskForMoreServiceDialog
-      #end
+      if (retry_exceeded?(session)) || (total_exceeded?(session))
+        AgentTransferBlock
+      else
+	      LoanIdentificationDialog
+      end
     
-    elsif rejected?(session)
+    elsif rejected?(session, true)
       increase_reject(session)
       if (reject_exceeded?(session)) || (total_exceeded?(session))
-        ThankYouBlock
+        AgentTransferBlock
       else
-        AskForMoreServiceDialog
+        LoanIdentificationDialog
       end
 
     else # recognized
-      if session["result"] =~ /yes/i
-        AgentTransferBlock
+      if session[:result] != 'failure'
+        # go to Flow I
+
+        ##### CALL LOAN IDENTIFICATION API #####
+        uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_ident")
+        response = Net::HTTP.post_form(uri, "product" => session["result_item"]["product"], "citizen_id" => session["result"])
+        session["identification_info"] = JSON.parse(response.body)
+        if session["identification_info"]["product"] == session["result_item"]["product"] && session["identification_info"]["citizen_id"] == session["result"]
+          session["id_number"] = session["result"]
+          ConfirmLoanIdentificationDialog
+        else
+          # AgentTransferBlock
+          increase_retry(session)
+          if (retry_exceeded? session) || (total_exceeded? session)
+            AgentTransferBlock
+          else
+            LoanIdentificationDialog
+          end
+        end
       else
         increase_retry(session)
-        ThankYouBlock
+        if (retry_exceeded? session) || (total_exceeded? session)
+          AgentTransferBlock
+        else
+          LoanIdentificationDialog
+        end
       end
     end
-    # AskForMoreServiceDialog
   end
 
 #  ending do |session, params|

@@ -20,7 +20,7 @@ class SelfServiceBankAccountBalanceDialog < ApplicationBaseDialog
                   prompts.push "ending_account_id"
                   prompts.push bank_account_id.split('').last(4).map { |s| s.prepend('number/') }
                   prompts.push "account_balance"
-                  if '%.2f' % balance.delete.to_f < 0
+                  if '%.2f' % balance.to_f < '%.2f' % (0).to_f
                     prompts.push "negative_balance"
                     prompts.push NamedPrompt.currency_prompts balance
                   else
@@ -28,7 +28,7 @@ class SelfServiceBankAccountBalanceDialog < ApplicationBaseDialog
                     prompts.push NamedPrompt.currency_prompts balance
                   end
                   
-                  if '%.2f' % withdrawable_amount.to_f < 0
+                  if '%.2f' % withdrawable_amount.to_f < '%.2f' % (0).to_f
                     prompts.push "withdrawable_negative_amount"
                     prompts.push NamedPrompt.currency_prompts withdrawable_amount
                   else
@@ -59,7 +59,7 @@ class SelfServiceBankAccountBalanceDialog < ApplicationBaseDialog
                   prompts.push "ending_account_id"
                   prompts.push bank_account_id.split('').last(4).map { |s| s.prepend('number/') }
                   prompts.push "account_balance"
-                  if '%.2f' % balance.delete.to_f < 0
+                  if '%.2f' % balance.to_f < '%.2f' % (0).to_f
                     prompts.push "negative_balance"
                     prompts.push NamedPrompt.currency_prompts balance
                   else
@@ -67,7 +67,7 @@ class SelfServiceBankAccountBalanceDialog < ApplicationBaseDialog
                     prompts.push NamedPrompt.currency_prompts balance
                   end
                   
-                  if '%.2f' % withdrawable_amount.to_f < 0
+                  if '%.2f' % withdrawable_amount.to_f < '%.2f' % (0).to_f
                     prompts.push "withdrawable_negative_amount"
                     prompts.push NamedPrompt.currency_prompts withdrawable_amount
                   else

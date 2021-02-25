@@ -152,7 +152,7 @@ module ApplicationHelper
             result = session["result_item"]["product"].present? ? session["result_item"]["product"] : ""
             #### MOCK
             #speech = session["result"].split(" ").join()
-            #if ["บัตรเครดิต"].include?(speech)
+            #if ["บัตรเครดิต","เครดิตการ์ด","เครดิต"].include?(speech)
             #    result = "credit_card" 
             #elsif ["บัญชี","บัญชีเงินฝาก","เงินฝาก","ธนาคาร"].include?(speech)
             #    result = "bank_account"

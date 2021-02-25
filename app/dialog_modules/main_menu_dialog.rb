@@ -65,6 +65,7 @@ class MainMenuDialog < ApplicationBaseDialog
             end
           else
             ### go to Flow C
+            set_initial_variable(session, AskForProductDialog.name)
             AskForProductDialog
           end
         else ### has more than 1 intention
@@ -76,6 +77,7 @@ class MainMenuDialog < ApplicationBaseDialog
         if (retry_exceeded?(session)) || (total_exceeded?(session))
           AgentTransferBlock
         else
+          set_initial_variable(session, AskForIntentDialog.name)
           AskForIntentDialog
         end
       else

@@ -31,7 +31,14 @@ defaults: &defaults
   ### confirmation_option "always", "never", "confidence_base"
   dialog_property:
     main_menu_dialog:
+      reset_initial_variable:
+        is_reset:                            true
+        retry:                               0
+        reject:                              0
+        timeout:                             0
       max_retry:                             2
+      max_reject:                            2
+      max_timeout:                           2
       confirmation_option:                   'never'
       confirmation_confidence_threshold:     0.1
       prompts:
@@ -40,7 +47,14 @@ defaults: &defaults
         reject:                              [['sorry_ask_for_service_with_short_sentence']]
         timeout:                             [['sorry_ask_for_service_with_short_sentence']]
     ask_for_product_dialog:
+      reset_initial_variable:
+        is_reset:                            false
+        retry:                               0
+        reject:                              0
+        timeout:                             0
       max_retry:                             2
+      max_reject:                            2
+      max_timeout:                           2
       confirmation_option:                   'never'
       confirmation_confidence_threshold:     0.1
       prompts:
@@ -50,7 +64,14 @@ defaults: &defaults
         timeout:                             [['sorry_can_you_say_again']]
         confirm:                             [['is_it_correct']]
     ask_for_intent_dialog:
+      reset_initial_variable:
+        is_reset:                            false
+        retry:                               0
+        reject:                              0
+        timeout:                             0
       max_retry:                             2
+      max_reject:                            2
+      max_timeout:                           2
       confirmation_option:                   'never'
       confirmation_confidence_threshold:     0.1
       prompts:

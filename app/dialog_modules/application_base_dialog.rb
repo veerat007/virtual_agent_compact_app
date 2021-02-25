@@ -16,7 +16,7 @@ class ApplicationBaseDialog < SystemBaseDialog
   #
   grammar_name                            "builtin:grammar/-BKICallSteering"  #"builtin:grammar/-AmiDnnThaiTelephony8k_Bay_v8"
   dtmf_grammar                            ""
-  max_retry                               1
+  max_retry                               0
   max_retry_noinput                       1
   max_retry_nomatch                       1
   max_retry_reject                        1

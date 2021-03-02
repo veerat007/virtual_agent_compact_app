@@ -7,7 +7,7 @@ class ConfirmIntentionToAgentDialog < ApplicationBaseDialog
   #== Prompts
   #init1         ['transfer_to_agent_for_service', 'of_product', 'if_yes_please_wait']
 
-  init1           AmiVoice::DialogModule::Settings.dialog_property.confirm_intent_to_agent_dialog.prompts.init[0]
+  init1           ['%confirm_intent_to_agent_dialog%']
 
   #== Properties
   grammar_name           "yesno.gram" # TODO: Please set your grammar

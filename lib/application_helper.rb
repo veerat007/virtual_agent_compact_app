@@ -1,5 +1,7 @@
 module ApplicationHelper
     DIALOG_PROPERTY = AmiVoice::DialogModule::Settings.dialog_property if AmiVoice::DialogModule::Settings.dialog_property.present?
+    INTENTION_LIST = AmiVoice::DialogModule::Settings.intention if AmiVoice::DialogModule::Settings.intention.present?
+    PRODUCT_LIST = AmiVoice::DialogModule::Settings.product if AmiVoice::DialogModule::Settings.product.present?
 
     def transfer_to_destination session
         if is_transfer_ivr(session)
@@ -35,6 +37,28 @@ module ApplicationHelper
         rescue
             result = {}
         end
+    end
+
+    def get_product_prompt session, product_name=""
+        begin
+            product_list = PRODUCT_LIST
+            product_name = session["result_item"]["product"] if product_name.blank?
+            prompt = product_list[product_name]
+        rescue
+            prompt = ""
+        end
+        prompt
+    end
+
+    def get_intention_prompt session, intention_code=""
+        begin
+            intention_list = INTENTION_LIST
+            intention_code = session["result_item"]["intention"] if intention_code.blank?
+            prompt = intention_list["code_#{intention_code}"]
+        rescue
+            prompt = ""
+        end
+        prompt
     end
 
     def set_initial_variable session, dialog_name

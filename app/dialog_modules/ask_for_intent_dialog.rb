@@ -9,7 +9,7 @@ class AskForIntentDialog < ApplicationBaseDialog
   #init2         ['sorry_ask_for_service_again']
   #init3         ['sorry_ask_for_service_again']
 
-  init1           AmiVoice::DialogModule::Settings.dialog_property.ask_for_intent_dialog.prompts.init[0]
+  init1           ['%ask_for_intent_init%']
   init2           AmiVoice::DialogModule::Settings.dialog_property.ask_for_intent_dialog.prompts.retry[0]
   init3           AmiVoice::DialogModule::Settings.dialog_property.ask_for_intent_dialog.prompts.retry[0]
   

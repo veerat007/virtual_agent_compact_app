@@ -8,7 +8,7 @@ class ConfirmIntentionDialog < ApplicationBaseDialog
   #init1         ['you_contact_intention', 'of_product', 'if_yes_please_wait']
   #init2         ['sorry_ask_for_service_with_short_sentence']
 
-  init1           AmiVoice::DialogModule::Settings.dialog_property.confirm_intent_dialog.prompts.init[0]
+  init1           ['%confirm_intent_dialog_prompt%']
 
   #== Properties
   grammar_name           "yesno.gram" # TODO: Please set your grammar

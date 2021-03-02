@@ -28,43 +28,35 @@ module NamedPrompt
     def ask_for_product_init session
       prompts = []
       prompts << AmiVoice::DialogModule::Settings.dialog_property.ask_for_product_dialog.prompts.init[0][0]
-      prompts << session["result_item"]["intention"]
+      prompts << get_intention_prompt(session)
       prompts << AmiVoice::DialogModule::Settings.dialog_property.ask_for_product_dialog.prompts.init[0][1]
       prompts
     end
 
     def ask_for_intent_init session
       prompts = []
-      prompts << AmiVoice::DialogModule::Settings.dialog_property.ask_intention.prompts.init[0]
+      prompts = AmiVoice::DialogModule::Settings.dialog_property.ask_for_intent_dialog.prompts.init[0][0]
+      prompts << get_product_prompt(session)
+      prompts 
+    end
+
+    def confirm_intent_dialog_prompt session
+      prompts = []
+      product << AmiVoice::DialogModule::Settings.dialog_property.confirm_intent_dialog.prompts.init[0][0]
+      product << get_intention_prompt(session)
+      product << AmiVoice::DialogModule::Settings.dialog_property.confirm_intent_dialog.prompts.init[0][1]
+      product << get_product_prompt(session)
+      product << AmiVoice::DialogModule::Settings.dialog_property.confirm_intent_dialog.prompts.init[0][2]
       prompts
     end
 
-    def timeout_prompt session
+    def confirm_intent_to_agent_dialog_prompt session
       prompts = []
-      product = session["result_item"].present? ? session["result_item"]["product"] : ""
-      intention = session["result_item"].present? ? session["result_item"]["intention"] : ""
-      if product.blank? && intention.blank?
-        prompts << 'sorry_ask_for_service_again'
-      elsif product.present? && intention.blank?
-        prompts << 'sorry_ask_for_service_again'
-      elsif intention.present? && product.blank?
-        prompts << 'sorry_can_you_say_again'
-      end
-      prompts
-    end
-    
-    def init_prompt session
-      prompts = []
-      product = session["result_item"].present? ? session["result_item"]["product"] : ""
-      intention = session["result_item"].present? ? session["result_item"]["intention"] : ""
-      if product.blank? && intention.blank?
-        prompts << 'welcome'
-      elsif product.present? && intention.blank?
-        prompts << 'ask_intention'
-      elsif intention.present? && product.blank?
-        prompts << 'want_to_receive_service'
-        prompts << 'ask_product'
-      end
+      product << AmiVoice::DialogModule::Settings.dialog_property.confirm_intent_to_agent_dialog.prompts.init[0][0]
+      product << get_intention_prompt(session)
+      product << AmiVoice::DialogModule::Settings.dialog_property.confirm_intent_to_agent_dialog.prompts.init[0][1]
+      product << get_product_prompt(session)
+      product << AmiVoice::DialogModule::Settings.dialog_property.confirm_intent_to_agent_dialog.prompts.init[0][2]
       prompts
     end
 

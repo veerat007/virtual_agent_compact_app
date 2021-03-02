@@ -320,13 +320,23 @@ defaults: &defaults
         reject:                              []
         timeout:                             []
 
+  product:
+    credit_card:
+      prompt:                                'product/credit_card'
+    bank_account:
+      prompt:                                'product/bank_account'
+    loan:
+      prompt:                                'product/loan'
+
   intention:
     code_001:
-      prompt:                                'credit_card'
+      prompt:                                'intention/enquire_balance'
     code_002:
-      prompt:                                'bank'
+      prompt:                                'intention/enquire_remaining_balance'
     code_003:
-      prompt:                                'loan'
+      prompt:                                'intention/enquire_outstanding_balance'
+    code_004:
+      prompt:                                'intention/enquire_usage_balance_intention'
 
 test:
   <<: *defaults

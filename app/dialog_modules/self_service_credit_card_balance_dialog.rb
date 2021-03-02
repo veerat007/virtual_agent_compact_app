@@ -23,30 +23,31 @@ class SelfServiceCreditCardBalanceDialog < ApplicationBaseDialog
                   last_payment_date = data["last_payment_date"]
                   last_payment = data["last_payment"].gsub(",", "")
 
-                  prompts.push "card_type"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[0][0] #"card_type"
                   prompts.push "#{card_type.downcase.gsub(" ", "_")}"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[0][1] #"ending_card_id"
                   prompts.push card_id.split('').last(4).map { |s| s.prepend('number/') }
-                  prompts.push "usage_balance"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[0][2] #"usage_balance"
                   prompts.push NamedPrompt.currency_prompts usage_balance
                   if data['amount']["usage_balance"]["over_usage"].present?
-                    prompts.push "over_usage_balance"
+                    prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[0][3] #"over_usage_balance"
                     prompts.push NamedPrompt.currency_prompts over_usage_balance
                   end
-                  prompts.push "remaining_balance"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[0][4] #"remaining_balance"
                   prompts.push NamedPrompt.currency_prompts remaining_balance
-                  prompts.push "close_date_card_balance"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[0][5] #"close_date_card_balance"
                   prompts.push NamedPrompt.date_prompts(statement_closing_date, skip_full_year:false, skip_this_year:false)
-                  prompts.push "payment_amount"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[0][6] #"payment_amount"
                   prompts.push NamedPrompt.currency_prompts total_payment_due
-                  prompts.push "minimum_payment_amount"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[0][7] #"minimum_payment_amount"
                   prompts.push NamedPrompt.currency_prompts minimum_payment_due
-                  prompts.push "due_date_card_balance"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[0][8] #"due_date_card_balance"
                   prompts.push NamedPrompt.date_prompts(due_date, skip_full_year:false, skip_this_year:false)
-                  prompts.push "last_payment_date"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[0][9] #"last_payment_date"
                   prompts.push NamedPrompt.date_prompts(last_payment_date, skip_full_year:false, skip_this_year:false)
-                  prompts.push "last_payment_amount"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[0][10] #"last_payment_amount"
                   prompts.push NamedPrompt.currency_prompts last_payment
-                  prompts.push "you_can_listen_again"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[0][11] #"you_can_listen_again"
 
                   prompts.flatten!
                   prompts
@@ -68,63 +69,42 @@ class SelfServiceCreditCardBalanceDialog < ApplicationBaseDialog
                   last_payment_date = data["last_payment_date"]
                   last_payment = data["last_payment"].gsub(",", "")
 
-                  prompts.push "card_type"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[1][0] #"card_type"
                   prompts.push "#{card_type.downcase.gsub(" ", "_")}"
-                  prompts.push "ending_card_id"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[1][1] #"ending_card_id"
                   prompts.push card_id.split('').last(4).map { |s| s.prepend('number/') }
-                  prompts.push "usage_balance"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[1][2] #"usage_balance"
                   prompts.push NamedPrompt.currency_prompts usage_balance
                   if data['amount']["usage_balance"]["over_usage"].present?
-                    prompts.push "over_usage_balance"
+                    prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[1][3] #"over_usage_balance"
                     prompts.push NamedPrompt.currency_prompts over_usage_balance
                   end
-                  prompts.push "remaining_balance"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[1][4] #"remaining_balance"
                   prompts.push NamedPrompt.currency_prompts remaining_balance
-                  prompts.push "close_date_card_balance"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[1][5] #"close_date_card_balance"
                   prompts.push NamedPrompt.date_prompts(statement_closing_date, skip_full_year:false, skip_this_year:false)
-                  prompts.push "payment_amount"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[1][6] #"payment_amount"
                   prompts.push NamedPrompt.currency_prompts total_payment_due
-                  prompts.push "minimum_payment_amount"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[1][7] #"minimum_payment_amount"
                   prompts.push NamedPrompt.currency_prompts minimum_payment_due
-                  prompts.push "due_date_card_balance"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[1][8] #"due_date_card_balance"
                   prompts.push NamedPrompt.date_prompts(due_date, skip_full_year:false, skip_this_year:false)
-                  prompts.push "last_payment_date"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[1][9] #"last_payment_date"
                   prompts.push NamedPrompt.date_prompts(last_payment_date, skip_full_year:false, skip_this_year:false)
-                  prompts.push "last_payment_amount"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[1][10] #"last_payment_amount"
                   prompts.push NamedPrompt.currency_prompts last_payment
-                  prompts.push "you_can_listen_again"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.prompts.init[1][11] #"you_can_listen_again"
 
                   prompts.flatten!
                   prompts
                 }
 
-  # retry1        ['sorry_i_cannot_understand_you',
-  #                'can_you_say_yes_or_no_again']
-  # retry2        ['sorry_i_cannot_understand_you_again',
-  #                'can_you_say_again']
-
-  # timeout1      ['sorry_i_cannot_hear_you',
-  #                'can_you_say_yes_or_no_again']
-  # timeout2      ['sorry_i_cannot_hear_you_again',
-  #                'can_you_say_again']
-
-  # reject1       ['can_you_say_yes_or_no_again']
-  # reject2       ['can_you_say_again']
-
-  # confirmation_init1    ['%speech_input_number_prompts%', 'is_it_correct']
-  # confirmation_retry1   ['sorry_i_cannot_understand_you',
-  #                        '%speech_input_number_prompts%',
-  #                        'is_it_right']
-  # confirmation_timeout1 ['sorry_i_cannot_hear_you',
-  #                        '%speech_input_number_prompts%',
-  #                        'is_it_right']
-
   #
   #== Properties
   #
-  grammar_name           "yesno.gram" # TODO: Please set your grammar
+  grammar_name           AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.grammar_name #"yesno.gram" # TODO: Please set your grammar
   # max_retry              2
-  confirmation_method    :never
+  confirmation_method    AmiVoice::DialogModule::Settings.dialog_property.self_service_credit_card_balance_dialog.confirmation_option.parameterize.underscore.to_sym #:never
 
   #
   #==Action

@@ -7,8 +7,11 @@ class LoanIdentificationDialog < ApplicationBaseDialog
   #
   #== Prompts
   #
-  init1         ['welask_citizen_idcome']
-  init2         ['sorry_can_say_ask_citizen_id_again']
+  # init1         ['ask_citizen_id']
+  # init2         ['sorry_can_say_ask_citizen_id_again']
+  init1         AmiVoice::DialogModule::Settings.dialog_property.loan_identification_dialog.prompts.init[0]
+  init2         AmiVoice::DialogModule::Settings.dialog_property.loan_identification_dialog.prompts.init[1]
+  init3         AmiVoice::DialogModule::Settings.dialog_property.loan_identification_dialog.prompts.init[1]
 
   # retry1        ['sorry_i_cannot_understand_you',
   #                'can_you_say_yes_or_no_again']
@@ -34,9 +37,9 @@ class LoanIdentificationDialog < ApplicationBaseDialog
   #
   #== Properties
   #
-  grammar_name           "13digits.gram" # TODO: Please set your grammar
+  grammar_name           AmiVoice::DialogModule::Settings.dialog_property.loan_identification_dialog.grammar_name #"13digits.gram" # TODO: Please set your grammar
   # max_retry              2
-  confirmation_method    :never
+  confirmation_method    AmiVoice::DialogModule::Settings.dialog_property.loan_identification_dialog.confirmation_option.parameterize.underscore.to_sym #:never
 
   #
   #==Action

@@ -98,6 +98,234 @@ defaults: &defaults
         retry:                               []
         reject:                              []
         timeout:                             []
+    credit_card_identification_dialog:
+      reset_initial_variable:
+        is_reset:                            true
+        retry:                               0
+        reject:                              0
+        timeout:                             0
+      max_retry:                             2
+      max_reject:                            2
+      max_timeout:                           2
+      grammar_name:                          '16digits.gram'
+      confirmation_option:                   'never'
+      confirmation_confidence_threshold:     0.1
+      prompts:
+        init:                                [['ask_credit_card_id'], ['sorry_can_say_credit_card_id_again']]
+        retry:                               [['sorry_can_say_credit_card_id_again']]
+        reject:                              [['sorry_can_say_credit_card_id_again']]
+        timeout:                             [['sorry_can_say_credit_card_id_again']]
+    bank_account_identification_dialog:
+      reset_initial_variable:
+        is_reset:                            true
+        retry:                               0
+        reject:                              0
+        timeout:                             0
+      max_retry:                             2
+      max_reject:                            2
+      max_timeout:                           2
+      grammar_name:                          '10digits.gram'
+      confirmation_option:                   'never'
+      confirmation_confidence_threshold:     0.1
+      prompts:
+        init:                                [['ask_account_id'], ['sorry_can_say_account_id_again']]
+        retry:                               [['sorry_can_say_account_id_again']]
+        reject:                              [['sorry_can_say_account_id_again']]
+        timeout:                             [['sorry_can_say_account_id_again']]
+    loan_identification_dialog:
+      reset_initial_variable:
+        is_reset:                            true
+        retry:                               0
+        reject:                              0
+        timeout:                             0
+      max_retry:                             2
+      max_reject:                            2
+      max_timeout:                           2
+      grammar_name:                          '13digits.gram'
+      confirmation_option:                   'never'
+      confirmation_confidence_threshold:     0.1
+      prompts:
+        init:                                [['ask_citizen_id'], ['sorry_can_say_ask_citizen_id_again']]
+        retry:                               [['sorry_can_say_ask_citizen_id_again']]
+        reject:                              [['sorry_can_say_ask_citizen_id_again']]
+        timeout:                             [['sorry_can_say_ask_citizen_id_again']]
+    confirm_credit_card_identification_dialog:
+      reset_initial_variable:
+        is_reset:                            false
+        retry:                               0
+        reject:                              0
+        timeout:                             0
+      max_retry:                             2
+      max_reject:                            2
+      max_timeout:                           2
+      grammar_name:                          'yesno.gram'
+      confirmation_option:                   'never'
+      confirmation_confidence_threshold:     0.1
+      prompts:
+        init:                                [['credit_card_id_is', '%speech_input_number_prompts%', 'is_it_correct']]
+        retry:                               []
+        reject:                              []
+        timeout:                             []
+    confirm_bank_account_identification_dialog:
+      reset_initial_variable:
+        is_reset:                            false
+        retry:                               0
+        reject:                              0
+        timeout:                             0
+      max_retry:                             2
+      max_reject:                            2
+      max_timeout:                           2
+      grammar_name:                          'yesno.gram'
+      confirmation_option:                   'never'
+      confirmation_confidence_threshold:     0.1
+      prompts:
+        init:                                [['account_id_is', '%speech_input_number_prompts%', 'is_it_correct']]
+        retry:                               []
+        reject:                              []
+        timeout:                             []
+    confirm_loan_identification_dialog:
+      reset_initial_variable:
+        is_reset:                            false
+        retry:                               0
+        reject:                              0
+        timeout:                             0
+      max_retry:                             2
+      max_reject:                            2
+      max_timeout:                           2
+      grammar_name:                          'yesno.gram'
+      confirmation_option:                   'never'
+      confirmation_confidence_threshold:     0.1
+      prompts:
+        init:                                [['citizen_id_is', '%speech_input_number_prompts%', 'is_it_correct']]
+        retry:                               []
+        reject:                              []
+        timeout:                             []
+    verification_question_dialog:
+      reset_initial_variable:
+        is_reset:                            false
+        retry:                               0
+        reject:                              0
+        timeout:                             0
+      max_retry:                             2
+      max_reject:                            2
+      max_timeout:                           2
+      grammar_name:                          'birth_weekday.gram'
+      confirmation_option:                   'never'
+      confirmation_confidence_threshold:     0.1
+      prompts:
+        init:                                [['%announce_verify_question%']]
+        retry:                               []
+        reject:                              []
+        timeout:                             []
+    self_service_bank_account_balance_dialog:
+      reset_initial_variable:
+        is_reset:                            false
+        retry:                               0
+        reject:                              0
+        timeout:                             0
+      max_retry:                             2
+      max_reject:                            2
+      max_timeout:                           2
+      grammar_name:                          'yesno.gram'
+      confirmation_option:                   'never'
+      confirmation_confidence_threshold:     0.1
+      prompts:
+        init:                                [['ending_account_id', 'account_balance', 'negative_balance', 'amount_backing', 'withdrawable_negative_amount', 'withdrawable_amount', 'interest_received_until_end_date', 'interest_payment', 'you_can_listen_again'], ['ending_account_id', 'account_balance', 'negative_balance', 'amount_backing', 'withdrawable_negative_amount', 'withdrawable_amount', 'interest_received_until_end_date', 'interest_payment', 'you_can_listen_again']]
+        retry:                               []
+        reject:                              []
+        timeout:                             []
+    self_service_credit_card_balance_dialog:
+      reset_initial_variable:
+        is_reset:                            false
+        retry:                               0
+        reject:                              0
+        timeout:                             0
+      max_retry:                             2
+      max_reject:                            2
+      max_timeout:                           2
+      grammar_name:                          'yesno.gram'
+      confirmation_option:                   'never'
+      confirmation_confidence_threshold:     0.1
+      prompts:
+        init:                                [['card_type', 'ending_card_id', 'usage_balance', 'over_usage_balance', 'remaining_balance', 'close_date_card_balance', 'payment_amount', 'minimum_payment_amount', 'due_date_card_balance', 'last_payment_date', 'last_payment_amount', 'you_can_listen_again'], ['card_type', 'ending_card_id', 'usage_balance', 'over_usage_balance', 'remaining_balance', 'close_date_card_balance', 'payment_amount', 'minimum_payment_amount', 'due_date_card_balance', 'last_payment_date', 'last_payment_amount', 'you_can_listen_again']]
+        retry:                               []
+        reject:                              []
+        timeout:                             []
+    self_service_credit_card_outstanding_balance_dialog:
+      reset_initial_variable:
+        is_reset:                            false
+        retry:                               0
+        reject:                              0
+        timeout:                             0
+      max_retry:                             2
+      max_reject:                            2
+      max_timeout:                           2
+      grammar_name:                          'yesno.gram'
+      confirmation_option:                   'never'
+      confirmation_confidence_threshold:     0.1
+      prompts:
+        init:                                [['card_type', 'ending_card_id', 'usage_balance', 'close_date_card_balance', 'payment_amount', 'minimum_payment_amount', 'due_date_card_balance', 'you_can_listen_again'], ['card_type', 'ending_card_id', 'usage_balance', 'close_date_card_balance', 'payment_amount', 'minimum_payment_amount', 'due_date_card_balance', 'you_can_listen_again']]
+        retry:                               []
+        reject:                              []
+        timeout:                             []
+    self_service_credit_card_remaining_balance_dialog:
+      reset_initial_variable:
+        is_reset:                            false
+        retry:                               0
+        reject:                              0
+        timeout:                             0
+      max_retry:                             2
+      max_reject:                            2
+      max_timeout:                           2
+      grammar_name:                          'yesno.gram'
+      confirmation_option:                   'never'
+      confirmation_confidence_threshold:     0.1
+      prompts:
+        init:                                [['card_type', 'ending_card_id', 'remaining_balance', 'you_can_listen_again'], ['card_type', 'ending_card_id', 'remaining_balance', 'you_can_listen_again']]
+        retry:                               []
+        reject:                              []
+        timeout:                             []
+    self_service_credit_card_usage_balance_dialog:
+      reset_initial_variable:
+        is_reset:                            false
+        retry:                               0
+        reject:                              0
+        timeout:                             0
+      max_retry:                             2
+      max_reject:                            2
+      max_timeout:                           2
+      grammar_name:                          'yesno.gram'
+      confirmation_option:                   'never'
+      confirmation_confidence_threshold:     0.1
+      prompts:
+        init:                                [['card_type', 'ending_card_id', 'usage_balance', 'over_usage_balance', 'you_can_listen_again'], ['card_type', 'ending_card_id', 'usage_balance', 'over_usage_balance', 'you_can_listen_again']]
+        retry:                               []
+        reject:                              []
+        timeout:                             []
+    ask_for_more_service_dialog:
+      reset_initial_variable:
+        is_reset:                            false
+        retry:                               0
+        reject:                              0
+        timeout:                             0
+      max_retry:                             2
+      max_reject:                            2
+      max_timeout:                           2
+      grammar_name:                          'yesno.gram'
+      confirmation_option:                   'never'
+      confirmation_confidence_threshold:     0.1
+      prompts:
+        init:                                [['ask_additional_service'], ['ask_additional_service'], ['ask_additional_service']]
+        retry:                               []
+        reject:                              []
+        timeout:                             []
+    
+
+  prompt:
+    common:
+      welcome:                               "walcome"
+    intnetion:
+      remaining_balance:                     "remaining_balance"
 
 test:
   <<: *defaults

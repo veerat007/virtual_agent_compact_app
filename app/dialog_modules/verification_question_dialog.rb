@@ -8,36 +8,18 @@ class VerificationQuestionDialog < ApplicationBaseDialog
   #
   #== Prompts
   #
-  init1         ['%announce_verify_question%']
-  init2         ['%announce_verify_question%']
-
-  # retry1        ['sorry_i_cannot_understand_you',
-  #                'can_you_say_yes_or_no_again']
-  # retry2        ['sorry_i_cannot_understand_you_again',
-  #                'can_you_say_again']
-
-  # timeout1      ['sorry_i_cannot_hear_you',
-  #                'can_you_say_yes_or_no_again']
-  # timeout2      ['sorry_i_cannot_hear_you_again',
-  #                'can_you_say_again']
-
-  # reject1       ['can_you_say_yes_or_no_again']
-  # reject2       ['can_you_say_again']
-
-  # confirmation_init1    ['%speech_input_number_prompts%', 'is_it_correct']
-  # confirmation_retry1   ['sorry_i_cannot_understand_you',
-  #                        '%speech_input_number_prompts%',
-  #                        'is_it_right']
-  # confirmation_timeout1 ['sorry_i_cannot_hear_you',
-  #                        '%speech_input_number_prompts%',
-  #                        'is_it_right']
+  # init1         ['%announce_verify_question%']
+  # init2         ['%announce_verify_question%']
+  init1         AmiVoice::DialogModule::Settings.dialog_property.verification_question_dialog.prompts.init[0]
+  init2         AmiVoice::DialogModule::Settings.dialog_property.verification_question_dialog.prompts.init[0]
+  init3         AmiVoice::DialogModule::Settings.dialog_property.verification_question_dialog.prompts.init[0]
 
   #
   #== Properties
   #
-  grammar_name          "birth_weekday.gram"
+  grammar_name           AmiVoice::DialogModule::Settings.dialog_property.verification_question_dialog.grammar_name # "birth_weekday.gram"
   # max_retry              2
-  confirmation_method    :never
+  confirmation_method    AmiVoice::DialogModule::Settings.dialog_property.verification_question_dialog.confirmation_option.parameterize.underscore.to_sym #:never
 
   #
   #==Action

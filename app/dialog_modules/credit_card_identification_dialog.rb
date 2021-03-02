@@ -7,28 +7,18 @@ class CreditCardIdentificationDialog < ApplicationBaseDialog
   #
   #== Prompts
   #
-  init1         ['ask_credit_card_id',]
-  init2         ['sorry_can_say_credit_card_id_again']
-
-  # retry1        ['sorry_can_say_credit_card_id_again']
-  # retry2        ['sorry_can_say_credit_card_id_again']
-
-  # timeout1      ['sorry_can_say_credit_card_id_again']
-  # timeout2      ['sorry_can_say_credit_card_id_again']
-
-  # reject1       ['sorry_can_say_credit_card_id_again']
-  # reject2       ['sorry_can_say_credit_card_id_again']
-
-  # confirmation_init1    ['credit_card_id_is', '%speech_input_number_prompts%', 'is_it_correct']
-  # confirmation_retry1   ['sorry_can_say_credit_card_id_again']
-  # confirmation_timeout1 ['sorry_can_say_credit_card_id_again']
-
+  # init1         ['ask_credit_card_id',]
+  # init2         ['sorry_can_say_credit_card_id_again']
+  init1         AmiVoice::DialogModule::Settings.dialog_property.credit_card_identification_dialog.prompts.init[0]
+  init2         AmiVoice::DialogModule::Settings.dialog_property.credit_card_identification_dialog.prompts.init[1]
+  init3         AmiVoice::DialogModule::Settings.dialog_property.credit_card_identification_dialog.prompts.init[1]
+  
   #
   #== Properties
   #
-  grammar_name           "16digits.gram" # TODO: Please set your grammar
+  grammar_name           AmiVoice::DialogModule::Settings.dialog_property.credit_card_identification_dialog.grammar_name # "16digits.gram" # TODO: Please set your grammar
   # max_retry              2
-  confirmation_method    :never
+  confirmation_method    AmiVoice::DialogModule::Settings.dialog_property.credit_card_identification_dialog.confirmation_option.parameterize.underscore.to_sym #:never
 
   #
   #==Action

@@ -7,36 +7,18 @@ class ConfirmBankAccountIdentificationDialog < ApplicationBaseDialog
   #
   #== Prompts
   #
-  init1         ['account_id_is', '%speech_input_number_prompts%', 'is_it_correct']
-  init2         ['account_id_is', '%speech_input_number_prompts%', 'is_it_correct']
-
-  # retry1        ['sorry_i_cannot_understand_you',
-  #                'can_you_say_yes_or_no_again']
-  # retry2        ['sorry_i_cannot_understand_you_again',
-  #                'can_you_say_again']
-
-  # timeout1      ['sorry_i_cannot_hear_you',
-  #                'can_you_say_yes_or_no_again']
-  # timeout2      ['sorry_i_cannot_hear_you_again',
-  #                'can_you_say_again']
-
-  # reject1       ['can_you_say_yes_or_no_again']
-  # reject2       ['can_you_say_again']
-
-  # confirmation_init1    ['%speech_input_number_prompts%', 'is_it_correct']
-  # confirmation_retry1   ['sorry_i_cannot_understand_you',
-  #                        '%speech_input_number_prompts%',
-  #                        'is_it_right']
-  # confirmation_timeout1 ['sorry_i_cannot_hear_you',
-  #                        '%speech_input_number_prompts%',
-  #                        'is_it_right']
+  # init1         ['account_id_is', '%speech_input_number_prompts%', 'is_it_correct']
+  # init2         ['account_id_is', '%speech_input_number_prompts%', 'is_it_correct']
+  init1         AmiVoice::DialogModule::Settings.dialog_property.confirm_bank_account_identification_dialog.prompts.init[0]
+  init2         AmiVoice::DialogModule::Settings.dialog_property.confirm_bank_account_identification_dialog.prompts.init[0]
+  init3         AmiVoice::DialogModule::Settings.dialog_property.confirm_bank_account_identification_dialog.prompts.init[0]
 
   #
   #== Properties
   #
-  grammar_name           "yesno.gram" # TODO: Please set your grammar
+  grammar_name           AmiVoice::DialogModule::Settings.dialog_property.confirm_bank_account_identification_dialog.grammar_name # "yesno.gram" # TODO: Please set your grammar
   # max_retry              2
-  confirmation_method    :never
+  confirmation_method    AmiVoice::DialogModule::Settings.dialog_property.confirm_bank_account_identification_dialog.confirmation_option.parameterize.underscore.to_sym # :never
 
   #
   #==Action

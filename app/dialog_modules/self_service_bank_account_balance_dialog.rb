@@ -17,30 +17,30 @@ class SelfServiceBankAccountBalanceDialog < ApplicationBaseDialog
                   withdrawable_amount = data['amount']["withdrawable_amount"].gsub(",", "")
                   interest_due_date = data['date']
 
-                  prompts.push "ending_account_id"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_bank_account_balance_dialog.prompts.init[0][0] #"ending_account_id"
                   prompts.push bank_account_id.split('').last(4).map { |s| s.prepend('number/') }
-                  prompts.push "account_balance"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_bank_account_balance_dialog.prompts.init[0][1] #"account_balance"
                   if '%.2f' % balance.to_f < '%.2f' % (0).to_f
-                    prompts.push "negative_balance"
+                    prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_bank_account_balance_dialog.prompts.init[0][2] #"negative_balance"
                     prompts.push NamedPrompt.currency_prompts balance
                   else
-                    prompts.push "amount_backing"
+                    prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_bank_account_balance_dialog.prompts.init[0][3] #"amount_backing"
                     prompts.push NamedPrompt.currency_prompts balance
                   end
                   
                   if '%.2f' % withdrawable_amount.to_f < '%.2f' % (0).to_f
-                    prompts.push "withdrawable_negative_amount"
+                    prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_bank_account_balance_dialog.prompts.init[0][4] #"withdrawable_negative_amount"
                     prompts.push NamedPrompt.currency_prompts withdrawable_amount
                   else
-                    prompts.push "withdrawable_amount"
+                    prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_bank_account_balance_dialog.prompts.init[0][5] #"withdrawable_amount"
                     prompts.push NamedPrompt.currency_prompts withdrawable_amount
                   end
 
-                  prompts.push "interest_received_until_end_date"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_bank_account_balance_dialog.prompts.init[0][6] #"interest_received_until_end_date"
                   prompts.push NamedPrompt.date_prompts(interest_due_date, skip_full_year:false, skip_this_year:false)
-                  prompts.push "interest_payment"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_bank_account_balance_dialog.prompts.init[0][7] #"interest_payment"
                   prompts.push NamedPrompt.currency_prompts interest_amount
-                  prompts.push "you_can_listen_again"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_bank_account_balance_dialog.prompts.init[0][8] #"you_can_listen_again"
 
                   prompts.flatten!
                   prompts
@@ -56,30 +56,30 @@ class SelfServiceBankAccountBalanceDialog < ApplicationBaseDialog
                   withdrawable_amount = data['amount']["withdrawable_amount"].gsub(",", "")
                   interest_due_date = data['date']
 
-                  prompts.push "ending_account_id"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_bank_account_balance_dialog.prompts.init[1][0] #"ending_account_id"
                   prompts.push bank_account_id.split('').last(4).map { |s| s.prepend('number/') }
-                  prompts.push "account_balance"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_bank_account_balance_dialog.prompts.init[1][1] #"account_balance"
                   if '%.2f' % balance.to_f < '%.2f' % (0).to_f
-                    prompts.push "negative_balance"
+                    prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_bank_account_balance_dialog.prompts.init[1][2] #"negative_balance"
                     prompts.push NamedPrompt.currency_prompts balance
                   else
-                    prompts.push "amount_backing"
+                    prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_bank_account_balance_dialog.prompts.init[1][3] #"amount_backing"
                     prompts.push NamedPrompt.currency_prompts balance
                   end
                   
                   if '%.2f' % withdrawable_amount.to_f < '%.2f' % (0).to_f
-                    prompts.push "withdrawable_negative_amount"
+                    prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_bank_account_balance_dialog.prompts.init[1][4] #"withdrawable_negative_amount"
                     prompts.push NamedPrompt.currency_prompts withdrawable_amount
                   else
-                    prompts.push "withdrawable_amount"
+                    prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_bank_account_balance_dialog.prompts.init[1][5] #"withdrawable_amount"
                     prompts.push NamedPrompt.currency_prompts withdrawable_amount
                   end
 
-                  prompts.push "interest_received_until_end_date"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_bank_account_balance_dialog.prompts.init[1][6] #"interest_received_until_end_date"
                   prompts.push NamedPrompt.date_prompts(interest_due_date, skip_full_year:false, skip_this_year:false)
-                  prompts.push "interest_payment"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_bank_account_balance_dialog.prompts.init[1][7] #"interest_payment"
                   prompts.push NamedPrompt.currency_prompts interest_amount
-                  prompts.push "you_can_listen_again"
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.self_service_bank_account_balance_dialog.prompts.init[1][8] #"you_can_listen_again"
 
                   prompts.flatten!
                   prompts
@@ -109,9 +109,9 @@ class SelfServiceBankAccountBalanceDialog < ApplicationBaseDialog
   #
   #== Properties
   #
-  grammar_name           "yesno.gram" # TODO: Please set your grammar
+  grammar_name           AmiVoice::DialogModule::Settings.dialog_property.self_service_bank_account_balance_dialog.grammar_name #"yesno.gram" # TODO: Please set your grammar
   # max_retry              2
-  confirmation_method    :never
+  confirmation_method    AmiVoice::DialogModule::Settings.dialog_property.self_service_bank_account_balance_dialog.confirmation_option.parameterize.underscore.to_sym #:never
 
   #
   #==Action

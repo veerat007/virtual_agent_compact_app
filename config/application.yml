@@ -320,11 +320,13 @@ defaults: &defaults
         reject:                              []
         timeout:                             []
 
-  prompt:
-    common:
-      welcome:                               "walcome"
-    intnetion:
-      remaining_balance:                     "remaining_balance"
+  intention:
+    code_001:
+      prompt:                                'credit_card'
+    code_002:
+      prompt:                                'bank'
+    code_003:
+      prompt:                                'loan'
 
 test:
   <<: *defaults

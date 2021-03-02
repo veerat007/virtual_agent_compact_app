@@ -25,31 +25,17 @@ module NamedPrompt
       prompts
     end
 
-    def retry_prompt session
+    def ask_for_product_init session
       prompts = []
-      product = session["result_item"].present? ? session["result_item"]["product"] : ""
-      intention = session["result_item"].present? ? session["result_item"]["intention"] : ""
-      if product.blank? && intention.blank?
-        prompts << 'sorry_ask_for_service_again'
-      elsif product.present? && intention.blank?
-        prompts << 'sorry_ask_for_service_again'
-      elsif intention.present? && product.blank?
-        prompts << 'sorry_can_you_say_again'
-      end
+      prompts << AmiVoice::DialogModule::Settings.dialog_property.ask_for_product_dialog.prompts.init[0][0]
+      prompts << session["result_item"]["intention"]
+      prompts << AmiVoice::DialogModule::Settings.dialog_property.ask_for_product_dialog.prompts.init[0][1]
       prompts
     end
 
-    def reject_prompt session
+    def ask_for_intent_init session
       prompts = []
-      product = session["result_item"].present? ? session["result_item"]["product"] : ""
-      intention = session["result_item"].present? ? session["result_item"]["intention"] : ""
-      if product.blank? && intention.blank?
-        prompts << 'sorry_ask_for_service_again'
-      elsif product.present? && intention.blank?
-        prompts << 'sorry_ask_for_service_again'
-      elsif intention.present? && product.blank?
-        prompts << 'sorry_can_you_say_again'
-      end
+      prompts << AmiVoice::DialogModule::Settings.dialog_property.ask_intention.prompts.init[0]
       prompts
     end
 

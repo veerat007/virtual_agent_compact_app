@@ -9,9 +9,23 @@ class ConfirmLoanIdentificationDialog < ApplicationBaseDialog
   #
   # init1         ['citizen_id_is', '%speech_input_number_prompts%', 'is_it_correct']
   # init2         ['citizen_id_is', '%speech_input_number_prompts%', 'is_it_correct']
-  init1         AmiVoice::DialogModule::Settings.dialog_property.confirm_loan_identification_dialog.prompts.init[0]
-  init2         AmiVoice::DialogModule::Settings.dialog_property.confirm_loan_identification_dialog.prompts.init[0]
-  init3         AmiVoice::DialogModule::Settings.dialog_property.confirm_loan_identification_dialog.prompts.init[0]
+  init1         { |session|
+                  prompts = []
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.confirm_loan_identification_dialog.prompts.init[0][0]
+                  prompts.push '%speech_input_number_prompts%'
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.confirm_loan_identification_dialog.prompts.init[0][1]
+                  prompts.flatten!
+                  prompts
+                }
+                
+  init2         { |session|
+                  prompts = []
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.confirm_loan_identification_dialog.prompts.init[1][0]
+                  prompts.push '%speech_input_number_prompts%'
+                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.confirm_loan_identification_dialog.prompts.init[1][1]
+                  prompts.flatten!
+                  prompts
+                }
 
   #
   #== Properties

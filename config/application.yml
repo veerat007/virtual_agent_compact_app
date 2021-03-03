@@ -162,7 +162,7 @@ defaults: &defaults
       confirmation_option:                   'never'
       confirmation_confidence_threshold:     0.1
       prompts:
-        init:                                [['credit_card_id_is', '%speech_input_number_prompts%', 'is_it_correct']]
+        init:                                [['credit_card_id_is', 'is_it_correct'], ['credit_card_id_is', 'is_it_correct']]
         retry:                               []
         reject:                              []
         timeout:                             []
@@ -179,7 +179,7 @@ defaults: &defaults
       confirmation_option:                   'never'
       confirmation_confidence_threshold:     0.1
       prompts:
-        init:                                [['account_id_is', '%speech_input_number_prompts%', 'is_it_correct']]
+        init:                                [['account_id_is', 'is_it_correct'], ['account_id_is', 'is_it_correct']]
         retry:                               []
         reject:                              []
         timeout:                             []
@@ -196,7 +196,7 @@ defaults: &defaults
       confirmation_option:                   'never'
       confirmation_confidence_threshold:     0.1
       prompts:
-        init:                                [['citizen_id_is', '%speech_input_number_prompts%', 'is_it_correct']]
+        init:                                [['citizen_id_is', 'is_it_correct'], ['citizen_id_is', 'is_it_correct']]
         retry:                               []
         reject:                              []
         timeout:                             []

@@ -10,8 +10,7 @@ class AskForProductDialog < ApplicationBaseDialog
   #init3         ['sorry_can_you_say_again']
 
   init1           ['%ask_for_product_init%']
-  init2           AmiVoice::DialogModule::Settings.dialog_property.ask_for_product_dialog.prompts.retry[0]
-  init3           AmiVoice::DialogModule::Settings.dialog_property.ask_for_product_dialog.prompts.retry[0]
+  init2           ['%action_prompt%']
 
   confirmation_init1    AmiVoice::DialogModule::Settings.dialog_property.ask_for_intent_dialog.prompts.confirm[0]
 

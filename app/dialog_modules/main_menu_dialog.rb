@@ -10,8 +10,7 @@ class MainMenuDialog < ApplicationBaseDialog
   #init3         ['sorry_ask_for_service_with_short_sentence'] #['sorry_ask_for_service_again']
 
   init1           ['%main_menu_init%']
-  init2           AmiVoice::DialogModule::Settings.dialog_property.main_menu_dialog.prompts.retry[0]
-  init3           AmiVoice::DialogModule::Settings.dialog_property.main_menu_dialog.prompts.retry[0]
+  init2           ['%action_prompt%']
 
   #== Properties
   

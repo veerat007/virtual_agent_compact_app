@@ -25,12 +25,25 @@ module NamedPrompt
       prompts
     end
 
+    def action_prompt session
+      prompts = []
+      dialog_property = DIALOG_PROPERTY
+      if session['action_state'] == "timeout"
+        prompts << dialog_property[session["dialog_name"]]["prompts"]["timeout"]
+      elsif session['action_state'] == "reject"
+        prompts << dialog_property[session["dialog_name"]]["prompts"]["reject"]
+      else 
+        prompts << dialog_property[session["dialog_name"]]["prompts"]["retry"]
+      end
+      prompts
+    end
+
     def main_menu_init session
       prompts = []
       if total_retry(session) == 0
         prompts << AmiVoice::DialogModule::Settings.dialog_property.main_menu_dialog.prompts.init[0]
       else
-        prompts << AmiVoice::DialogModule::Settings.dialog_property.main_menu_dialog.prompts.retry[0]
+        prompts << AmiVoice::DialogModule::Settings.dialog_property.confirm_intent_dialog.prompts.retry[0]
       end
       prompts
     end

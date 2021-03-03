@@ -43,9 +43,9 @@ defaults: &defaults
       confirmation_confidence_threshold:     0.1
       prompts:
         init:                                [['welcome']]
-        retry:                               [['sorry_ask_for_service_with_short_sentence']]
-        reject:                              [['sorry_ask_for_service_with_short_sentence']]
-        timeout:                             [['sorry_ask_for_service_with_short_sentence']]
+        retry:                               [['sorry_ask_for_service_again']]
+        reject:                              [['sorry_ask_for_service_again']]
+        timeout:                             [['sorry_ask_for_service_again']]
     ask_for_product_dialog:
       reset_initial_variable:
         is_reset:                            false
@@ -86,7 +86,7 @@ defaults: &defaults
       confirmation_confidence_threshold:     0.1
       prompts:
         init:                                [['you_contact_intention', 'of_product', 'if_yes_please_wait']]
-        retry:                               []
+        retry:                               ['sorry_ask_for_service_with_short_sentence']
         reject:                              []
         timeout:                             []
     confirm_intent_to_agent_dialog:
@@ -95,7 +95,7 @@ defaults: &defaults
       confirmation_confidence_threshold:     0.1
       prompts:
         init:                                [['transfer_to_agent_for_service', 'of_product', 'if_yes_please_wait']]
-        retry:                               []
+        retry:                               ['sorry_ask_for_service_with_short_sentence']
         reject:                              []
         timeout:                             []
     credit_card_identification_dialog:

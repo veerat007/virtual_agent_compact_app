@@ -62,8 +62,8 @@ module ApplicationHelper
     end
 
     def set_initial_variable session, dialog_name
+        session['action_state'] = "" 
         dialog_property = DIALOG_PROPERTY[dialog_name]
-
         if dialog_property['reset_initial_variable']['is_reset'] ### reset counter 
             session['retry'] = dialog_property['reset_initial_variable']['retry']
             session['reject'] = dialog_property['reset_initial_variable']['reject']
@@ -75,16 +75,19 @@ module ApplicationHelper
     end
 
     def increase_timeout session
+        session['action_state'] = 'timeout'
         session['timeout'] = 0 if session['timeout'].nil?
         session['timeout'] = session['timeout'] + 1
     end
     
     def increase_retry session
+        session['action_state'] = 'retry'
         session['retry'] = 0 if session['retry'].nil?
         session['retry'] = session['retry'] + 1
     end
     
     def increase_reject session
+        session['action_state'] = 'reject'
         session['reject'] = 0 if session['reject'].nil?
         session['reject'] = session['reject'] + 1
     end

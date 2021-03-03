@@ -26,6 +26,9 @@ class ConfirmIntentionToAgentDialog < ApplicationBaseDialog
       if (reject_exceeded?(session)) || (total_exceeded?(session))
         AgentTransferBlock
       else
+        session["action_state"] = ""
+        session["result_item"]["product"] = ""
+        session["result_item"]["intention"] = ""
         MainMenuDialog
       end
 
@@ -33,7 +36,15 @@ class ConfirmIntentionToAgentDialog < ApplicationBaseDialog
       if session['result'] =~ /yes/i
         AgentTransferBlock
       else ## NO
-        MainMenuDialog
+        increase_retry(session)
+        if (retry_exceeded?(session)) || (total_exceeded?(session))
+          AgentTransferBlock
+        else
+          session["action_state"] = ""
+          session["result_item"]["product"] = ""
+          session["result_item"]["intention"] = ""
+          MainMenuDialog
+        end
       end
 
     end

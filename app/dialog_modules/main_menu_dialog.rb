@@ -9,20 +9,11 @@ class MainMenuDialog < ApplicationBaseDialog
   #init2         ['sorry_ask_for_service_with_short_sentence'] #['sorry_ask_for_service_again']
   #init3         ['sorry_ask_for_service_with_short_sentence'] #['sorry_ask_for_service_again']
 
-  init1           AmiVoice::DialogModule::Settings.dialog_property.main_menu_dialog.prompts.init[0]
+  init1           ['%main_menu_init%']
   init2           AmiVoice::DialogModule::Settings.dialog_property.main_menu_dialog.prompts.retry[0]
   init3           AmiVoice::DialogModule::Settings.dialog_property.main_menu_dialog.prompts.retry[0]
 
   #== Properties
-  #grammar_name           "yesno.gram" # TODO: Please set your grammar
-  max_retry              2
-  timeout                "3s"
-  complete_timeout       "0.8s"
-  incomplete_timeout     "1.0s"
-  speed_vs_accuracy      0.9
-  max_speech_timeout     "10s"
-  confidence_level       0.0
-  confirmation_method    :never
   
   #==Action
 

@@ -19,11 +19,7 @@ class ConfirmIntentionDialog < ApplicationBaseDialog
   action do |session|
     
     if timeout?(session)
-      if !is_transfer_ivr(session)
-        transfer_to_destination(session)
-      else
-        ### 
-      end
+      transfer_to_destination(session)
       
     elsif rejected?(session, true)
       increase_reject(session)
@@ -35,11 +31,7 @@ class ConfirmIntentionDialog < ApplicationBaseDialog
 
     else # recognized
       if session['result'] =~ /yes/i
-        if !is_transfer_ivr(session)
-          transfer_to_destination(session)
-        else
-          
-        end
+        transfer_to_destination(session)
       else ## NO
         MainMenuDialog
       end

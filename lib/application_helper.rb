@@ -43,7 +43,7 @@ module ApplicationHelper
         begin
             product_list = PRODUCT_LIST
             product_name = session["result_item"]["product"] if product_name.blank?
-            prompt = product_list[product_name]
+            prompt = product_list[product_name]["prompt"]
         rescue
             prompt = ""
         end
@@ -54,7 +54,7 @@ module ApplicationHelper
         begin
             intention_list = INTENTION_LIST
             intention_code = session["result_item"]["intention"] if intention_code.blank?
-            prompt = intention_list["code_#{intention_code}"]
+            prompt = intention_list["code_#{intention_code}"]["prompt"]
         rescue
             prompt = ""
         end
@@ -184,7 +184,7 @@ module ApplicationHelper
             #    result = "credit_card" 
             #elsif ["บัญชี","บัญชีเงินฝาก","เงินฝาก","ธนาคาร"].include?(speech)
             #    result = "bank_account"
-            #else
+            #elsif ["สินเชื่อ"].include?(speech)
             #    result = "loan"
             #end
         rescue StandardError
@@ -199,13 +199,13 @@ module ApplicationHelper
             #### MOCK 
             # speech = session["result"].split(" ").join()
             # if speech == "สอบถามยอด"
-            #     result = "balance"
+            #     result = "001"
             # elsif ["สอบถามยอดคงเหลือ", "ยอดคงเหลือ"].include?(speech)
-            #   result = "remaining_balance"
+            #   result = "002"
             # elsif ["สอบถามยอดค้างชำระ", "ยอดค้างชำระ"].include?(speech)
-            #   result = "outstanding_balance"
+            #   result = "003"
             # elsif ["สอบถามยอดที่ใช้ไป", "ยอดที่ใช้ไป", "ยอดที่ใช้"].include?(speech)
-            #   result = "usage_balance"
+            #   result = "004"
             # end
         rescue StandardError
            result = ""

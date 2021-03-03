@@ -8,11 +8,11 @@ class VerificationQuestionDialog < ApplicationBaseDialog
   #
   #== Prompts
   #
-  # init1         ['%announce_verify_question%']
-  # init2         ['%announce_verify_question%']
-  init1         AmiVoice::DialogModule::Settings.dialog_property.verification_question_dialog.prompts.init[0]
-  init2         AmiVoice::DialogModule::Settings.dialog_property.verification_question_dialog.prompts.init[0]
-  init3         AmiVoice::DialogModule::Settings.dialog_property.verification_question_dialog.prompts.init[0]
+  init1         ['%announce_verify_question%']
+  init2         ['%announce_verify_question%']
+  # init1         AmiVoice::DialogModule::Settings.dialog_property.verification_question_dialog.prompts.init[0]
+  # init2         AmiVoice::DialogModule::Settings.dialog_property.verification_question_dialog.prompts.init[0]
+  # init3         AmiVoice::DialogModule::Settings.dialog_property.verification_question_dialog.prompts.init[0]
 
   #
   #== Properties

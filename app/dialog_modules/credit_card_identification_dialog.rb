@@ -11,7 +11,7 @@ class CreditCardIdentificationDialog < ApplicationBaseDialog
   # init2         ['sorry_can_say_credit_card_id_again']
   init1         AmiVoice::DialogModule::Settings.dialog_property.credit_card_identification_dialog.prompts.init[0]
   init2         AmiVoice::DialogModule::Settings.dialog_property.credit_card_identification_dialog.prompts.init[1]
-  init3         AmiVoice::DialogModule::Settings.dialog_property.credit_card_identification_dialog.prompts.init[1]
+  # init3         AmiVoice::DialogModule::Settings.dialog_property.credit_card_identification_dialog.prompts.init[1]
   
   #
   #== Properties

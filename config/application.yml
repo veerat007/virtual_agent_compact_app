@@ -213,7 +213,7 @@ defaults: &defaults
       confirmation_option:                   'never'
       confirmation_confidence_threshold:     0.1
       prompts:
-        init:                                [['%announce_verify_question%']]
+        init:                                []
         retry:                               []
         reject:                              []
         timeout:                             []

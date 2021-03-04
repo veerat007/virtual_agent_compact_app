@@ -264,7 +264,7 @@ defaults: &defaults
       confirmation_option:                   'never'
       confirmation_confidence_threshold:     0.1
       prompts:
-        init:                                [['card_type', 'ending_card_id', 'usage_balance', 'close_date_card_balance', 'payment_amount', 'minimum_payment_amount', 'due_date_card_balance', 'you_can_listen_again'], ['card_type', 'ending_card_id', 'usage_balance', 'close_date_card_balance', 'payment_amount', 'minimum_payment_amount', 'due_date_card_balance', 'you_can_listen_again']]
+        init:                                [['card_type', 'ending_card_id', 'close_date_card_balance', 'payment_amount', 'minimum_payment_amount', 'due_date_card_balance', 'you_can_listen_again'], ['card_type', 'ending_card_id', 'close_date_card_balance', 'payment_amount', 'minimum_payment_amount', 'due_date_card_balance', 'you_can_listen_again']]
         retry:                               []
         reject:                              []
         timeout:                             []

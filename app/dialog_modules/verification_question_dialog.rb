@@ -60,11 +60,11 @@ class VerificationQuestionDialog < ApplicationBaseDialog
         response = Net::HTTP.post_form(uri, "product" => session["identification_info"]["product"], "card_id" => session["identification_info"]["card_id"])
         session["announcement_info"] = JSON.parse(response.body)
         if session["announcement_info"]["card_info"][0]["card_status"] == "active" #session["announcement_info"]["status"] != "error" && session["announcement_info"]["card_status"] == "active"
-          if session["result_item"]["intention"] == "remaining_balance"
+          if session["result_item"]["intention"] == "002" #"remaining_balance"
             SelfServiceCreditCardRemainingBalanceDialog
-          elsif session["result_item"]["intention"] == "outstanding_balance"
+          elsif session["result_item"]["intention"] == "003" #"outstanding_balance"
             SelfServiceCreditCardOutstandingBalanceDialog
-          elsif session["result_item"]["intention"] == "usage_balance"
+          elsif session["result_item"]["intention"] == "004" #"usage_balance"
             SelfServiceCreditCardUsageBalanceDialog
           else
             SelfServiceCreditCardBalanceDialog
@@ -79,7 +79,7 @@ class VerificationQuestionDialog < ApplicationBaseDialog
         response = Net::HTTP.post_form(uri, "product" => session["identification_info"]["product"], "account_no" => session["identification_info"]["bank_account_id"])
         session["announcement_info"] = JSON.parse(response.body)
         if session["announcement_info"]["account_info"][0]["account_status"] == "active"
-          SelfServiceBankAccountBalanceDialog
+          SelfServiceBankAccountBalanceDialog # session["result_item"]["intention"] == "001" || session["result_item"]["intention"] == "002"
         else
           AgentTransferBlock
         end

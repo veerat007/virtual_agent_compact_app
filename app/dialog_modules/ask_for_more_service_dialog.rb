@@ -11,7 +11,7 @@ class AskForMoreServiceDialog < ApplicationBaseDialog
   # init2         ['ask_additional_service']
   init1         AmiVoice::DialogModule::Settings.dialog_property.ask_for_more_service_dialog.prompts.init[0]
   init2         AmiVoice::DialogModule::Settings.dialog_property.ask_for_more_service_dialog.prompts.init[1]
-  init3         AmiVoice::DialogModule::Settings.dialog_property.ask_for_more_service_dialog.prompts.init[2]
+  # init3         AmiVoice::DialogModule::Settings.dialog_property.ask_for_more_service_dialog.prompts.init[2]
   #
   #== Properties
   #

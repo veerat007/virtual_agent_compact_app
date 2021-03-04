@@ -66,7 +66,7 @@ class VerificationQuestionDialog < ApplicationBaseDialog
             SelfServiceCreditCardOutstandingBalanceDialog
           elsif session["result_item"]["intention"] == "004" #"usage_balance"
             SelfServiceCreditCardUsageBalanceDialog
-          else
+          else # session["result_item"]["intention"] == "001" # "enquire_balance"
             SelfServiceCreditCardBalanceDialog
           end
         else

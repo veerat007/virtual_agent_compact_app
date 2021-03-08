@@ -330,7 +330,7 @@ defaults: &defaults
 
   intention:
     code_001:
-      intention_code:                        '001'
+      intention_name:                        ''
       intention_tag:                         ''
       category_code:                         ''
       vdn_office_hr:                         null
@@ -338,7 +338,7 @@ defaults: &defaults
       destination:                           ''
       prompt:                                'intention/enquire_balance'
     code_002:
-      intention_code:                        '002'
+      intention_name:                        ''
       intention_tag:                         ''
       category_code:                         ''
       vdn_office_hr:                         null
@@ -346,7 +346,7 @@ defaults: &defaults
       destination:                           ''
       prompt:                                'intention/enquire_remaining_balance'
     code_003:
-      intention_code:                        '003'
+      intention_name:                        ''
       intention_tag:                         ''
       category_code:                         ''
       vdn_office_hr:                         null
@@ -354,7 +354,7 @@ defaults: &defaults
       destination:                           ''
       prompt:                                'intention/enquire_outstanding_balance'
     code_004:
-      intention_code:                        '004'
+      intention_name:                        ''
       intention_tag:                         ''
       category_code:                         ''
       vdn_office_hr:                         null

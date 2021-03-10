@@ -30,10 +30,11 @@ module ApplicationHelper
         end
     end
 
-    def get_dialog_property session
+    def get_dialog_property session, dialog_name=""
         begin
+            dialog_name = dialog_name.present? ? dialog_name : session['dialog_name']
             dialog_property = DIALOG_PROPERTY
-            result = dialog_property[session['dialog_name']]
+            result = dialog_property[dialog_name]
             result
         rescue
             result = {}
@@ -72,7 +73,7 @@ module ApplicationHelper
     end
 
     def set_initial_variable session, dialog_name
-        session['action_state'] = "" 
+        session['action_state'] = ""
         dialog_property = DIALOG_PROPERTY[dialog_name]
         if dialog_property['reset_initial_variable']['is_reset'] ### reset counter 
             session['retry'] = dialog_property['reset_initial_variable']['retry']

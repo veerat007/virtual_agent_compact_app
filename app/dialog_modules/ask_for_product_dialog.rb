@@ -39,7 +39,7 @@ class AskForProductDialog < ApplicationBaseDialog
 
     else # recognized
       if has_product(session) || belong_to_single_product(session)
-        main_menu_property = AmiVoice::DialogModule::Settings.dialog_property.main_menu_dialog
+        main_menu_property = get_dialog_property(session, MainMenuDialog.name)
         if main_menu_property["confirmation_option"] == "never" || main_menu_property["confirmation_option"].blank?
           transfer_to_destination(session)
         elsif main_menu_property["confirmation_option"] == "always"

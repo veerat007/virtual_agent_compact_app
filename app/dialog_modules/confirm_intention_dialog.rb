@@ -5,9 +5,6 @@ class ConfirmIntentionDialog < ApplicationBaseDialog
   DESCRIPTION
 
   #== Prompts
-  #init1         ['you_contact_intention', 'of_product', 'if_yes_please_wait']
-  #init2         ['sorry_ask_for_service_with_short_sentence']
-
   init1           ['%confirm_intent_dialog_prompt%']
 
   #== Properties

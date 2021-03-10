@@ -5,9 +5,7 @@ class ConfirmIntentionToAgentDialog < ApplicationBaseDialog
   DESCRIPTION
 
   #== Prompts
-  #init1         ['transfer_to_agent_for_service', 'of_product', 'if_yes_please_wait']
-
-  init1           ['%confirm_intent_to_agent_dialog%']
+  init1           ['%confirm_intent_to_agent_dialog_prompt%']
 
   #== Properties
   grammar_name           "yesno.gram" # TODO: Please set your grammar

@@ -5,10 +5,6 @@ class AskForProductDialog < ApplicationBaseDialog
   DESCRIPTION
 
   #== Prompts
-  #init1         ['want_to_receive_service', 'ask_product']
-  #init2         ['sorry_can_you_say_again']
-  #init3         ['sorry_can_you_say_again']
-
   init1           ['%ask_for_product_init%']
   init2           ['%action_prompt%']
 
@@ -27,7 +23,7 @@ class AskForProductDialog < ApplicationBaseDialog
 
     if timeout?(session)
       increase_timeout(session)
-      if (retry_exceeded?(session)) || (total_exceeded?(session))
+      if (timeout_exceeded?(session)) || (total_exceeded?(session))
         AgentTransferBlock
       else
 	      AskForProductDialog

@@ -5,10 +5,6 @@ class AskForIntentDialog < ApplicationBaseDialog
   DESCRIPTION
 
   #== Prompts
-  #init1         ['ask_intention']
-  #init2         ['sorry_ask_for_service_again']
-  #init3         ['sorry_ask_for_service_again']
-
   init1           ['%ask_for_intent_init%']
   init2           ['%action_prompt%']
   
@@ -27,7 +23,7 @@ class AskForIntentDialog < ApplicationBaseDialog
 
     if timeout?(session)
       increase_timeout(session)
-      if (retry_exceeded?(session)) || (total_exceeded?(session))
+      if (timeout_exceeded?(session)) || (total_exceeded?(session))
         AgentTransferBlock
       else
 	      AskForIntentDialog

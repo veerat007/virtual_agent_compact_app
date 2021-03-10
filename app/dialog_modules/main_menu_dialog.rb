@@ -5,10 +5,6 @@ class MainMenuDialog < ApplicationBaseDialog
   DESCRIPTION
 
   #== Prompts
-  #init1         ['welcome']
-  #init2         ['sorry_ask_for_service_with_short_sentence'] #['sorry_ask_for_service_again']
-  #init3         ['sorry_ask_for_service_with_short_sentence'] #['sorry_ask_for_service_again']
-
   init1           ['%main_menu_init%']
   init2           ['%action_prompt%']
 
@@ -24,7 +20,7 @@ class MainMenuDialog < ApplicationBaseDialog
 
     if timeout?(session)
       increase_timeout(session)
-      if (retry_exceeded?(session)) || (total_exceeded?(session))
+      if (timeout_exceeded?(session)) || (total_exceeded?(session))
         AgentTransferBlock
       else
 	      MainMenuDialog

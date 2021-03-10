@@ -40,6 +40,15 @@ module ApplicationHelper
         end
     end
 
+    def get_intention_list session
+        begin
+            result = INTENTION_LIST
+            result
+        rescue
+            result = {}
+        end
+    end
+
     def get_product_prompt session, product_name=""
         begin
             product_list = PRODUCT_LIST

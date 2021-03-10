@@ -41,45 +41,45 @@ module NamedPrompt
     def main_menu_init session
       prompts = []
       if total_retry(session) == 0
-        prompts << AmiVoice::DialogModule::Settings.dialog_property.main_menu_dialog.prompts.init[0]
+        prompts << DIALOG_PROPERTY["main_menu_dialog"]["prompts"]["init"][0]
       else
-        prompts << AmiVoice::DialogModule::Settings.dialog_property.confirm_intent_dialog.prompts.retry[0]
+        prompts << DIALOG_PROPERTY["confirm_intent_dialog"]["prompts"]["retry"][0]
       end
       prompts
     end
 
     def ask_for_product_init session
       prompts = []
-      prompts << AmiVoice::DialogModule::Settings.dialog_property.ask_for_product_dialog.prompts.init[0][0]
+      prompts << DIALOG_PROPERTY["ask_for_product_dialog"]["prompts"]["init"][0][0]
       prompts << get_intention_prompt(session)
-      prompts << AmiVoice::DialogModule::Settings.dialog_property.ask_for_product_dialog.prompts.init[0][1]
+      prompts << DIALOG_PROPERTY["ask_for_product_dialog"]["prompts"]["init"][0][1]
       prompts
     end
 
     def ask_for_intent_init session
       prompts = []
-      prompts << AmiVoice::DialogModule::Settings.dialog_property.ask_for_intent_dialog.prompts.init[0][0]
-      prompts << get_product_prompt(session)
+      prompts << DIALOG_PROPERTY["ask_for_intent_dialog"]["prompts"]["init"][0][0]
+      prompts << "product/#{get_product(session)}" #get_product_prompt(session)
       prompts 
     end
 
     def confirm_intent_dialog_prompt session
       prompts = []
-      prompts << AmiVoice::DialogModule::Settings.dialog_property.confirm_intent_dialog.prompts.init[0][0]
+      prompts << DIALOG_PROPERTY["confirm_intent_dialog"]["prompts"]["init"][0][0]
       prompts << get_intention_prompt(session)
-      prompts << AmiVoice::DialogModule::Settings.dialog_property.confirm_intent_dialog.prompts.init[0][1]
-      prompts << get_product_prompt(session)
-      prompts << AmiVoice::DialogModule::Settings.dialog_property.confirm_intent_dialog.prompts.init[0][2]
+      prompts << DIALOG_PROPERTY["confirm_intent_dialog"]["prompts"]["init"][0][1]
+      prompts << "product/#{get_product(session)}" #get_product_prompt(session)
+      prompts << DIALOG_PROPERTY["confirm_intent_dialog"]["prompts"]["init"][0][2]
       prompts
     end
 
     def confirm_intent_to_agent_dialog_prompt session
       prompts = []
-      prompts << AmiVoice::DialogModule::Settings.dialog_property.confirm_intent_to_agent_dialog.prompts.init[0][0]
+      prompts << DIALOG_PROPERTY["confirm_intent_to_agent_dialog"]["prompts"]["init"][0][0]
       prompts << get_intention_prompt(session)
-      prompts << AmiVoice::DialogModule::Settings.dialog_property.confirm_intent_to_agent_dialog.prompts.init[0][1]
-      prompts << get_product_prompt(session)
-      prompts << AmiVoice::DialogModule::Settings.dialog_property.confirm_intent_to_agent_dialog.prompts.init[0][2]
+      prompts << DIALOG_PROPERTY["confirm_intent_to_agent_dialog"]["prompts"]["init"][0][1]
+      prompts << "product/#{get_product(session)}" #get_product_prompt(session)
+      prompts << DIALOG_PROPERTY["confirm_intent_to_agent_dialog"]["prompts"]["init"][0][2]
       prompts
     end
 

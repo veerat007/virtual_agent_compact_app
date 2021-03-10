@@ -1,7 +1,8 @@
 module ApplicationHelper
-    DIALOG_PROPERTY = AmiVoice::DialogModule::Settings.dialog_property if AmiVoice::DialogModule::Settings.dialog_property.present?
-    INTENTION_LIST = AmiVoice::DialogModule::Settings.intention if AmiVoice::DialogModule::Settings.intention.present?
-    PRODUCT_LIST = AmiVoice::DialogModule::Settings.product if AmiVoice::DialogModule::Settings.product.present?
+    CONFIG = YAML.load_file(AmiVoice::DialogModule::Settings.config_file)
+    DIALOG_PROPERTY = CONFIG["dialog_property"] if CONFIG["dialog_property"].present?
+    INTENTION_LIST = CONFIG["intention"] if CONFIG["intention"].present?
+    #PRODUCT_LIST = CONFIG["product"] if CONFIG["product"].present?
 
     def transfer_to_destination session
         if is_transfer_ivr(session)
@@ -94,7 +95,7 @@ module ApplicationHelper
 
     def timeout_exceeded? session
         session['timeout'] = 0 if session['timeout'].nil?
-        session['max_timeout'] = AmiVoice::DialogModule::Settings.dialog_property[session['dialog_name']]['max_timeout'] if session['max_timeout'].nil?
+        session['max_timeout'] = DIALOG_PROPERTY[session['dialog_name']]['max_timeout'] if session['max_timeout'].nil?
     
         result = session['timeout'] > session['max_timeout']
         result
@@ -102,7 +103,7 @@ module ApplicationHelper
     
     def retry_exceeded? session
         session['retry'] = 0 if session['retry'].nil?
-        session['max_retry'] = AmiVoice::DialogModule::Settings.dialog_property[session['dialog_name']]['max_retry'] if session['max_retry'].nil?
+        session['max_retry'] = DIALOG_PROPERTY[session['dialog_name']]['max_retry'] if session['max_retry'].nil?
     
         result = session['retry'] > session['max_retry']
         result
@@ -110,7 +111,7 @@ module ApplicationHelper
     
     def reject_exceeded? session
         session['reject'] = 0 if session['reject'].nil?
-        session['max_reject'] = AmiVoice::DialogModule::Settings.dialog_property[session['dialog_name']]['max_reject'] if session['max_reject'].nil?
+        session['max_reject'] = DIALOG_PROPERTY[session['dialog_name']]['max_reject'] if session['max_reject'].nil?
     
         result = session['reject'] > session['max_reject']
         result
@@ -128,7 +129,7 @@ module ApplicationHelper
         session['timeout'] = 0 if session['timeout'].nil?
         session['retry'] = 0 if session['retry'].nil?
         session['reject'] = 0 if session['reject'].nil?
-        session['max_retry'] = AmiVoice::DialogModule::Settings.dialog_property[session['dialog_name']]['max_retry'] if session['max_retry'].nil?
+        session['max_retry'] = DIALOG_PROPERTY[session['dialog_name']]['max_retry'] if session['max_retry'].nil?
 
         result = (session['timeout'] + session['reject'] + session['retry']) > session['max_retry']
         result

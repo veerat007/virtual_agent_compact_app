@@ -61,6 +61,12 @@ module ApplicationHelper
         prompt
     end
 
+    def get_confirmation_dialog dialog_name
+        dialog = DIALOG_PROPERTY[dialog_name]
+        confirmation_mode = dialog["confirmation_option"].parameterize.underscore.to_sym
+        confirmation_mode
+    end
+
     def get_intention_prompt session, intention_code=""
         begin
             intention_list = INTENTION_LIST

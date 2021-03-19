@@ -4,20 +4,30 @@ class AskForProductDialog < ApplicationBaseDialog
     TODO: Explain this dialog module briefly
   DESCRIPTION
 
+  before_generate_vxml {|session, params|
+    @dialog_property = get_dialog_property(session)
+  }
+
   #== Prompts
   init1           ['%ask_for_product_init%']
   init2           ['%action_prompt%']
 
-  confirmation_init1    AmiVoice::DialogModule::Settings.dialog_property.ask_for_intent_dialog.prompts.confirm[0]
+  confirmation_init1    {|session|
+                            prompt = []
+                            if @dialog_property.present?
+                                    prompt << @dialog_property["prompts"]["confirm"][0]
+                            end
+                            prompt.flatten!
+                            prompt
+                        }
 
   #== Properties
-  confirmation_method    AmiVoice::DialogModule::Settings.dialog_property.ask_for_product_dialog.confirmation_option.parameterize.underscore.to_sym
+  confirmation_method    get_confirmation_dialog(AskForProductDialog.name)
 
   #==Action
   
   action do |session|
   ##################### 
-    dialog_property = get_dialog_property(session)
     save_result(session)
   #####################
 

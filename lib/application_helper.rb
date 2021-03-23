@@ -197,13 +197,12 @@ module ApplicationHelper
 
     def get_product session
         begin
-            # result = session["result_item"]["product"].present? ? session["result_item"]["product"] : ""
-            product = session["nl_result"]["nlu"]['keyword_extraction']["product"]
-            if product.size > 1
-                result = "more_than_one_product"
-            else
+            if session["result_item"]["product"].blank?
                 result = session["nl_result"]["nlu"]['keyword_extraction']["product"].last
+            else
+                result = session["result_item"]["product"]
             end
+
             #### MOCK
             #speech = session["result"].split(" ").join()
             #if ["บัตรเครดิต","เครดิตการ์ด","เครดิต"].include?(speech)
@@ -221,18 +220,15 @@ module ApplicationHelper
 
     def get_intention session
         begin
-            result = session["result_item"]["intention"].present? ? session["result_item"]["intention"] : ""
-            result = Array.new
-            intention = session["nl_result"]["nlu"]["prediction"]["results"]
-            intention.each do |i|
-                result << i["intention_code"]
+            if session["result_item"]["intention"].blank?
+                result = []
+                intention = session["nl_result"]["nlu"]["prediction"]["results"]
+                intention.each do |i|
+                    result << i["intention_code"] if i["intention_code"].present?
+                end
+            else
+                result = session["result_item"]["intention"]
             end
-
-            # if intention.size > 1
-            #     result = "more_than_one_intention"
-            # else
-            #     result = session["nl_result"]["nlu"]["prediction"]["results"].last["intention_code"]
-            # end
 
             #### MOCK 
             # speech = session["result"].split(" ").join()
@@ -260,7 +256,7 @@ module ApplicationHelper
     end
 
     def has_one_intention session
-        resutl = true
+        resutl = session["result_item"]["intention"].length == 1 ? true : false
         resutl
     end
 

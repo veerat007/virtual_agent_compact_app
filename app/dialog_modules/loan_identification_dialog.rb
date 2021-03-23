@@ -31,7 +31,7 @@ class LoanIdentificationDialog < ApplicationBaseDialog
   #
   #== Properties
   #
-  grammar_name           "13digits.gram"
+  # grammar_name           "13digits.gram"
   confirmation_method    get_confirmation_dialog(LoanIdentificationDialog.name) #:never
 
   #
@@ -64,11 +64,13 @@ class LoanIdentificationDialog < ApplicationBaseDialog
         # go to Flow I
 
         ##### CALL LOAN IDENTIFICATION API #####
+        product = session["result_item"]["product"]
+        iden_id = session["nl_result"]["nlu"]['keyword_extraction']["iden_id"]
         uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_ident")
-        response = Net::HTTP.post_form(uri, "product" => session["result_item"]["product"], "citizen_id" => session["result"])
+        response = Net::HTTP.post_form(uri, "product" => product, "citizen_id" => iden_id)
         session["identification_info"] = JSON.parse(response.body)
-        if session["identification_info"]["product"] == session["result_item"]["product"] && session["identification_info"]["citizen_id"] == session["result"]
-          session["id_number"] = session["result"]
+        if session["identification_info"]["product"] == product && session["identification_info"]["citizen_id"] == iden_id
+          session["id_number"] = iden_id
           ConfirmLoanIdentificationDialog
         else
           # AgentTransferBlock

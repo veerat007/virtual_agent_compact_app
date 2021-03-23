@@ -19,7 +19,7 @@ class VerificationQuestionDialog < ApplicationBaseDialog
   #
   #== Properties
   #
-  grammar_name           "birth_weekday.gram"
+  # grammar_name           "birth_weekday.gram"
   confirmation_method    get_confirmation_dialog(VerificationQuestionDialog.name) #:never
 
   #

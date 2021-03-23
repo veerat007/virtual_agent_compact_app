@@ -197,7 +197,13 @@ module ApplicationHelper
 
     def get_product session
         begin
-            result = session["result_item"]["product"].present? ? session["result_item"]["product"] : ""
+            # result = session["result_item"]["product"].present? ? session["result_item"]["product"] : ""
+            product = session["nl_result"]["nlu"]['keyword_extraction']["product"]
+            if product.size > 1
+                result = "more_than_one_product"
+            else
+                result = session["nl_result"]["nlu"]['keyword_extraction']["product"].last
+            end
             #### MOCK
             #speech = session["result"].split(" ").join()
             #if ["บัตรเครดิต","เครดิตการ์ด","เครดิต"].include?(speech)
@@ -216,6 +222,18 @@ module ApplicationHelper
     def get_intention session
         begin
             result = session["result_item"]["intention"].present? ? session["result_item"]["intention"] : ""
+            result = Array.new
+            intention = session["nl_result"]["nlu"]["prediction"]["results"]
+            intention.each do |i|
+                result << i["intention_code"]
+            end
+
+            # if intention.size > 1
+            #     result = "more_than_one_intention"
+            # else
+            #     result = session["nl_result"]["nlu"]["prediction"]["results"].last["intention_code"]
+            # end
+
             #### MOCK 
             # speech = session["result"].split(" ").join()
             # if speech == "สอบถามยอด"
@@ -228,7 +246,7 @@ module ApplicationHelper
             #   result = "004"
             # end
         rescue StandardError
-           result = ""
+           result = Array.new
         end
         result
     end

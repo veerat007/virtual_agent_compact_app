@@ -31,7 +31,7 @@ class BankAccountIdentificationDialog < ApplicationBaseDialog
   #
   #== Properties
   #
-  grammar_name           "10digits.gram"
+  # grammar_name           "10digits.gram"
   confirmation_method    get_confirmation_dialog(BankAccountIdentificationDialog.name) #:never
 
   #
@@ -63,11 +63,13 @@ class BankAccountIdentificationDialog < ApplicationBaseDialog
         # go to Flow I
 
         ##### CALL BANK ACCOUNT IDENTIFICATION API #####
+        product = session["result_item"]["product"]
+        iden_id = session["nl_result"]["nlu"]['keyword_extraction']["iden_id"]
         uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_ident")
-        response = Net::HTTP.post_form(uri, "product" => session["result_item"]["product"], "account_no" => session["result"])
+        response = Net::HTTP.post_form(uri, "product" => product, "account_no" => iden_id)
         session["identification_info"] = JSON.parse(response.body)
-        if session["identification_info"]["product"] == session["result_item"]["product"] && session["identification_info"]["bank_account_id"] == session["result"]
-          session["id_number"] = session["result"]
+        if session["identification_info"]["product"] == product && session["identification_info"]["bank_account_id"] == iden_id
+          session["id_number"] = iden_id
           ConfirmBankAccountIdentificationDialog
         else
           # AgentTransferBlock

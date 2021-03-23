@@ -309,9 +309,11 @@ intention:
     prompt:                                'intention/enquire_balance'
     verification:
       prompts:
-      - 1040061.wav
-      - 1525951.wav
-      pass_in: 0
+      - verify_question/date_of_birth.wav
+      - verify_question/phone_number.wav
+      - verify_question/birth_weekday.wav
+      - verify_question/have_atm_card.wav
+      pass_in: 1
       max_question: 3
   code_002:
     intention_name:                        ''
@@ -323,9 +325,11 @@ intention:
     prompt:                                'intention/enquire_remaining_balance'
     verification:
       prompts:
-      - 1040061.wav
-      - 1525951.wav
-      pass_in: 0
+      - verify_question/date_of_birth.wav
+      - verify_question/phone_number.wav
+      - verify_question/birth_weekday.wav
+      - verify_question/have_atm_card.wav
+      pass_in: 2
       max_question: 3
   code_003:
     intention_name:                        ''
@@ -337,9 +341,11 @@ intention:
     prompt:                                'intention/enquire_outstanding_balance'
     verification:
       prompts:
-      - 1040061.wav
-      - 1525951.wav
-      pass_in: 0
+      - verify_question/date_of_birth.wav
+      - verify_question/phone_number.wav
+      - verify_question/birth_weekday.wav
+      - verify_question/have_atm_card.wav
+      pass_in: 3
       max_question: 3
   code_004:
     intention_name:                        ''
@@ -351,7 +357,9 @@ intention:
     prompt:                                'intention/enquire_usage_balance_intention'
     verification:
       prompts:
-      - 1040061.wav
-      - 1525951.wav
+      - verify_question/date_of_birth.wav
+      - verify_question/phone_number.wav
+      - verify_question/birth_weekday.wav
+      - verify_question/have_atm_card.wav
       pass_in: 0
       max_question: 3

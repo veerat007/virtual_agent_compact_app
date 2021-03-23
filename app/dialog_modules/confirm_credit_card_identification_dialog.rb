@@ -4,25 +4,27 @@ class ConfirmCreditCardIdentificationDialog < ApplicationBaseDialog
     TODO: Explain this dialog module briefly
   DESCRIPTION
 
+  before_generate_vxml {|session, params|
+    @dialog_property = get_dialog_property(session)
+  }
+
   #
   #== Prompts
   #
-  # init1         ['credit_card_id_is', '%speech_input_number_prompts%', 'is_it_correct']
-  # init2         ['credit_card_id_is', '%speech_input_number_prompts%', 'is_it_correct']
   init1         { |session|
                   prompts = []
-                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.confirm_credit_card_identification_dialog.prompts.init[0][0]
+                  prompts.push @dialog_property["prompts"]["init"][0][0]
                   prompts.push '%speech_input_number_prompts%'
-                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.confirm_credit_card_identification_dialog.prompts.init[0][1]
+                  prompts.push @dialog_property["prompts"]["init"][0][1]
                   prompts.flatten!
                   prompts
                 }
 
   init2         { |session|
                   prompts = []
-                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.confirm_credit_card_identification_dialog.prompts.init[1][0]
+                  prompts.push @dialog_property["prompts"]["init"][1][0]
                   prompts.push '%speech_input_number_prompts%'
-                  prompts.push AmiVoice::DialogModule::Settings.dialog_property.confirm_credit_card_identification_dialog.prompts.init[1][1]
+                  prompts.push @dialog_property["prompts"]["init"][1][1]
                   prompts.flatten!
                   prompts
                 }
@@ -30,34 +32,12 @@ class ConfirmCreditCardIdentificationDialog < ApplicationBaseDialog
   #
   #== Properties
   #
-  grammar_name           AmiVoice::DialogModule::Settings.dialog_property.confirm_credit_card_identification_dialog.grammar_name # "yesno.gram" # TODO: Please set your grammar
-  # max_retry              2
-  confirmation_method    AmiVoice::DialogModule::Settings.dialog_property.confirm_credit_card_identification_dialog.confirmation_option.parameterize.underscore.to_sym # :never
+  grammar_name           "yesno.gram"
+  confirmation_method    get_confirmation_dialog(ConfirmCreditCardIdentificationDialog.name) # :never
 
   #
   #==Action
   #
-
-
-#  before_generate_vxml do |session, params|
-#    session.logger.info("before_generate_vxml")
-#  end
-
-#
-# When you want to write your own rule for confirmation, you can
-# change confirmation_method :server and uncomment below.
-#
-#  confirmation_method_server do |session, params|
-#    session.logger.info("confirmation_method_server")
-#    result = "accept" # or "confirm" or "reject"
-#    prompts = []
-#    [result, prompts]
-#  end
-
-#  before_confirmation do |session, params|
-#    session.logger.info("before_confirmation")
-#  end
-
   action do |session|
     # TODO: Please describe action here and set appropriate next dialog.
     # The last value should be next dialog.  But note that this block does not allow

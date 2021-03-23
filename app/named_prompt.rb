@@ -85,18 +85,21 @@ module NamedPrompt
 
     def announce_verify_question session
       prompts = []
+      intention = session["result_item"]["intention"]
+      prompt_list = INTENTION_LIST["code_#{intention}"]["verification"]["prompts"] #['verify_question/date_of_birth', 'verify_question/phone_number', 'verify_question/birth_weekday']
+      prompts << prompt_list.sample # 'verify_question/birth_weekday'
       # product = get_product(session)
-      product = session["identification_info"]["product"] # result from identification API
-      if product.present? && product == "credit_card"
-        prompt_list = ['verify_question/date_of_birth', 'verify_question/phone_number', 'verify_question/birth_weekday']
-        prompts << 'verify_question/birth_weekday' # prompt_list.simple
-      elsif product.present? && product == "bank_account"
-        prompt_list = ['verify_question/date_of_birth', 'verify_question/phone_number', 'verify_question/birth_weekday', 'verify_question/have_atm_card']
-        prompts << 'verify_question/birth_weekday' # prompt_list.simple
-      elsif product.present? && product == "loan"
-        prompt_list = ['verify_question/date_of_birth', 'verify_question/phone_number', 'verify_question/birth_weekday']
-        prompts << 'verify_question/birth_weekday' # prompt_list.simple
-      end
+      # product = session["identification_info"]["product"] # result from identification API
+      # if product.present? && product == "credit_card"
+        # prompt_list = ['verify_question/date_of_birth', 'verify_question/phone_number', 'verify_question/birth_weekday']
+      #   prompts << 'verify_question/birth_weekday' # prompt_list.simple
+      # elsif product.present? && product == "bank_account"
+      #   prompt_list = ['verify_question/date_of_birth', 'verify_question/phone_number', 'verify_question/birth_weekday', 'verify_question/have_atm_card']
+      #   prompts << 'verify_question/birth_weekday' # prompt_list.simple
+      # elsif product.present? && product == "loan"
+      #   prompt_list = ['verify_question/date_of_birth', 'verify_question/phone_number', 'verify_question/birth_weekday']
+      #   prompts << 'verify_question/birth_weekday' # prompt_list.simple
+      # end
       prompts
     end
 

@@ -10,13 +10,11 @@ module NamedPrompt
     # should be String or Array of audio filenames.
     # Here is an example.
     #
-    def speech_input_number_prompts session
-      if session["id_number"].present? # != "failure" # session["nl_result"]["asr"]["utterance"].present?
+    def speech_input_iden_number_prompts session
+      if session["result_item"]["iden_id"].present? # != "failure" # session["nl_result"]["asr"]["utterance"].present?
         prompts = []
-        session["id_number"].split("").each do |n|
-          # if n.match?(/[0-9]/)
-            prompts << "number/#{n}"
-          # end
+        session["result_item"]["iden_id"].split("").each do |n|
+          prompts << "number/#{n}"
         end
         prompts.flatten!
       else
@@ -85,9 +83,9 @@ module NamedPrompt
 
     def announce_verify_question session
       prompts = []
-      intention = session["result_item"]["intention"]
+      intention = session["result_item"]["intention"].last
       prompt_list = INTENTION_LIST["code_#{intention}"]["verification"]["prompts"] #['verify_question/date_of_birth', 'verify_question/phone_number', 'verify_question/birth_weekday']
-      prompts << prompt_list.sample # 'verify_question/birth_weekday'
+      prompts << prompt_list.sample #shuffle #'verify_question/birth_weekday'
       # product = get_product(session)
       # product = session["identification_info"]["product"] # result from identification API
       # if product.present? && product == "credit_card"

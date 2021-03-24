@@ -22,6 +22,44 @@ module ApplicationHelper
         end
     end
 
+    def announce_self_service session
+        product = session["result_item"]["product"]
+        intention = session["result_item"]["intention"].last
+        iden_id = session["identification_info"]["card_id"]
+        if product == 'credit_card'
+            ##### CALL CREDIT CARD ANNOUNCEMENT API #####
+            uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_data")
+            response = Net::HTTP.post_form(uri, "product" => product, "card_id" => iden_id)
+            session["announcement_info"] = JSON.parse(response.body)
+            if session["announcement_info"]["card_info"][0]["card_status"] == "active" #session["announcement_info"]["status"] != "error" && session["announcement_info"]["card_status"] == "active"
+              if intention.last == "002" #"remaining_balance"
+                SelfServiceCreditCardRemainingBalanceDialog
+              elsif intention.last == "003" #"outstanding_balance"
+                SelfServiceCreditCardOutstandingBalanceDialog
+              elsif intention.last == "004" #"usage_balance"
+                SelfServiceCreditCardUsageBalanceDialog
+              else # intention.last == "001" # "enquire_balance"
+                SelfServiceCreditCardBalanceDialog
+              end
+            else
+              AgentTransferBlock
+            end
+    
+        elsif product == 'bank_account'
+            ##### CALL BANK ACCOUNT ANNOUNCEMENT API #####   
+            uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_data")
+            response = Net::HTTP.post_form(uri, "product" => product, "account_no" => iden_id)
+            session["announcement_info"] = JSON.parse(response.body)
+            if session["announcement_info"]["account_info"][0]["account_status"] == "active"
+              SelfServiceBankAccountBalanceDialog # intention.last == "001" || intention.last == "002"
+            else
+              AgentTransferBlock
+            end
+        else # PRODUCT = "Loan"
+            AgentTransferBlock
+        end
+    end
+
     def go_confirmation session
         if is_intention_transfer_agent(session)
             ConfirmIntentionToAgentDialog
@@ -190,8 +228,10 @@ module ApplicationHelper
         session["result_item"] = result if session["result_item"].blank?
         product = get_product(session)
         intention = get_intention(session)
+        iden_id = get_iden_id(session)
         result["product"] = product
         result["intention"] = intention
+        result["iden_id"] = iden_id
         session["result_item"] = result
     end
 
@@ -243,6 +283,15 @@ module ApplicationHelper
             # end
         rescue StandardError
            result = Array.new
+        end
+        result
+    end
+
+    def get_iden_id session
+        begin
+            result = session["nl_result"]["nlu"]['keyword_extraction']["iden_id"]
+        rescue StandardError
+           result = ""
         end
         result
     end
@@ -309,75 +358,8 @@ module ApplicationHelper
         result
     end
 
-    def get_identification session
-        begin
-            uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_ident")
-            header = {'Content-Type': 'text/json'}
-            if session["result_item"]["product"] == 'credit_card' # session["result_item"]["product"]
-                data =  {
-                            product: 'credit_card',
-                            card_id: '4552123456780001' # session["card_id"]     
-                        }
-            elsif session["result_item"]["product"] == 'bank_account' # session["result_item"]["product"]
-                data =  {
-                            product: 'bank_account',
-                            account_no: ''              # session["account_no"]
-                        }
-            else
-                data =  {
-                            product: 'loan',
-                            citizen_id: ''              # session["citizen_id"]
-                        }
-            end
-      
-            # Create the HTTP objects
-            http = Net::HTTP.new(uri.host, uri.port)
-            request = Net::HTTP::Post.new(uri.request_uri, header)
-            request.body = data.to_json
-      
-            # Send the request
-            response = http.request(request)
-        rescue StandardError
-            response = ""
-        end
-        response
-    end
-      
-    def get_announcement session
-        begin
-            uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_data")
-            header = {'Content-Type': 'text/json'}
-            if session["result_item"]["product"] == 'credit_card'
-                data =  {
-                            product: 'credit_card', # session["result_item"]["product"]
-                            card_id: '4552123456780001'      
-                        }
-            elsif session["result_item"]["product"] == 'bank_account'
-                data =  {
-                            product: 'bank_account', # session["result_item"]["product"]
-                            account_no: ''      
-                        }
-            else
-                data =  {
-                            product: 'loan',
-                            citizen_id: ''      
-                        }
-            end
-      
-            # Create the HTTP objects
-            http = Net::HTTP.new(uri.host, uri.port)
-            request = Net::HTTP::Post.new(uri.request_uri, header)
-            request.body = data.to_json
-      
-            # Send the request
-            response = http.request(request)
-        rescue StandardError
-            response = ""
-        end
-        response
-    end
-
 end
+
 module AmiCallResult
     SUCCESS           = 'S'.freeze
     TOO_MANY_ERRORS   = 'T'.freeze

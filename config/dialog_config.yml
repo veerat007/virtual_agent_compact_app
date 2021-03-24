@@ -312,7 +312,6 @@ intention:
       - verify_question/date_of_birth.wav
       - verify_question/phone_number.wav
       - verify_question/birth_weekday.wav
-      - verify_question/have_atm_card.wav
       pass_in: 1
       max_question: 3
   code_002:
@@ -328,7 +327,6 @@ intention:
       - verify_question/date_of_birth.wav
       - verify_question/phone_number.wav
       - verify_question/birth_weekday.wav
-      - verify_question/have_atm_card.wav
       pass_in: 2
       max_question: 3
   code_003:
@@ -344,7 +342,6 @@ intention:
       - verify_question/date_of_birth.wav
       - verify_question/phone_number.wav
       - verify_question/birth_weekday.wav
-      - verify_question/have_atm_card.wav
       pass_in: 3
       max_question: 3
   code_004:
@@ -360,6 +357,21 @@ intention:
       - verify_question/date_of_birth.wav
       - verify_question/phone_number.wav
       - verify_question/birth_weekday.wav
-      - verify_question/have_atm_card.wav
       pass_in: 0
+      max_question: 3
+  code_005:
+    intention_name:                        ''
+    intention_tag:                         ''
+    category_code:                         ''
+    vdn_office_hr:                         null
+    vdn_out_office_hr:                     null
+    destination:                           ''
+    prompt:                                'intention/enquire_usage_balance_intention'
+    verification:
+      prompts:
+      - verify_question/date_of_birth.wav
+      - verify_question/phone_number.wav
+      - verify_question/birth_weekday.wav
+      - verify_question/have_atm_card.wav
+      pass_in: 1
       max_question: 3

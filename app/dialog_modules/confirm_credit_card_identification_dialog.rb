@@ -6,6 +6,7 @@ class ConfirmCreditCardIdentificationDialog < ApplicationBaseDialog
 
   before_generate_vxml {|session, params|
     @dialog_property = get_dialog_property(session)
+    @intention_config = get_intention_list(session)
   }
 
   #
@@ -14,7 +15,7 @@ class ConfirmCreditCardIdentificationDialog < ApplicationBaseDialog
   init1         { |session|
                   prompts = []
                   prompts.push @dialog_property["prompts"]["init"][0][0]
-                  prompts.push '%speech_input_number_prompts%'
+                  prompts.push '%speech_input_iden_number_prompts%'
                   prompts.push @dialog_property["prompts"]["init"][0][1]
                   prompts.flatten!
                   prompts
@@ -23,7 +24,7 @@ class ConfirmCreditCardIdentificationDialog < ApplicationBaseDialog
   init2         { |session|
                   prompts = []
                   prompts.push @dialog_property["prompts"]["init"][1][0]
-                  prompts.push '%speech_input_number_prompts%'
+                  prompts.push '%speech_input_iden_number_prompts%'
                   prompts.push @dialog_property["prompts"]["init"][1][1]
                   prompts.flatten!
                   prompts
@@ -62,7 +63,26 @@ class ConfirmCreditCardIdentificationDialog < ApplicationBaseDialog
 
     else # recognized
       if session["result"] =~ /yes/i
-        VerificationQuestionDialog
+        product = session["result_item"]["product"]
+        intention = session["result_item"]["intention"].last
+        iden_id = session["result_item"]["iden_id"]
+        uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_ident")
+        response = Net::HTTP.post_form(uri, "product" => product, "card_id" => iden_id)
+        session["identification_info"] = JSON.parse(response.body)
+        if session["identification_info"]["product"] == product && session["identification_info"]["card_id"] == iden_id
+          if @intention_config["code_#{intention}"]["verification"]["pass_in"] == 0
+            announce_self_service(session)
+          else
+            VerificationQuestionDialog
+          end
+        else
+          increase_retry(session)
+          if (retry_exceeded? session) || (total_exceeded? session)
+            AgentTransferBlock
+          else
+            CreditCardIdentificationDialog
+          end
+        end
       else
         increase_retry(session)
         if (retry_exceeded? session) || (total_exceeded? session)

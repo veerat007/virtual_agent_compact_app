@@ -44,7 +44,7 @@ class VerificationQuestionDialog < ApplicationBaseDialog
           session["pass_count"] += 1
         end
       elsif product == "bank_account"
-        if session["identification_info"]["birth_weekday"].downcase == result || session["identification_info"]["date_of_birth"] == result || session["identification_info"]["phone_number"] == result || session["identification_info"]["have_atm_card"].downcase == result.downcase
+        if session["identification_info"]["birth_weekday"].downcase == result || session["identification_info"]["date_of_birth"] == result || session["identification_info"]["phone_number"] == result || session["identification_info"]["have_atm_card"].downcase == result
           session["pass_count"] += 1
         end
       else #product == "loan"

@@ -25,7 +25,7 @@ module ApplicationHelper
     def announce_self_service session
         product = session["result_item"]["product"]
         intention = session["result_item"]["intention"].last
-        iden_id = session["identification_info"]["card_id"]
+        iden_id = session["result_item"]["iden_id"]
         if product == 'credit_card'
             ##### CALL CREDIT CARD ANNOUNCEMENT API #####
             uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_data")
@@ -46,7 +46,7 @@ module ApplicationHelper
             end
     
         elsif product == 'bank_account'
-            ##### CALL BANK ACCOUNT ANNOUNCEMENT API #####   
+            ##### CALL BANK ACCOUNT ANNOUNCEMENT API #####
             uri = URI.parse("http://172.24.1.40/amivoice_api/api/v1/get_data")
             response = Net::HTTP.post_form(uri, "product" => product, "account_no" => iden_id)
             session["announcement_info"] = JSON.parse(response.body)

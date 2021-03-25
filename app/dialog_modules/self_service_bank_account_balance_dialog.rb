@@ -114,7 +114,12 @@ class SelfServiceBankAccountBalanceDialog < ApplicationBaseDialog
 
     else # recognized
       if session["result"] =~ /yes/i
-        SelfServiceBankAccountBalanceDialog
+        increase_retry(session)
+        if (retry_exceeded? session) || (total_exceeded? session)
+          AskForMoreServiceDialog
+        else
+          SelfServiceBankAccountBalanceDialog
+        end
       else
         increase_retry(session)
         AskForMoreServiceDialog

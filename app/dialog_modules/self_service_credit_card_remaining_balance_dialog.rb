@@ -76,7 +76,11 @@ class SelfServiceCreditCardRemainingBalanceDialog < ApplicationBaseDialog
 
     else # recognized
       if session["result"] =~ /yes/i
-        SelfServiceCreditCardRemainingBalanceDialog
+        if (retry_exceeded? session) || (total_exceeded? session)
+          AskForMoreServiceDialog
+        else
+          SelfServiceCreditCardRemainingBalanceDialog
+        end
       else
         increase_retry(session)
         AskForMoreServiceDialog

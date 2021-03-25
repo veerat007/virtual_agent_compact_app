@@ -33,6 +33,8 @@ class CreditCardIdentificationDialog < ApplicationBaseDialog
   #
   # grammar_name           "16digits.gram"
   confirmation_method    get_confirmation_dialog(CreditCardIdentificationDialog.name) #:never
+  incomplete_timeout     "1.5s"
+  max_speech_timeout     "15s"
 
   #
   #==Action

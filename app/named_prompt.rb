@@ -84,20 +84,28 @@ module NamedPrompt
     def announce_verify_question session
       prompts = []
       intention = session["result_item"]["intention"].last
-      prompt_list = INTENTION_LIST["code_#{intention}"]["verification"]["prompts"] #['verify_question/date_of_birth', 'verify_question/phone_number', 'verify_question/birth_weekday']
-      prompts << prompt_list.sample #shuffle #'verify_question/birth_weekday'
-      # product = get_product(session)
-      # product = session["identification_info"]["product"] # result from identification API
-      # if product.present? && product == "credit_card"
-        # prompt_list = ['verify_question/date_of_birth', 'verify_question/phone_number', 'verify_question/birth_weekday']
-      #   prompts << 'verify_question/birth_weekday' # prompt_list.simple
-      # elsif product.present? && product == "bank_account"
-      #   prompt_list = ['verify_question/date_of_birth', 'verify_question/phone_number', 'verify_question/birth_weekday', 'verify_question/have_atm_card']
-      #   prompts << 'verify_question/birth_weekday' # prompt_list.simple
-      # elsif product.present? && product == "loan"
-      #   prompt_list = ['verify_question/date_of_birth', 'verify_question/phone_number', 'verify_question/birth_weekday']
-      #   prompts << 'verify_question/birth_weekday' # prompt_list.simple
-      # end
+      prompt_list = INTENTION_LIST["code_#{intention}"]["verification"]["prompts"]
+      puts "\n==========[announce_verify_question]===== session_max_count: #{session["max_count"].inspect} ===== ||||| ===== used_question: #{session["used_question"].inspect}\n"
+      if session["max_count"].nil?
+        session["used_question"] = []
+        random_result = prompt_list.sample
+        prompts << random_result
+        session["used_question"] << random_result #prompts.last
+        puts "\n==========[IF - announce_verify_question]========== used_question: #{session["used_question"].inspect}"
+        puts "==========[IF - announce_verify_question]========== random_result: #{random_result.inspect}"
+        puts "==========[IF - announce_verify_question]========== prompts      : #{prompts.inspect}\n"
+      else
+        session["used_question"].each do |u|
+          prompt_list.delete(u)
+        end
+        random_result = prompt_list.sample
+        prompts << random_result
+        puts "\n==========[ELSE - announce_verify_question]========== used_question: #{session["used_question"].inspect}"
+        puts "==========[ELSE - announce_verify_question]========== random_result: #{random_result.inspect}"
+        puts "==========[ELSE - announce_verify_question]========== prompts      : #{prompts.inspect}\n"
+        session["used_question"] << random_result #prompts.last
+      end
+      prompts.flatten!
       prompts
     end
 

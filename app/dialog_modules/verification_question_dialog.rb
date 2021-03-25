@@ -14,7 +14,7 @@ class VerificationQuestionDialog < ApplicationBaseDialog
   #== Prompts
   #
   init1         ['%announce_verify_question%']
-  init2         ['%announce_verify_question%']
+  # init2         ['%announce_verify_question%']
 
   #
   #== Properties

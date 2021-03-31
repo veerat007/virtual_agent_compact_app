@@ -9,22 +9,22 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
-    activemodel (6.0.3.2)
-      activesupport (= 6.0.3.2)
+    activemodel (6.1.1)
+      activesupport (= 6.1.1)
     activemodel-serializers-xml (1.0.2)
       activemodel (> 5.x)
       activesupport (> 5.x)
       builder (~> 3.1)
-    activeresource (5.1.0)
+    activeresource (5.1.1)
       activemodel (>= 5.0, < 7)
       activemodel-serializers-xml (~> 1.0)
       activesupport (>= 5.0, < 7)
-    activesupport (6.0.3.2)
+    activesupport (6.1.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
-      i18n (>= 0.7, < 2)
-      minitest (~> 5.1)
-      tzinfo (~> 1.1)
-      zeitwerk (~> 2.2, >= 2.2.2)
+      i18n (>= 1.6, < 2)
+      minitest (>= 5.1)
+      tzinfo (~> 2.0)
+      zeitwerk (~> 2.3)
     amivoice_dialog_module (1.2.1)
       activeresource
       activesupport
@@ -40,7 +40,6 @@ GEM
       thor
       whenever
     ansi (1.5.0)
-    backports (3.20.2)
     better_errors (2.9.1)
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
@@ -89,7 +88,8 @@ GEM
       minitest (>= 5.0)
       ruby-progressbar
     multi_json (1.15.0)
-    mustermann (1.0.3)
+    mustermann (1.1.1)
+      ruby2_keywords (~> 0.0.1)
     nenv (0.3.0)
     notiffany (0.1.3)
       nenv (~> 0.1)
@@ -98,7 +98,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     rack (2.2.3)
-    rack-protection (2.0.4)
+    rack-protection (2.1.0)
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -106,10 +106,11 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (4.2.1)
+    redis (4.2.5)
     rerun (0.13.1)
       listen (~> 3.0)
     ruby-progressbar (1.11.0)
+    ruby2_keywords (0.0.4)
     settingslogic (2.0.9)
     shellany (0.0.1)
     simplecov (0.21.2)
@@ -118,35 +119,32 @@ GEM
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
     simplecov_json_formatter (0.1.2)
-    sinatra (2.0.4)
+    sinatra (2.1.0)
       mustermann (~> 1.0)
-      rack (~> 2.0)
-      rack-protection (= 2.0.4)
+      rack (~> 2.2)
+      rack-protection (= 2.1.0)
       tilt (~> 2.0)
-    sinatra-contrib (2.0.4)
-      activesupport (>= 4.0.0)
-      backports (>= 2.8.2)
+    sinatra-contrib (2.1.0)
       multi_json
       mustermann (~> 1.0)
-      rack-protection (= 2.0.4)
-      sinatra (= 2.0.4)
-      tilt (>= 1.3, < 3)
+      rack-protection (= 2.1.0)
+      sinatra (= 2.1.0)
+      tilt (~> 2.0)
     terminal-notifier-guard (1.7.0)
     thin (1.8.0)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
       rack (>= 1, < 3)
     thor (1.1.0)
-    thread_safe (0.3.6)
     tilt (2.0.10)
-    tzinfo (1.2.9)
-      thread_safe (~> 0.1)
+    tzinfo (2.0.4)
+      concurrent-ruby (~> 1.0)
     whenever (1.0.0)
       chronic (>= 0.6.3)
     zeitwerk (2.4.2)
 
 PLATFORMS
-  x86_64-darwin-19
+  x86_64-linux
 
 DEPENDENCIES
   better_errors
@@ -162,4 +160,4 @@ DEPENDENCIES
   virtual_agent_compact_app!
 
 BUNDLED WITH
-   2.2.5
+   2.2.8
